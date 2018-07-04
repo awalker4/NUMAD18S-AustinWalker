@@ -2,17 +2,22 @@ package edu.neu.madcourse.austinwalker;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Scanner;
 import java.util.Stack;
@@ -40,6 +45,9 @@ public class WordGameFragment extends Fragment {
 
     private int mWordsLeft;
     private int mScore;
+
+    private String roundTwoHighestWord;
+    private int roundTwoHighestScore;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -94,6 +102,7 @@ public class WordGameFragment extends Fragment {
                     CURRENT_STATE = GAME_STATE.CHANGE_ROUND;
                 } else {
                     CURRENT_STATE = GAME_STATE.GAME_OVER;
+                    saveScore(); // TODO: toast about saving score
                     redisplayText();
                 }
 
@@ -113,6 +122,8 @@ public class WordGameFragment extends Fragment {
         mSecondsLeft = ROUND_SECONDS;
         mScore = 0;
         mWordsLeft = 9;
+        roundTwoHighestScore = 0;
+        roundTwoHighestWord = "";
     }
 
     private void initViews(final View rootView) {
@@ -188,6 +199,8 @@ public class WordGameFragment extends Fragment {
     }
 
     private void doRoundTwoTurn() {
+        String word = GameBoard.getRoundTwoWord();
+
         int score = GameBoard.finishWordRoundTwo();
 
         if (score > 0) {
@@ -200,6 +213,12 @@ public class WordGameFragment extends Fragment {
             }
 
             redisplayText();
+
+            if (score > roundTwoHighestScore) {
+                roundTwoHighestScore = score;
+                roundTwoHighestWord = word;
+            }
+
         } else {
             GameBoard.resetRoundTwo();
             mDisplayTextView.setText("Not a word!");
@@ -296,6 +315,12 @@ public class WordGameFragment extends Fragment {
         state.append(mScore);
         state.append(delim);
 
+        state.append(roundTwoHighestScore);
+        state.append(delim);
+
+        state.append(roundTwoHighestWord);
+        state.append(delim);
+
         state.append(mSecondsLeft);
         state.append(delim);
 
@@ -339,6 +364,8 @@ public class WordGameFragment extends Fragment {
         }
 
         mScore = scanner.nextInt();
+        roundTwoHighestScore = scanner.nextInt();
+        roundTwoHighestWord = scanner.next();
         mSecondsLeft = scanner.nextInt();
         mWordsLeft = scanner.nextInt();
 
@@ -375,5 +402,22 @@ public class WordGameFragment extends Fragment {
 
         redisplayScore();
         redisplayText();
+    }
+
+    public void saveScore() {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        // Write a message to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+        DatabaseReference scoreRef = database.getReference("scores");
+        DatabaseReference newScoreRef = scoreRef.push();
+        newScoreRef.setValue(new UserScore(fetchIMEI(), "10:30", mScore, roundTwoHighestWord, roundTwoHighestScore));
+    }
+
+    // TODO handle this
+    private String fetchIMEI() {
+        TelephonyManager tm = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+        return tm.getDeviceId();
     }
 }

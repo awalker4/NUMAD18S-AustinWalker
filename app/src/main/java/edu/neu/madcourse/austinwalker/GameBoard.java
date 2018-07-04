@@ -115,6 +115,10 @@ public class GameBoard {
         return state.toString();
     }
 
+    public static String getRoundTwoWord() {
+        return mRoundTwoWord.toString();
+    }
+
     public void resumeGame(String state, boolean isRoundTwo) {
         Scanner scanner = new Scanner(state);
 
