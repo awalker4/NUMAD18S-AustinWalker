@@ -3,16 +3,18 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ListView xmlns:android="http://schemas.android.com/apk/res/android"
+    <Spinner
+        android:id="@+id/leaderboard_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:background="@android:drawable/btn_dropdown"></Spinner>
+
+    <ListView
         android:id="@+id/my_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
     </ListView>
 
-    <Spinner
-        android:id="@+id/leaderboard_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:drawable/btn_dropdown"></Spinner>
 </LinearLayout>

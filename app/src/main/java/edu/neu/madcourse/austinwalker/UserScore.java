@@ -16,6 +16,7 @@ public class UserScore {
     public String imei;
     public String gameTime;
     public int finalScore;
+    public int ranking; // Inverse of finalScore
     public String highestWord;
     public int highestWordScore;
 
@@ -27,6 +28,7 @@ public class UserScore {
         imei = id;
         gameTime = time;
         finalScore = score;
+        ranking = 0 - score;
         highestWord = word;
         highestWordScore = wordScore;
 

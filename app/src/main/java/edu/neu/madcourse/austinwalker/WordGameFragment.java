@@ -403,17 +403,19 @@ public class WordGameFragment extends Fragment {
     }
 
     public void saveScore() {
-        String imei = MainActivity.fetchIMEI(getActivity());
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+        String imei = MainActivity.fetchIMEI(getActivity());
 
-        DatabaseReference scoreRef = database.getReference("scores");
+        UserScore newScore = new UserScore(imei, "10:30", mScore, roundTwoHighestWord, roundTwoHighestScore);
+
+        // Keep track of global scores
+        DatabaseReference scoreRef = database.getReference("allScores");
         DatabaseReference newScoreRef = scoreRef.push();
-        newScoreRef.setValue(new UserScore(imei, "10:30", mScore, roundTwoHighestWord, roundTwoHighestScore));
+        newScoreRef.setValue(newScore);
 
-        // Firebase sorts scores ascending, use priority instead
-        newScoreRef.setPriority(0 - mScore);
+        // Track per user as well
+        DatabaseReference userScoreRef = database.getReference("userScores").child(imei);
+        DatabaseReference newUserScoreRef = userScoreRef.push();
+        newUserScoreRef.setValue(newScore);
     }
 }

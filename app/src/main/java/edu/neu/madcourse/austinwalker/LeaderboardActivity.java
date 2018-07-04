@@ -18,10 +18,8 @@ import com.google.firebase.database.Query;
 public class LeaderboardActivity extends AppCompatActivity {
 
     private static final String TAG = "LeaderboardActivity";
-    private boolean mShowGlobal;
     private ListView mListView;
-    private FirebaseListAdapter<UserScore> mAdapter;
-    private DatabaseReference mScoresRef;
+    private FirebaseDatabase mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +29,7 @@ public class LeaderboardActivity extends AppCompatActivity {
 
         mListView = (ListView) findViewById(R.id.my_list_view);
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        mScoresRef = database.getReference("scores");
+        mDatabase = FirebaseDatabase.getInstance();
 
         Spinner dropdown = findViewById(R.id.leaderboard_spinner);
 
@@ -61,7 +58,8 @@ public class LeaderboardActivity extends AppCompatActivity {
 
     private void showLocalScores() {
         String imei = MainActivity.fetchIMEI(this);
-        Query localScores = mScoresRef.orderByChild("imei").equalTo(imei).limitToFirst(10);
+        DatabaseReference userScoresRef = mDatabase.getReference("userScores").child(imei);
+        Query localScores = userScoresRef.orderByChild("ranking").limitToFirst(10);
 
         mListView.setAdapter(new FirebaseListAdapter<UserScore>(this, UserScore.class, android.R.layout.simple_list_item_1, localScores) {
             @Override
@@ -87,7 +85,8 @@ public class LeaderboardActivity extends AppCompatActivity {
     }
 
     private void showGlobalScores() {
-        Query globalScores = mScoresRef.orderByPriority().limitToFirst(10);
+        DatabaseReference allScoresRef = mDatabase.getReference("allScores");
+        Query globalScores = allScoresRef.orderByChild("ranking").limitToFirst(10);
 
         mListView.setAdapter(new FirebaseListAdapter<UserScore>(this, UserScore.class, android.R.layout.simple_list_item_1, globalScores) {
             @Override
