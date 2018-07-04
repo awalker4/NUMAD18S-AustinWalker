@@ -1,5 +1,7 @@
 package edu.neu.madcourse.austinwalker;
 
+import android.app.Activity;
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.TextView;
@@ -16,21 +18,25 @@ public class UserScore {
     public String imei;
     public String gameTime;
     public int finalScore;
-    public int ranking; // Inverse of finalScore
+    public int finalRanking; // Inverse of finalScore
     public String highestWord;
+    public int highestWordRanking; // Inverse of word score
     public int highestWordScore;
 
     private String username;
     private TextView view;
     private boolean mLocal;
 
+    private Context context;
+
     public UserScore(String id, String time, int score, String word, int wordScore) {
         imei = id;
         gameTime = time;
         finalScore = score;
-        ranking = 0 - score;
+        finalRanking = 0 - score;
         highestWord = word;
         highestWordScore = wordScore;
+        highestWordRanking = 0 - wordScore;
 
         Log.d(TAG, "UserScore: full");
     }
@@ -72,6 +78,7 @@ public class UserScore {
     public void setText(TextView v) {
         view = v;
         listenForName();
+        context = v.getContext();
         redisplayScore();
     }
 
@@ -85,10 +92,8 @@ public class UserScore {
                     "\nHighest Word Score: " + highestWordScore +
                     "\nHighest Word: " + highestWord);
         } else {
-            view.setText("User: " + username +
-                    "\nScore: " + Integer.toString(finalScore) +
-                    "\nHighest Word Score: " + highestWordScore +
-                    "\nHighest Word: " + highestWord);
+            String scoreStr = context.getResources().getString(R.string.global_score_label, username, finalScore, highestWord, highestWordScore);
+            view.setText(scoreStr);
         }
     }
 }

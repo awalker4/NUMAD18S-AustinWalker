@@ -20,6 +20,7 @@ public class LeaderboardActivity extends AppCompatActivity {
     private static final String TAG = "LeaderboardActivity";
     private ListView mListView;
     private FirebaseDatabase mDatabase;
+    private boolean showGlobal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,43 +31,45 @@ public class LeaderboardActivity extends AppCompatActivity {
         mListView = (ListView) findViewById(R.id.my_list_view);
 
         mDatabase = FirebaseDatabase.getInstance();
+        final String imei = MainActivity.fetchIMEI(this);
 
         Spinner dropdown = findViewById(R.id.leaderboard_spinner);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, new String[]{"Local", "Global"});
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_dropdown_item,
+                new String[]{"Local (final score)", "Global (final score)", "Local (highest word)", "Global (highest word)"});
+
         dropdown.setAdapter(adapter);
         dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Query data;
+
                 switch (position) {
                     case 0:
-                        showLocalScores();
+                        data = mDatabase.getReference("userScores").child(imei).orderByChild("finalRanking").limitToFirst(10);
+                        showGlobal = false;
                         break;
                     case 1:
-                        showGlobalScores();
+                        data = mDatabase.getReference("allScores").orderByChild("finalRanking").limitToFirst(10);
+                        showGlobal = true;
+                        break;
+                    case 2:
+                        data = mDatabase.getReference("userScores").child(imei).orderByChild("highestWordRanking").limitToFirst(10);
+                        showGlobal = false;
+                        break;
+                    default:
+                        data = mDatabase.getReference("allScores").orderByChild("highestWordRanking").limitToFirst(10);
+                        showGlobal = true;
                         break;
                 }
+
+                setAdapter(data);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                showLocalScores();
-            }
-        });
-
-    }
-
-    private void showLocalScores() {
-        String imei = MainActivity.fetchIMEI(this);
-        DatabaseReference userScoresRef = mDatabase.getReference("userScores").child(imei);
-        Query localScores = userScoresRef.orderByChild("ranking").limitToFirst(10);
-
-        mListView.setAdapter(new FirebaseListAdapter<UserScore>(this, UserScore.class, android.R.layout.simple_list_item_1, localScores) {
-            @Override
-            protected void populateView(View v, UserScore model, int position) {
-                TextView view = (TextView) v;
-                model.setLocal(true);
-                model.setText(view);
+                setAdapter(mDatabase.getReference("userScores").child(imei).orderByChild("finalRanking").limitToFirst(10));
             }
         });
 
@@ -84,29 +87,13 @@ public class LeaderboardActivity extends AppCompatActivity {
         });
     }
 
-    private void showGlobalScores() {
-        DatabaseReference allScoresRef = mDatabase.getReference("allScores");
-        Query globalScores = allScoresRef.orderByChild("ranking").limitToFirst(10);
-
-        mListView.setAdapter(new FirebaseListAdapter<UserScore>(this, UserScore.class, android.R.layout.simple_list_item_1, globalScores) {
+    private void setAdapter(Query data) {
+        mListView.setAdapter(new FirebaseListAdapter<UserScore>(this, UserScore.class, android.R.layout.simple_list_item_1, data) {
             @Override
             protected void populateView(View v, UserScore model, int position) {
                 TextView view = (TextView) v;
-                model.setLocal(false);
+                model.setLocal(!showGlobal);
                 model.setText(view);
-            }
-        });
-
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int itemPosition = position;
-
-                UserScore itemValue = (UserScore) mListView.getItemAtPosition(itemPosition);
-                Toast.makeText(getApplicationContext(),
-                        "Pinging users not implemented yet",
-                        Toast.LENGTH_LONG)
-                        .show();
             }
         });
     }
