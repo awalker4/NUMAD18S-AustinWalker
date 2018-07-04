@@ -21,6 +21,7 @@ public class UserScore {
 
     private String username;
     private TextView view;
+    private boolean mLocal;
 
     public UserScore(String id, String time, int score, String word, int wordScore) {
         imei = id;
@@ -72,10 +73,20 @@ public class UserScore {
         redisplayScore();
     }
 
+    public void setLocal(boolean local) {
+        mLocal = local;
+    }
+
     private void redisplayScore() {
-        view.setText("User: " + username +
-                "\nScore: " + Integer.toString(finalScore) +
-                "\nHighest Word Score: " + highestWordScore +
-                "\nHighest Word: " + highestWord);
+        if (mLocal) {
+            view.setText("Score: " + Integer.toString(finalScore) +
+                    "\nHighest Word Score: " + highestWordScore +
+                    "\nHighest Word: " + highestWord);
+        } else {
+            view.setText("User: " + username +
+                    "\nScore: " + Integer.toString(finalScore) +
+                    "\nHighest Word Score: " + highestWordScore +
+                    "\nHighest Word: " + highestWord);
+        }
     }
 }
