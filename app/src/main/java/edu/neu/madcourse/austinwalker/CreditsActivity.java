@@ -19,7 +19,7 @@ public class CreditsActivity extends AppCompatActivity implements AdapterView.On
 
         Spinner dropdown = findViewById(R.id.ack_version_dropdown);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, new String[]{"Module 5", "Module 3"});
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, new String[]{"Module 7", "Module 5", "Module 3"});
         dropdown.setAdapter(adapter);
         dropdown.setOnItemSelectedListener(this);
     }
@@ -29,10 +29,13 @@ public class CreditsActivity extends AppCompatActivity implements AdapterView.On
 
         switch (pos) {
             case 0:
+                creditsStr = getResources().getText(R.string.ack_text_v7);
+                break;
+            case 1:
                 creditsStr = getResources().getText(R.string.ack_text_v5);
                 break;
 
-            case 1:
+            case 2:
                 creditsStr = getResources().getText(R.string.ack_text_v3);
                 break;
 
