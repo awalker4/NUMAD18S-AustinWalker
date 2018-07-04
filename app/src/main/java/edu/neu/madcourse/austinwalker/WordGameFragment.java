@@ -2,13 +2,11 @@ package edu.neu.madcourse.austinwalker;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -405,6 +403,7 @@ public class WordGameFragment extends Fragment {
     }
 
     public void saveScore() {
+        String imei = MainActivity.fetchIMEI(getActivity());
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
         // Write a message to the database
@@ -412,14 +411,9 @@ public class WordGameFragment extends Fragment {
 
         DatabaseReference scoreRef = database.getReference("scores");
         DatabaseReference newScoreRef = scoreRef.push();
-        newScoreRef.setValue(new UserScore(fetchIMEI(), "10:30", mScore, roundTwoHighestWord, roundTwoHighestScore));
+        newScoreRef.setValue(new UserScore(imei, "10:30", mScore, roundTwoHighestWord, roundTwoHighestScore));
+
+        // Firebase sorts scores ascending, use priority instead
         newScoreRef.setPriority(0 - mScore);
-
-    }
-
-    // TODO handle this
-    private String fetchIMEI() {
-        TelephonyManager tm = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
-        return tm.getDeviceId();
     }
 }

@@ -77,7 +77,7 @@ public class WordGameMenuActivity extends AppCompatActivity {
 
         // Username
         final Button userNameButton = (Button) findViewById(R.id.scroggle_username_button);
-        final String imei = fetchIMEI();
+        final String imei = MainActivity.fetchIMEI(this);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         usersRef = database.getReference("users");
@@ -111,13 +111,8 @@ public class WordGameMenuActivity extends AppCompatActivity {
             mChangeNameDialog.dismiss();
     }
 
-    private String fetchIMEI() {
-        TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        return tm.getDeviceId();
-
-    }
-
     private void showChangeNameDialog() {
+        final String imei = MainActivity.fetchIMEI(this);
         final EditText changeNameText = new EditText(getApplicationContext());
         changeNameText.setText(mUserName);
 
@@ -133,7 +128,7 @@ public class WordGameMenuActivity extends AppCompatActivity {
                         mUserName = changeNameText.getText().toString();
 
                         HashMap<String, Object> toUpdate = new HashMap<>();
-                        toUpdate.put(fetchIMEI(), mUserName);
+                        toUpdate.put(imei, mUserName);
 
                         usersRef.updateChildren(toUpdate);
                     }

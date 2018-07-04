@@ -1,9 +1,7 @@
 package edu.neu.madcourse.austinwalker;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -62,7 +60,8 @@ public class LeaderboardActivity extends AppCompatActivity {
     }
 
     private void showLocalScores() {
-        Query localScores = mScoresRef.orderByChild("imei").equalTo(fetchIMEI()).limitToFirst(10);
+        String imei = MainActivity.fetchIMEI(this);
+        Query localScores = mScoresRef.orderByChild("imei").equalTo(imei).limitToFirst(10);
 
         mListView.setAdapter(new FirebaseListAdapter<UserScore>(this, UserScore.class, android.R.layout.simple_list_item_1, localScores) {
             @Override
@@ -111,10 +110,5 @@ public class LeaderboardActivity extends AppCompatActivity {
                         .show();
             }
         });
-    }
-
-    private String fetchIMEI() {
-        TelephonyManager tm = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
-        return tm.getDeviceId();
     }
 }
