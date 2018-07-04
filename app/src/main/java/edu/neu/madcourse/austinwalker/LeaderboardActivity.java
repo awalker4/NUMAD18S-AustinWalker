@@ -80,7 +80,8 @@ public class LeaderboardActivity extends AppCompatActivity {
 
                 UserScore itemValue = (UserScore) mListView.getItemAtPosition(itemPosition);
                 Toast.makeText(getApplicationContext(),
-                        "Position :" + itemPosition + "  IMEI : " + itemValue.imei, Toast.LENGTH_LONG)
+                        "Pinging users not implemented yet",
+                        Toast.LENGTH_LONG)
                         .show();
             }
         });
@@ -105,7 +106,8 @@ public class LeaderboardActivity extends AppCompatActivity {
 
                 UserScore itemValue = (UserScore) mListView.getItemAtPosition(itemPosition);
                 Toast.makeText(getApplicationContext(),
-                        "Position :" + itemPosition + "  IMEI : " + itemValue.imei, Toast.LENGTH_LONG)
+                        "Pinging users not implemented yet",
+                        Toast.LENGTH_LONG)
                         .show();
             }
         });
