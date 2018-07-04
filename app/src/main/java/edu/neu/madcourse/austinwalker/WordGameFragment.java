@@ -413,6 +413,8 @@ public class WordGameFragment extends Fragment {
         DatabaseReference scoreRef = database.getReference("scores");
         DatabaseReference newScoreRef = scoreRef.push();
         newScoreRef.setValue(new UserScore(fetchIMEI(), "10:30", mScore, roundTwoHighestWord, roundTwoHighestScore));
+        newScoreRef.setPriority(0 - mScore);
+
     }
 
     // TODO handle this

@@ -36,6 +36,16 @@ public class WordGameMenuActivity extends AppCompatActivity {
             }
         });
 
+        // Leaderboard game button
+        View scoresButton = findViewById(R.id.scoroggle_leaderboard_button);
+        scoresButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(WordGameMenuActivity.this, LeaderboardActivity.class);
+                startActivity(intent);
+            }
+        });
+
         // Acknowledgments button
         View ackButton = findViewById(R.id.scroggle_ack_button);
         ackButton.setOnClickListener(new View.OnClickListener() {

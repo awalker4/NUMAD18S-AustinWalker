@@ -29,10 +29,14 @@
         <activity
             android:name=".WordGameMenuActivity"
             android:label="Scroggle" />
-        <activity android:name=".WordGameActivity"
+        <activity
+            android:name=".WordGameActivity"
+            android:configChanges="orientation"
             android:label="Scroggle"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation"/>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LeaderboardActivity"
+            android:label="Scores" />
 
     </application>
 
