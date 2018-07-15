@@ -16,7 +16,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context="edu.neu.madcourse.austinwalker.WordGameMenuActivity">
+        tools:context="edu.neu.madcourse.austinwalker.scroggle.WordGameMenuActivity">
 
         <TextView
             android:layout_width="match_parent"
@@ -64,7 +64,7 @@
             android:text="@string/scroggle_resume_game_label" />
 
         <Button
-            android:id="@+id/scoroggle_leaderboard_button"
+            android:id="@+id/scroggle_leaderboard_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/scroggle_leaderboard_label" />

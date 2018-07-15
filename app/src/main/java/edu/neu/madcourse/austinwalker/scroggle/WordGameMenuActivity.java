@@ -1,14 +1,11 @@
-package edu.neu.madcourse.austinwalker;
+package edu.neu.madcourse.austinwalker.scroggle;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.TelephonyManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +17,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
+
+import edu.neu.madcourse.austinwalker.CreditsActivity;
+import edu.neu.madcourse.austinwalker.MainActivity;
+import edu.neu.madcourse.austinwalker.R;
 
 public class WordGameMenuActivity extends AppCompatActivity {
 
@@ -56,7 +57,7 @@ public class WordGameMenuActivity extends AppCompatActivity {
         });
 
         // Leaderboard game button
-        View scoresButton = findViewById(R.id.scoroggle_leaderboard_button);
+        View scoresButton = findViewById(R.id.scroggle_leaderboard_button);
         scoresButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

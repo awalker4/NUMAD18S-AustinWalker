@@ -1,7 +1,9 @@
-package edu.neu.madcourse.austinwalker;
+package edu.neu.madcourse.austinwalker.scroggle;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import edu.neu.madcourse.austinwalker.R;
 
 public class WordGameActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package edu.neu.madcourse.austinwalker;
+package edu.neu.madcourse.austinwalker.scroggle;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
@@ -19,6 +19,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Scanner;
 import java.util.Stack;
+
+import edu.neu.madcourse.austinwalker.MainActivity;
+import edu.neu.madcourse.austinwalker.MyApplication;
+import edu.neu.madcourse.austinwalker.R;
 
 public class WordGameFragment extends Fragment {
 

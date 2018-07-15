@@ -1,4 +1,4 @@
-package edu.neu.madcourse.austinwalker;
+package edu.neu.madcourse.austinwalker.scroggle;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,6 +11,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import edu.neu.madcourse.austinwalker.R;
 
 public class UserScore {
     private static final String TAG = "UserScore";

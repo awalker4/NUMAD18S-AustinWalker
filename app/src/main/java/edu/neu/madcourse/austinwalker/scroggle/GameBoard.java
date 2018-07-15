@@ -1,4 +1,4 @@
-package edu.neu.madcourse.austinwalker;
+package edu.neu.madcourse.austinwalker.scroggle;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -18,6 +18,9 @@ import java.util.Collections;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.Stack;
+
+import edu.neu.madcourse.austinwalker.MyApplication;
+import edu.neu.madcourse.austinwalker.R;
 
 public class GameBoard {
 

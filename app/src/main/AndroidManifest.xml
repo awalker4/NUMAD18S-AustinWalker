@@ -27,16 +27,22 @@
             android:name=".CreditsActivity"
             android:label="Acknowledgments" />
         <activity
-            android:name=".WordGameMenuActivity"
+            android:name=".scroggle.WordGameMenuActivity"
             android:label="Scroggle" />
         <activity
-            android:name=".WordGameActivity"
+            android:name=".scroggle.WordGameActivity"
             android:configChanges="orientation"
             android:label="Scroggle"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".LeaderboardActivity"
+            android:name=".scroggle.LeaderboardActivity"
             android:label="Scores" />
+        <activity
+            android:name=".treble.MusicGameActivity"
+            android:label="Protect the Clef" />
+        <activity
+            android:name=".treble.MusicGameMenuActivity"
+            android:label="Protect the Clef" />
 
     </application>
 

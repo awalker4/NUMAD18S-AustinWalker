@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/fragment_word_game"
-        class="edu.neu.madcourse.austinwalker.WordGameFragment"
+        class="edu.neu.madcourse.austinwalker.scroggle.WordGameFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout="@layout/fragment_word_game" />

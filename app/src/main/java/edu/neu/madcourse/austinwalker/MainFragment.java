@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import edu.neu.madcourse.austinwalker.scroggle.WordGameMenuActivity;
 public class MainFragment extends Fragment {
 
     final static String tag = "MainFragment";

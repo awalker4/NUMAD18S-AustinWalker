@@ -1,4 +1,4 @@
-package edu.neu.madcourse.austinwalker;
+package edu.neu.madcourse.austinwalker.scroggle;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,9 +11,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseListAdapter;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+
+import edu.neu.madcourse.austinwalker.MainActivity;
+import edu.neu.madcourse.austinwalker.R;
 
 public class LeaderboardActivity extends AppCompatActivity {
 
