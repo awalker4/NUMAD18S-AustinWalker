@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import edu.neu.madcourse.austinwalker.scroggle.WordGameMenuActivity;
+import edu.neu.madcourse.austinwalker.treble.MusicGameMenuActivity;
+
 public class MainFragment extends Fragment {
 
     final static String tag = "MainFragment";
@@ -19,6 +21,16 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+
+        // Music button listener
+        View gameButton = rootView.findViewById(R.id.music_game_button);
+        gameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MusicGameMenuActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
 
         // Dictionary button listener
         View dictionaryButton = rootView.findViewById(R.id.dictionary_button);

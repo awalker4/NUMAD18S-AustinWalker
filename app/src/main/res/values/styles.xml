@@ -17,4 +17,20 @@
         <item name="android:src">@drawable/scroggle_tile</item>
     </style>
 
+    <style name="PianoKeyWhite">
+        <item name="android:layout_height">200dp</item>
+        <item name="android:layout_width">35dp</item>
+        <item name="android:layout_margin">@dimen/scroggle_tile_margin</item>
+        <item name="android:background">@drawable/white_key</item>
+        <item name="android:src">@drawable/white_key</item>
+    </style>
+
+    <style name="PianoKeyBlack">
+        <item name="android:layout_height">125dp</item>
+        <item name="android:layout_width">35dp</item>
+        <item name="android:background">@drawable/black_key</item>
+        <item name="android:layout_marginStart">18.5dp</item>
+        <item name="android:src">@drawable/black_key</item>
+    </style>
+
 </resources>

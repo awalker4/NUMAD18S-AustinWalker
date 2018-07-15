@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <Button
+        android:id="@+id/piano_c4"
+        style="@style/PianoKeyWhite" />
+
+    <Button
+        android:id="@+id/piano_d4"
+        style="@style/PianoKeyWhite"
+        android:layout_toEndOf="@id/piano_c4" />
+
+    <Button android:id="@+id/piano_e4"
+        style="@style/PianoKeyWhite"
+        android:layout_toEndOf="@id/piano_d4"/>
+
+    <Button android:id="@+id/piano_f4"
+        style="@style/PianoKeyWhite"
+        android:layout_toEndOf="@id/piano_e4"/>
+
+    <Button
+        android:id="@+id/piano_g4"
+        style="@style/PianoKeyWhite"
+        android:layout_toEndOf="@id/piano_f4"/>
+
+    <Button
+        android:id="@+id/piano_a4"
+        style="@style/PianoKeyWhite"
+        android:layout_toEndOf="@id/piano_g4"/>
+
+    <Button
+        android:id="@+id/piano_b4"
+        style="@style/PianoKeyWhite"
+        android:layout_toEndOf="@id/piano_a4"/>
+
+
+
+    <!--black keys-->
+
+    <Button
+        android:id="@+id/piano_c4s"
+        style="@style/PianoKeyBlack" />
+
+    <Button
+        android:id="@+id/piano_d4s"
+        android:layout_toEndOf="@id/piano_c4"
+        style="@style/PianoKeyBlack" />
+
+    <Button
+        android:id="@+id/piano_f4s"
+        android:layout_toEndOf="@id/piano_e4"
+        style="@style/PianoKeyBlack" />
+
+    <Button
+        android:id="@+id/piano_g4s"
+        android:layout_toEndOf="@id/piano_f4"
+        style="@style/PianoKeyBlack" />
+
+    <Button
+        android:id="@+id/piano_a4s"
+        android:layout_toEndOf="@id/piano_g4"
+        style="@style/PianoKeyBlack" />
+
+
+
+</RelativeLayout>
