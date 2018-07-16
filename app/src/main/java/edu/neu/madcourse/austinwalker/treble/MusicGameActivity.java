@@ -11,7 +11,8 @@ public class MusicGameActivity extends AppCompatActivity {
 
     public static final String KEY_RESTORE = "key_restore";
     public static final String PREF_RESTORE = "pref_restore";
-//    private WordGameFragment mGameFragment;
+
+    private MusicNote mn = new MusicNote();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +23,7 @@ public class MusicGameActivity extends AppCompatActivity {
         c4Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MusicNote.playTone(MusicNote.C4);
+                mn.playNote(MusicNote.C4);
             }
         });
 
@@ -30,7 +31,7 @@ public class MusicGameActivity extends AppCompatActivity {
         c4sButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MusicNote.playTone(MusicNote.C4S);
+                mn.playNote(MusicNote.C4S);
             }
         });
 
@@ -38,7 +39,7 @@ public class MusicGameActivity extends AppCompatActivity {
         d4Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MusicNote.playTone(MusicNote.D4);
+                mn.playNote(MusicNote.D4);
             }
         });
 
@@ -47,7 +48,7 @@ public class MusicGameActivity extends AppCompatActivity {
         d4sButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MusicNote.playTone(MusicNote.D4S);
+                mn.playNote(MusicNote.D4S);
             }
         });
 
@@ -55,7 +56,7 @@ public class MusicGameActivity extends AppCompatActivity {
         e4Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MusicNote.playTone(MusicNote.E4);
+                mn.playNote(MusicNote.E4);
             }
         });
 
@@ -63,7 +64,7 @@ public class MusicGameActivity extends AppCompatActivity {
         f4Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MusicNote.playTone(MusicNote.F4);
+                mn.playNote(MusicNote.F4);
             }
         });
 
@@ -71,7 +72,7 @@ public class MusicGameActivity extends AppCompatActivity {
         f4sButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MusicNote.playTone(MusicNote.F4S);
+                mn.playNote(MusicNote.F4S);
             }
         });
 
@@ -80,7 +81,7 @@ public class MusicGameActivity extends AppCompatActivity {
         g4Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MusicNote.playTone(MusicNote.G4);
+                mn.playNote(MusicNote.G4);
             }
         });
 
@@ -89,7 +90,7 @@ public class MusicGameActivity extends AppCompatActivity {
         g4sButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MusicNote.playTone(MusicNote.G4S);
+                mn.playNote(MusicNote.G4S);
             }
         });
 
@@ -98,7 +99,7 @@ public class MusicGameActivity extends AppCompatActivity {
         a4Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MusicNote.playTone(MusicNote.A4);
+                mn.playNote(MusicNote.A4);
             }
         });
 
@@ -107,7 +108,7 @@ public class MusicGameActivity extends AppCompatActivity {
         a4sButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MusicNote.playTone(MusicNote.A4S);
+                mn.playNote(MusicNote.A4S);
             }
         });
 
@@ -116,19 +117,8 @@ public class MusicGameActivity extends AppCompatActivity {
         b4Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MusicNote.playTone(MusicNote.B4);
+                mn.playNote(MusicNote.B4);
             }
         });
-
-
-//
-//        mGameFragment = (WordGameFragment) getFragmentManager().findFragmentById(R.id.fragment_word_game);
-//        boolean restore = getIntent().getBooleanExtra(KEY_RESTORE, false);
-//        if (restore) {
-//            String gameData = getPreferences(MODE_PRIVATE).getString(PREF_RESTORE, null);
-//            if (gameData != null) {
-//                mGameFragment.resumeGame(gameData);
-//            }
-//        }
     }
 }

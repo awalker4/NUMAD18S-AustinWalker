@@ -29,6 +29,7 @@
         <item name="android:layout_height">125dp</item>
         <item name="android:layout_width">35dp</item>
         <item name="android:background">@drawable/black_key</item>
+        <item name="android:layout_marginTop">1dp</item>
         <item name="android:layout_marginStart">18.5dp</item>
         <item name="android:src">@drawable/black_key</item>
     </style>
