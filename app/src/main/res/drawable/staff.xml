@@ -1,0 +1,21 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/ledger_line_1"
+        android:drawable="@drawable/ledger_line" />
+    <item
+        android:id="@+id/ledger_line_2"
+        android:drawable="@drawable/ledger_line"
+        android:top="50dp" />
+    <item
+        android:id="@+id/ledger_line_3"
+        android:drawable="@drawable/ledger_line"
+        android:top="100dp" />
+    <item
+        android:id="@+id/ledger_line_4"
+        android:drawable="@drawable/ledger_line"
+        android:top="150dp" />
+    <item
+        android:id="@+id/ledger_line_5"
+        android:drawable="@drawable/ledger_line"
+        android:top="200dp" />
+</layer-list>

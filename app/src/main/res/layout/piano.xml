@@ -35,7 +35,6 @@
         style="@style/PianoKeyWhite"
         android:layout_toEndOf="@id/piano_a4"/>
 
-
     <!--black keys-->
 
     <Button
