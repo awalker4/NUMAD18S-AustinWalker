@@ -16,7 +16,6 @@ public class MusicGameActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Piano piano = new Piano(this);
         setContentView(R.layout.piano);
 
         Button c4Button = findViewById(R.id.piano_c4);
