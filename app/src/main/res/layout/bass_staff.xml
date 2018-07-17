@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
 
-    <!--Treble clef: https://pixabay.com/en/treble-clef-png-key-music-clef-1279909/ -->
+    <!--Bass clef: https://pixabay.com/en/bass-clef-music-clef-symbol-1425777 -->
 
     <ImageView
         android:id="@+id/imageView"
@@ -18,9 +18,11 @@
         app:srcCompat="@drawable/staff" />
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="200dp"
+        android:layout_width="75dp"
+        android:layout_height="140dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:src="@drawable/treble_clef" />
+        android:layout_marginTop="19dp"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/bass_clef" />
 </RelativeLayout>
