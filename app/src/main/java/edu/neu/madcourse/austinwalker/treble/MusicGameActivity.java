@@ -2,6 +2,8 @@ package edu.neu.madcourse.austinwalker.treble;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
@@ -16,13 +18,16 @@ public class MusicGameActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.piano);
+        setContentView(R.layout.fragment_music_game);
+
+        final StaffLayout staff = (StaffLayout) findViewById(R.id.include_staff);
 
         Button c4Button = findViewById(R.id.piano_c4);
         c4Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mn.playNote(MusicNote.C4);
+                staff.drawNote(-2);
             }
         });
 
@@ -31,6 +36,7 @@ public class MusicGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mn.playNote(MusicNote.C4S);
+                staff.drawNote(-2);
             }
         });
 
@@ -39,6 +45,7 @@ public class MusicGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mn.playNote(MusicNote.D4);
+                staff.drawNote(-1);
             }
         });
 
@@ -48,6 +55,7 @@ public class MusicGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mn.playNote(MusicNote.D4S);
+                staff.drawNote(-1);
             }
         });
 
@@ -56,6 +64,7 @@ public class MusicGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mn.playNote(MusicNote.E4);
+                staff.drawNote(0);
             }
         });
 
@@ -64,6 +73,8 @@ public class MusicGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mn.playNote(MusicNote.F4);
+                staff.drawNote(1);
+
             }
         });
 
@@ -72,6 +83,7 @@ public class MusicGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mn.playNote(MusicNote.F4S);
+                staff.drawNote(1);
             }
         });
 
@@ -81,6 +93,7 @@ public class MusicGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mn.playNote(MusicNote.G4);
+                staff.drawNote(2);
             }
         });
 
@@ -90,6 +103,7 @@ public class MusicGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mn.playNote(MusicNote.G4S);
+                staff.drawNote(2);
             }
         });
 
@@ -99,6 +113,7 @@ public class MusicGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mn.playNote(MusicNote.A4);
+                staff.drawNote(3);
             }
         });
 
@@ -108,6 +123,7 @@ public class MusicGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mn.playNote(MusicNote.A4S);
+                staff.drawNote(3);
             }
         });
 
@@ -117,6 +133,7 @@ public class MusicGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mn.playNote(MusicNote.B4);
+                staff.drawNote(4);
             }
         });
     }
