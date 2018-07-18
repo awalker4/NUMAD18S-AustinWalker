@@ -7,7 +7,7 @@
     tools:layout_editor_absoluteY="81dp">
 
     <edu.neu.madcourse.austinwalker.treble.StaffLayout
-        android:id="@+id/include_staff"
+        android:id="@+id/game_staff"
         android:layout_width="match_parent"
         android:layout_height="250dp" />
 
@@ -20,7 +20,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/include_staff" />
+        app:layout_constraintTop_toBottomOf="@id/game_staff" />
 
 
 </android.support.constraint.ConstraintLayout>

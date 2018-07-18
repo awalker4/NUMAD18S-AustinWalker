@@ -15,6 +15,7 @@ public class MusicNote {
     public static double A4 = 440;
     public static double A4S = 466.16;
     public static double B4 = 493.88;
+    public static double C5 = 523.25;
 
     // Private fields
     private static final String TAG = "MusicNote";
