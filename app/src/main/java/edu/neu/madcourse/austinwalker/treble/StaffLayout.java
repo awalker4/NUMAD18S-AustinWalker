@@ -91,6 +91,8 @@ public class StaffLayout extends View {
         canvas.drawRect(mStaffOffsetX, mStaffOffsetY, 20, mStaffOffsetY + 4 * mStaffSpacing, mStaffColor);
 
         // Clef
+        // https://pixabay.com/en/treble-clef-png-key-music-clef-1279909/
+        // https://pixabay.com/en/bass-clef-music-clef-symbol-1425777
         if (isTreble) {
             Drawable trebleClef = getResources().getDrawable(R.drawable.treble_clef);
             trebleClef.setBounds(0, 0, 250, 400);
@@ -103,6 +105,7 @@ public class StaffLayout extends View {
         }
     }
 
+    // Add lines above or below staff if called for
     private void addLedgerLines(Canvas canvas) {
         for (int i = 0; i < mLedgerLinesUp; i++) {
             int y = mStaffOffsetY - i * mStaffSpacing;
