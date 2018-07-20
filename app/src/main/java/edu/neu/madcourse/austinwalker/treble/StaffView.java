@@ -19,9 +19,8 @@ public class StaffView extends View {
     private static final int mLineThickness = 2;
     public static final int mVerticalBarWidth = 10;
     private static final int mLedgerWidth = 100;
-
-    // Quarter note constants
-    private final int mNoteXPos = 250;
+    private final int mClefOffset = 50;
+    private final int mNoteOffset = 300;
 
     // Alien constants
     private final int[] mUFOPositions = {600};
@@ -52,16 +51,22 @@ public class StaffView extends View {
     }
 
     private void setup() {
+        int x = mViewPaddingX + mClefOffset;
+        int y;
+
         if (isTreble) {
-            int x = mViewPaddingX + 130; // FIXME magic
-            int y = getYFromStaffPos(2); // Center on G
+            y = getYFromStaffPos(2); // Center on G
             mClef = new TrebleClefDrawable(this, x, y);
         } else {
-            // TODO: fix sizing
-//            Drawable bassClef = getResources().getDrawable(R.drawable.bass_clef);
-//            bassClef.setBounds(0, 0, 250, 400);
-//            bassClef.draw(canvas);
+            y = getYFromStaffPos(6); // Center on F
+            mClef = new BassClefDrawable(this, x, y);
         }
+    }
+
+    public void setIsTreble(boolean treble) {
+        isTreble = treble;
+
+        setup();
     }
 
     public void onSizeChanged(int w, int h, int oldW, int oldH) {
@@ -88,7 +93,7 @@ public class StaffView extends View {
 
     // Draws a note at staff location from the bottom line up
     public void drawNote(int location) {
-        int x = mViewPaddingX + mNoteXPos;
+        int x = mViewPaddingX + mNoteOffset;
         int y = getYFromStaffPos(location);
 
         mNote = new QuarterNoteDrawable(this, x, y);
@@ -118,6 +123,8 @@ public class StaffView extends View {
 
         if (mBullet != null)
             mBullet.draw(canvas);
+
+//        drawVertical(canvas, mViewPaddingX + mClefOffset);
     }
 
     public void drawAlien(int position) {
@@ -137,7 +144,7 @@ public class StaffView extends View {
         if (mBullet != null) {
             mBullet.tick();
 
-            if (mNote.collidesWith(mBullet)) {
+            if (!mBullet.isReverse() && mNote.collidesWith(mBullet)) {
                 mBullet.reverse();
             } else if (mBullet.isReverse() && mAlien.collidesWith(mBullet)) {
                 mAlien = null;
@@ -161,8 +168,7 @@ public class StaffView extends View {
         canvas.drawRect(mViewPaddingX, mStaffStartY, mViewPaddingX + mVerticalBarWidth, mStaffStartY + 4 * mStaffSpacing, mStaffColor);
 
         // Clef
-        // https://pixabay.com/en/bass-clef-music-clef-symbol-1425777
-        if (isTreble)
+        if (mClef != null)
             mClef.draw(canvas);
     }
 
@@ -170,14 +176,14 @@ public class StaffView extends View {
     private void addLedgerLines(Canvas canvas) {
         for (int i = 0; i < mLedgerLinesUp; i++) {
             int y = mStaffStartY - i * mStaffSpacing;
-            int x = mViewPaddingX + mNoteXPos - mLedgerWidth / 2;
+            int x = mViewPaddingX + mNoteOffset - mLedgerWidth / 2;
 
             canvas.drawRect(x, y, x + mLedgerWidth, y + mLineThickness, mStaffColor);
         }
 
         for (int i = 0; i < mLedgerLinesDown; i++) {
             int y = mStaffStartY + (5 + i) * mStaffSpacing;
-            int x = mViewPaddingX + mNoteXPos - mLedgerWidth / 2;
+            int x = mViewPaddingX + mNoteOffset - mLedgerWidth / 2;
 
             canvas.drawRect(x, y, x + mLedgerWidth, y + mLineThickness, mStaffColor);
         }

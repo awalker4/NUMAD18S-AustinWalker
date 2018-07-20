@@ -15,7 +15,7 @@ public class TrebleClefDrawable extends MusicDrawable {
                 400,
                 x,
                 y,
-                145,
+                50,
                 247);
     }
 

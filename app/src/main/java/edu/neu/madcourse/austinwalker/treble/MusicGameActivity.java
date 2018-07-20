@@ -32,6 +32,7 @@ public class MusicGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mn.playNote(MusicNote.C4S);
+                staff.setIsTreble(false);
                 staff.drawNote(-2);
                 staff.drawAlien(-2);
             }
@@ -53,6 +54,7 @@ public class MusicGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mn.playNote(MusicNote.D4S);
+                staff.setIsTreble(true);
                 staff.drawNote(-1);
                 staff.drawAlien(-1);
             }
