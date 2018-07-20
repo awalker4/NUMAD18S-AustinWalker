@@ -12,8 +12,10 @@ public class TrebleClef extends MusicDrawable {
         super(view.getResources().getDrawable(R.drawable.treble_clef),
                 250,
                 400,
-                x - 145,
-                y - 247);
+                x,
+                y,
+                145,
+                247);
     }
 
 }

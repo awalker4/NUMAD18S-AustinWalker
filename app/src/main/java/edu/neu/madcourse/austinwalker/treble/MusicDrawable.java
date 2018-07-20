@@ -10,16 +10,20 @@ public class MusicDrawable {
 
     private Drawable mGraphic;
 
-    private int mXPos;
-    private int mYPos;
-    private int width;
-    private int height;
+    protected int width;
+    protected int height;
+    protected int mXPos;
+    protected int mYPos;
+    protected int mXOff;
+    protected int mYOff;
 
-    public MusicDrawable(Drawable graphic, int w, int h, int x, int y) {
+    public MusicDrawable(Drawable graphic, int w, int h, int x, int y, int xOff, int yOff) {
         width = w;
         height = h;
         mXPos = x;
         mYPos = y;
+        mXOff = xOff;
+        mYOff = yOff;
         mGraphic = graphic;
     }
 
@@ -27,9 +31,23 @@ public class MusicDrawable {
         return width;
     }
 
+    public int getX() {
+        return mXPos;
+    }
+
+    public int getY() {
+        return mYPos;
+    }
+
+    public boolean collidesWith(int x, int y) {
+        return true;
+    }
+
     public void draw(Canvas canvas) {
-        Log.d(TAG, String.format("(%d,%d,%d,%d)", mXPos, mYPos, mXPos + width, mYPos + height));
-        mGraphic.setBounds(mXPos, mYPos, mXPos + width, mYPos + height);
+        int x = mXPos - mXOff;
+        int y = mYPos - mYOff;
+        Log.d(TAG, String.format("(%d,%d,%d,%d)", x, y, x + width, y + height));
+        mGraphic.setBounds(x, y, x + width, y + height);
         mGraphic.draw(canvas);
     }
 }

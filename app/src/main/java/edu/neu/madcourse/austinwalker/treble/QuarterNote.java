@@ -13,7 +13,9 @@ public class QuarterNote extends MusicDrawable {
         super(view.getResources().getDrawable(R.drawable.quarter_note),
                 230,
                 230,
-                x - 105,
-                y - 197);
+                x,
+                y,
+                105,
+                197);
     }
 }

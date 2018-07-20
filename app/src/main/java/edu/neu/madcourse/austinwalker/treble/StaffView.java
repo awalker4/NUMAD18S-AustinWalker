@@ -41,6 +41,7 @@ public class StaffView extends View {
     private MusicDrawable mClef;
     private MusicDrawable mNote;
     private MusicDrawable mAlien;
+    private Bullet mBullet;
 
     public StaffView(Context context) {
         super(context);
@@ -51,11 +52,6 @@ public class StaffView extends View {
     }
 
     private void setup() {
-        // Center the staff vertically
-        // (get the center of the view, then go up by half the staff height)
-        mStaffStartY = (mViewHeight / 2) - (4 * mStaffSpacing / 2);
-        mStaffEndY = mStaffStartY + (4 * mStaffSpacing);
-
         if (isTreble) {
             int x = mViewPaddingX + 130; // FIXME magic
             int y = getYFromStaffPos(2); // Center on G
@@ -73,6 +69,12 @@ public class StaffView extends View {
 
         mViewWidth = w;
         mViewHeight = h;
+
+        // Center the staff vertically
+        // (get the center of the view, then go up by half the staff height)
+        mStaffStartY = (mViewHeight / 2) - (4 * mStaffSpacing / 2);
+        mStaffEndY = mStaffStartY + (4 * mStaffSpacing);
+
         setup();
 
         Log.d(TAG, "onSizeChanged: " + mViewWidth + "X" + mViewHeight);
@@ -96,7 +98,6 @@ public class StaffView extends View {
             mLedgerLinesDown = (0 - location) / 2;
         } else if (location > 10) {
             mLedgerLinesUp = (location - 10) / 2;
-
         }
 
         invalidate();
@@ -114,13 +115,35 @@ public class StaffView extends View {
 
         if (mNote != null)
             mNote.draw(canvas);
+
+        if (mBullet != null)
+            mBullet.draw(canvas);
     }
 
     public void drawAlien(int position) {
-//        int x = mUFOPositions[0];
-        int x = 500;
+        int x = 550;
         int y = getYFromStaffPos(position);
-        mAlien = new Enemy(this, x, y);
+
+        if (mAlien == null)
+            mAlien = new Enemy(this, x, y);
+
+        if (mBullet == null)
+            mBullet = new Bullet(x, y);
+
+        tick();
+    }
+
+    private void tick() {
+        if (mBullet != null) {
+            mBullet.tick();
+
+            if (mBullet.getX() == mNoteXPos && mBullet.getY() == mNote.getY()) {
+                mBullet.reverse();
+            } else if (mBullet.getX() == mAlien.getX() && mBullet.getY() == mAlien.getY()) {
+                mAlien = null;
+                mBullet = null;
+            }
+        }
     }
 
     private void drawStaff(Canvas canvas) {
@@ -145,11 +168,6 @@ public class StaffView extends View {
             mClef.draw(canvas);
     }
 
-    // Debugging function - draw a line across the staff at x
-    private void drawVertical(Canvas canvas, int x) {
-        canvas.drawRect(x-1, mStaffStartY, x+1, mStaffStartY + 4 * mStaffSpacing, mStaffColor);
-    }
-
     // Add lines above or below staff if called for
     private void addLedgerLines(Canvas canvas) {
         for (int i = 0; i < mLedgerLinesUp; i++) {
@@ -165,6 +183,11 @@ public class StaffView extends View {
 
             canvas.drawRect(x, y, x + mLedgerWidth, y + mLineThickness, mStaffColor);
         }
+    }
+
+    // Debugging function - draw a line across the staff at x
+    private void drawVertical(Canvas canvas, int x) {
+        canvas.drawRect(x - 1, mStaffStartY, x + 1, mStaffStartY + 4 * mStaffSpacing, mStaffColor);
     }
 }
 

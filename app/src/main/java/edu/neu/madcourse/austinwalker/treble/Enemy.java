@@ -12,7 +12,9 @@ public class Enemy extends MusicDrawable {
         super(view.getResources().getDrawable(R.drawable.ufo),
                 120,
                 60,
-                x-60,
-                y-30);
+                x,
+                y,
+                60,
+                30);
     }
 }
