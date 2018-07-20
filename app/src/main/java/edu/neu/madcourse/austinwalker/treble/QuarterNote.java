@@ -10,12 +10,15 @@ public class QuarterNote extends MusicDrawable {
     // https://www.kisspng.com/png-quarter-note-musical-note-eighth-note-rest-music-n-1190492/
     // TODO: flip flag
     public QuarterNote(View view, int x, int y) {
-        super(view.getResources().getDrawable(R.drawable.quarter_note),
+        super("Note",
+                view.getResources().getDrawable(R.drawable.quarter_note),
                 230,
                 230,
                 x,
                 y,
                 105,
                 197);
+
+        mHitBuffer = 100;
     }
 }

@@ -12,7 +12,7 @@ public class Bullet extends MusicDrawable {
     private int speedY = 0;
 
     public Bullet(int x, int y) {
-        super(null, 50, 20, x, y, 25, 10);
+        super("Bullet", null, 50, 20, x, y, 25, 10);
         mColor.setColor(Color.BLACK);
     }
 
@@ -30,5 +30,9 @@ public class Bullet extends MusicDrawable {
         int x = mXPos - mXOff;
         int y = mYPos - mYOff;
         canvas.drawRect(x, y, x + width, y + height, mColor);
+    }
+
+    public boolean isReverse() {
+        return speedX > 0;
     }
 }

@@ -137,9 +137,9 @@ public class StaffView extends View {
         if (mBullet != null) {
             mBullet.tick();
 
-            if (mBullet.getX() == mNoteXPos && mBullet.getY() == mNote.getY()) {
+            if (mNote.collidesWith(mBullet)) {
                 mBullet.reverse();
-            } else if (mBullet.getX() == mAlien.getX() && mBullet.getY() == mAlien.getY()) {
+            } else if (mBullet.isReverse() && mAlien.collidesWith(mBullet)) {
                 mAlien = null;
                 mBullet = null;
             }
@@ -159,8 +159,6 @@ public class StaffView extends View {
 
         // Right-hand line
         canvas.drawRect(mViewPaddingX, mStaffStartY, mViewPaddingX + mVerticalBarWidth, mStaffStartY + 4 * mStaffSpacing, mStaffColor);
-
-        drawVertical(canvas, 500);
 
         // Clef
         // https://pixabay.com/en/bass-clef-music-clef-symbol-1425777

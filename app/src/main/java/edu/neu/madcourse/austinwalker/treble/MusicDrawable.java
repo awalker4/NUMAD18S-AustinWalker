@@ -1,12 +1,13 @@
 package edu.neu.madcourse.austinwalker.treble;
 
 import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 public class MusicDrawable {
 
-    private static final String TAG = "MusicDrawable";
+    private String TAG;
 
     private Drawable mGraphic;
 
@@ -16,14 +17,17 @@ public class MusicDrawable {
     protected int mYPos;
     protected int mXOff;
     protected int mYOff;
+    protected int mHitBuffer;
 
-    public MusicDrawable(Drawable graphic, int w, int h, int x, int y, int xOff, int yOff) {
+    public MusicDrawable(String tag, Drawable graphic, int w, int h, int x, int y, int xOff, int yOff) {
+        TAG = tag;
         width = w;
         height = h;
         mXPos = x;
         mYPos = y;
         mXOff = xOff;
         mYOff = yOff;
+        mHitBuffer = width/2; // The hitbox extends this far on each side
         mGraphic = graphic;
     }
 
@@ -31,16 +35,17 @@ public class MusicDrawable {
         return width;
     }
 
-    public int getX() {
-        return mXPos;
+    public Rect getHitBox() {
+        return new Rect(mXPos- mHitBuffer, mYPos, mXPos + mHitBuffer, mYPos + 1);
     }
 
-    public int getY() {
-        return mYPos;
-    }
+    public boolean collidesWith(MusicDrawable other) {
+        boolean hit = this.getHitBox().contains(other.getHitBox());
 
-    public boolean collidesWith(int x, int y) {
-        return true;
+        if (hit)
+            Log.d(TAG, String.format("Collision %s (%d,%d) and %s (%d,%d)", TAG, mXPos, mYPos, other.TAG, other.mXPos, other.mYPos));
+
+        return hit;
     }
 
     public void draw(Canvas canvas) {
