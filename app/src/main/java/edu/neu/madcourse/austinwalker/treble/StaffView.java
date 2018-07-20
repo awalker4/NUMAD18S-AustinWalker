@@ -4,61 +4,94 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
 
-import edu.neu.madcourse.austinwalker.R;
+public class StaffView extends View {
+    private static final String TAG = "StaffView";
 
-public class StaffLayout extends View {
-    private boolean isTreble = true;
-    private Drawable mNote;
+    // View constants
+    private static final int mViewPaddingX = 20;
 
     // Staff constants
-    private final int mStaffOffsetX = 10;
-    private final int mStaffOffsetY = 60;
-    private final int mStaffSpacing = 60;
-    private final int mLineThickness = 2;
-    private final int mLedgerWidth = 100;
+    private static final int mStaffSpacing = 60;
+    private static final int mLineThickness = 2;
+    public static final int mVerticalBarWidth = 10;
+    private static final int mLedgerWidth = 100;
 
     // Quarter note constants
-    private final int mNoteRectWidth = 230;
-    private final int mNoteYOffset = 106;
-    private final int[] mNotePositions = {200};
+    private final int mNoteXPos = 250;
+
+    // Alien constants
+    private final int[] mUFOPositions = {600};
 
     private final Paint mStaffColor = new Paint();
 
-    private int mWidth;
-    private int mHeight;
+    private int mViewWidth;
+    private int mViewHeight;
+    private int mStaffStartY;
+    private int mStaffEndY;
+
     private int mLedgerLinesDown = 0;
     private int mLedgerLinesUp = 0;
 
-    public StaffLayout(Context context) {
+    private boolean isTreble = true;
+
+    private MusicDrawable mClef;
+    private MusicDrawable mNote;
+    private MusicDrawable mAlien;
+
+    public StaffView(Context context) {
         super(context);
     }
 
-    public StaffLayout(Context context, AttributeSet attrs) {
+    public StaffView(Context context, AttributeSet attrs) {
         super(context, attrs);
+    }
+
+    private void setup() {
+        // Center the staff vertically
+        // (get the center of the view, then go up by half the staff height)
+        mStaffStartY = (mViewHeight / 2) - (4 * mStaffSpacing / 2);
+        mStaffEndY = mStaffStartY + (4 * mStaffSpacing);
+
+        if (isTreble) {
+            int x = mViewPaddingX + 130; // FIXME magic
+            int y = getYFromStaffPos(2); // Center on G
+            mClef = new TrebleClef(this, x, y);
+        } else {
+            // TODO: fix sizing
+//            Drawable bassClef = getResources().getDrawable(R.drawable.bass_clef);
+//            bassClef.setBounds(0, 0, 250, 400);
+//            bassClef.draw(canvas);
+        }
     }
 
     public void onSizeChanged(int w, int h, int oldW, int oldH) {
         super.onSizeChanged(w, h, oldW, oldH);
 
-        mWidth = w;
-        mHeight = h;
+        mViewWidth = w;
+        mViewHeight = h;
+        setup();
+
+        Log.d(TAG, "onSizeChanged: " + mViewWidth + "X" + mViewHeight);
+    }
+
+    // Return a y value for all possible staff positions
+    // starting from the bottom line
+    private int getYFromStaffPos(int position) {
+        return mStaffEndY - (position * mStaffSpacing / 2);
     }
 
     // Draws a note at staff location from the bottom line up
     public void drawNote(int location) {
-        int x = mNotePositions[0];
-        int y = mNoteYOffset - location * mStaffSpacing / 2;
+        int x = mViewPaddingX + mNoteXPos;
+        int y = getYFromStaffPos(location);
 
-        mNote = getResources().getDrawable(R.drawable.quarter_note);
-        mNote.setBounds(x, y, x + mNoteRectWidth, y + mNoteRectWidth);
+        mNote = new QuarterNote(this, x, y);
 
         mLedgerLinesDown = mLedgerLinesUp = 0;
-
         if (location < 0) {
             mLedgerLinesDown = (0 - location) / 2;
         } else if (location > 10) {
@@ -76,47 +109,59 @@ public class StaffLayout extends View {
         drawStaff(canvas);
         addLedgerLines(canvas);
 
+        if (mAlien != null)
+            mAlien.draw(canvas);
+
         if (mNote != null)
             mNote.draw(canvas);
     }
 
+    public void drawAlien(int position) {
+//        int x = mUFOPositions[0];
+        int x = 500;
+        int y = getYFromStaffPos(position);
+        mAlien = new Enemy(this, x, y);
+    }
+
     private void drawStaff(Canvas canvas) {
-         // Staff lines
+        // Staff lines
         for (int i = 0; i < 5; i++) {
-            int vert = i * mStaffSpacing + mStaffOffsetY;
-            canvas.drawRect(mStaffOffsetX, vert, mWidth - mStaffOffsetX, vert + mLineThickness, mStaffColor);
+            int vert = i * mStaffSpacing + mStaffStartY;
+
+            if (vert < mViewHeight)
+                canvas.drawRect(mViewPaddingX, vert, mViewWidth - mViewPaddingX, vert + mLineThickness, mStaffColor);
+
+            Log.d(TAG, String.format("drawStaff: (vert=%d)", vert));
         }
 
         // Right-hand line
-        canvas.drawRect(mStaffOffsetX, mStaffOffsetY, 20, mStaffOffsetY + 4 * mStaffSpacing, mStaffColor);
+        canvas.drawRect(mViewPaddingX, mStaffStartY, mViewPaddingX + mVerticalBarWidth, mStaffStartY + 4 * mStaffSpacing, mStaffColor);
+
+        drawVertical(canvas, 500);
 
         // Clef
-        // https://pixabay.com/en/treble-clef-png-key-music-clef-1279909/
         // https://pixabay.com/en/bass-clef-music-clef-symbol-1425777
-        if (isTreble) {
-            Drawable trebleClef = getResources().getDrawable(R.drawable.treble_clef);
-            trebleClef.setBounds(0, 0, 250, 400);
-            trebleClef.draw(canvas);
-        } else {
-            // TODO: fix sizing
-            Drawable bassClef = getResources().getDrawable(R.drawable.bass_clef);
-            bassClef.setBounds(0, 0, 250, 400);
-            bassClef.draw(canvas);
-        }
+        if (isTreble)
+            mClef.draw(canvas);
+    }
+
+    // Debugging function - draw a line across the staff at x
+    private void drawVertical(Canvas canvas, int x) {
+        canvas.drawRect(x-1, mStaffStartY, x+1, mStaffStartY + 4 * mStaffSpacing, mStaffColor);
     }
 
     // Add lines above or below staff if called for
     private void addLedgerLines(Canvas canvas) {
         for (int i = 0; i < mLedgerLinesUp; i++) {
-            int y = mStaffOffsetY - i * mStaffSpacing;
-            int x = mNotePositions[0] + mLedgerWidth / 2;
+            int y = mStaffStartY - i * mStaffSpacing;
+            int x = mViewPaddingX + mNoteXPos - mLedgerWidth / 2;
 
             canvas.drawRect(x, y, x + mLedgerWidth, y + mLineThickness, mStaffColor);
         }
 
         for (int i = 0; i < mLedgerLinesDown; i++) {
-            int y = mStaffOffsetY + (5 + i) * mStaffSpacing;
-            int x = mNotePositions[0] + mLedgerWidth / 2;
+            int y = mStaffStartY + (5 + i) * mStaffSpacing;
+            int x = mViewPaddingX + mNoteXPos - mLedgerWidth / 2;
 
             canvas.drawRect(x, y, x + mLedgerWidth, y + mLineThickness, mStaffColor);
         }

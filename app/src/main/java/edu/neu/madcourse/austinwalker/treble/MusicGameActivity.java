@@ -15,7 +15,7 @@ public class MusicGameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_music_game);
 
-        final StaffLayout staff = (StaffLayout) findViewById(R.id.game_staff);
+        final StaffView staff = (StaffView) findViewById(R.id.game_staff);
 
         Button c4Button = findViewById(R.id.piano_c4);
         c4Button.setOnClickListener(new View.OnClickListener() {
@@ -23,6 +23,7 @@ public class MusicGameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mn.playNote(MusicNote.C4);
                 staff.drawNote(-2);
+                staff.drawAlien(-2);
             }
         });
 
@@ -32,6 +33,7 @@ public class MusicGameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mn.playNote(MusicNote.C4S);
                 staff.drawNote(-2);
+                staff.drawAlien(-2);
             }
         });
 
@@ -41,6 +43,7 @@ public class MusicGameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mn.playNote(MusicNote.D4);
                 staff.drawNote(-1);
+                staff.drawAlien(-1);
             }
         });
 
@@ -51,6 +54,7 @@ public class MusicGameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mn.playNote(MusicNote.D4S);
                 staff.drawNote(-1);
+                staff.drawAlien(-1);
             }
         });
 
@@ -60,6 +64,7 @@ public class MusicGameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mn.playNote(MusicNote.E4);
                 staff.drawNote(0);
+                staff.drawAlien(0);
             }
         });
 
@@ -69,6 +74,7 @@ public class MusicGameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mn.playNote(MusicNote.F4);
                 staff.drawNote(1);
+                staff.drawAlien(1);
 
             }
         });
@@ -79,6 +85,7 @@ public class MusicGameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mn.playNote(MusicNote.F4S);
                 staff.drawNote(1);
+                staff.drawAlien(1);
             }
         });
 
@@ -89,6 +96,7 @@ public class MusicGameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mn.playNote(MusicNote.G4);
                 staff.drawNote(2);
+                staff.drawAlien(2);
             }
         });
 
@@ -99,6 +107,7 @@ public class MusicGameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mn.playNote(MusicNote.G4S);
                 staff.drawNote(2);
+                staff.drawAlien(2);
             }
         });
 
@@ -109,6 +118,7 @@ public class MusicGameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mn.playNote(MusicNote.A4);
                 staff.drawNote(3);
+                staff.drawAlien(3);
             }
         });
 
@@ -119,6 +129,7 @@ public class MusicGameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mn.playNote(MusicNote.A4S);
                 staff.drawNote(3);
+                staff.drawAlien(3);
             }
         });
 
@@ -128,6 +139,7 @@ public class MusicGameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mn.playNote(MusicNote.B4);
                 staff.drawNote(4);
+                staff.drawAlien(4);
             }
         });
 
@@ -137,6 +149,7 @@ public class MusicGameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mn.playNote(MusicNote.C5);
                 staff.drawNote(5);
+                staff.drawAlien(5);
             }
         });
     }
