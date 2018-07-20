@@ -43,7 +43,7 @@ public class MusicDrawable {
         boolean hit = this.getHitBox().contains(other.getHitBox());
 
         if (hit)
-            Log.d(TAG, String.format("Collision %s (%d,%d) and %s (%d,%d)", TAG, mXPos, mYPos, other.TAG, other.mXPos, other.mYPos));
+            Log.d(TAG, String.format("Collision (%d,%d) with %s (%d,%d)", TAG, mXPos, mYPos, other.TAG, other.mXPos, other.mYPos));
 
         return hit;
     }
