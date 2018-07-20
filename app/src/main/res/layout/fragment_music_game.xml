@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:layout_editor_absoluteY="81dp">
 
-    <edu.neu.madcourse.austinwalker.treble.StaffLayout
+    <edu.neu.madcourse.austinwalker.treble.StaffView
         android:id="@+id/game_staff"
         android:layout_width="match_parent"
         android:layout_height="250dp" />

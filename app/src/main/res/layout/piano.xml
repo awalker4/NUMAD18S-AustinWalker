@@ -35,7 +35,6 @@
         style="@style/PianoKeyWhite"
         android:layout_toEndOf="@id/piano_a4"/>
 
-
     <Button
         android:id="@+id/piano_c5"
         style="@style/PianoKeyWhite"

@@ -11,10 +11,10 @@ public class MusicGameMenuActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_word_game_menu);
+        setContentView(R.layout.activity_music_game_menu);
 
         // New game button
-        View newButton = findViewById(R.id.scroggle_new_game_button);
+        View newButton = findViewById(R.id.treble_new_game_button);
         newButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

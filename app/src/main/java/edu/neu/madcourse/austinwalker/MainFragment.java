@@ -22,7 +22,7 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        // Music button listener
+        // Music game button
         View gameButton = rootView.findViewById(R.id.music_game_button);
         gameButton.setOnClickListener(new View.OnClickListener() {
             @Override
