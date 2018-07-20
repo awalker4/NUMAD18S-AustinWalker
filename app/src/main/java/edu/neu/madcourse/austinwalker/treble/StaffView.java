@@ -41,7 +41,7 @@ public class StaffView extends View {
     private MusicDrawable mClef;
     private MusicDrawable mNote;
     private MusicDrawable mAlien;
-    private Bullet mBullet;
+    private BulletDrawable mBullet;
 
     public StaffView(Context context) {
         super(context);
@@ -55,7 +55,7 @@ public class StaffView extends View {
         if (isTreble) {
             int x = mViewPaddingX + 130; // FIXME magic
             int y = getYFromStaffPos(2); // Center on G
-            mClef = new TrebleClef(this, x, y);
+            mClef = new TrebleClefDrawable(this, x, y);
         } else {
             // TODO: fix sizing
 //            Drawable bassClef = getResources().getDrawable(R.drawable.bass_clef);
@@ -91,7 +91,7 @@ public class StaffView extends View {
         int x = mViewPaddingX + mNoteXPos;
         int y = getYFromStaffPos(location);
 
-        mNote = new QuarterNote(this, x, y);
+        mNote = new QuarterNoteDrawable(this, x, y);
 
         mLedgerLinesDown = mLedgerLinesUp = 0;
         if (location < 0) {
@@ -125,10 +125,10 @@ public class StaffView extends View {
         int y = getYFromStaffPos(position);
 
         if (mAlien == null)
-            mAlien = new Enemy(this, x, y);
+            mAlien = new EnemyDrawable(this, x, y);
 
         if (mBullet == null)
-            mBullet = new Bullet(x, y);
+            mBullet = new BulletDrawable(x, y);
 
         tick();
     }

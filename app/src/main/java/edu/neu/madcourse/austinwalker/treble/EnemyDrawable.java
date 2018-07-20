@@ -4,11 +4,11 @@ import android.view.View;
 
 import edu.neu.madcourse.austinwalker.R;
 
-public class Enemy extends MusicDrawable {
+public class EnemyDrawable extends MusicDrawable {
 
     // Draw a UFO centered on x,y
     // https://www.deviantart.com/fireprouf/art/Ufo-Pixel-Art-646305499
-    public Enemy(View view, int x, int y) {
+    public EnemyDrawable(View view, int x, int y) {
         super("Alien",
                 view.getResources().getDrawable(R.drawable.ufo),
                 120,

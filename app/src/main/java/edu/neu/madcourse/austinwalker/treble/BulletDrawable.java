@@ -4,14 +4,14 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-public class Bullet extends MusicDrawable {
+public class BulletDrawable extends MusicDrawable {
 
     private final Paint mColor = new Paint();
 
     private int speedX = -20;
     private int speedY = 0;
 
-    public Bullet(int x, int y) {
+    public BulletDrawable(int x, int y) {
         super("Bullet", null, 50, 20, x, y, 25, 10);
         mColor.setColor(Color.BLACK);
     }
