@@ -32,7 +32,7 @@ public class MusicGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mn.playNote(MusicNote.C4S);
-                staff.setIsTreble(false);
+                staff.setTreble(false);
                 staff.drawNote(-2);
                 staff.drawAlien(-2);
             }
@@ -54,7 +54,7 @@ public class MusicGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mn.playNote(MusicNote.D4S);
-                staff.setIsTreble(true);
+                staff.setTreble(true);
                 staff.drawNote(-1);
                 staff.drawAlien(-1);
             }
@@ -132,6 +132,7 @@ public class MusicGameActivity extends AppCompatActivity {
                 mn.playNote(MusicNote.A4S);
                 staff.drawNote(3);
                 staff.drawAlien(3);
+                staff.setClosed(false);
             }
         });
 
@@ -152,6 +153,7 @@ public class MusicGameActivity extends AppCompatActivity {
                 mn.playNote(MusicNote.C5);
                 staff.drawNote(5);
                 staff.drawAlien(5);
+                staff.setClosed(true);
             }
         });
     }

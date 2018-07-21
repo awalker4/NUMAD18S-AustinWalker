@@ -36,6 +36,7 @@ public class StaffView extends View {
     private int mLedgerLinesUp = 0;
 
     private boolean isTreble = true;
+    private boolean isClosed = true;
 
     private MusicDrawable mClef;
     private MusicDrawable mNote;
@@ -63,10 +64,14 @@ public class StaffView extends View {
         }
     }
 
-    public void setIsTreble(boolean treble) {
+    public void setTreble(boolean treble) {
         isTreble = treble;
 
         setup();
+    }
+
+    public void setClosed(boolean closed) {
+        isClosed = closed;
     }
 
     public void onSizeChanged(int w, int h, int oldW, int oldH) {
@@ -165,7 +170,14 @@ public class StaffView extends View {
         }
 
         // Right-hand line
-        canvas.drawRect(mViewPaddingX, mStaffStartY, mViewPaddingX + mVerticalBarWidth, mStaffStartY + 4 * mStaffSpacing, mStaffColor);
+        drawVertical(canvas, mViewPaddingX, mLineThickness);
+
+        // Left-hand line
+        if (isClosed) {
+            int staffEndX = mViewWidth - mViewPaddingX;
+            drawVertical(canvas, staffEndX, -10);
+            drawVertical(canvas, staffEndX - 20, mLineThickness);
+        }
 
         // Clef
         if (mClef != null)
@@ -189,9 +201,12 @@ public class StaffView extends View {
         }
     }
 
-    // Debugging function - draw a line across the staff at x
-    private void drawVertical(Canvas canvas, int x) {
-        canvas.drawRect(x - 1, mStaffStartY, x + 1, mStaffStartY + 4 * mStaffSpacing, mStaffColor);
+    // Draw a line across the staff at x
+    private void drawVertical(Canvas canvas, int x, int width) {
+        int topLine = getYFromStaffPos(8);
+        int bottomLine = getYFromStaffPos(0);
+
+        canvas.drawRect(x, topLine, x + width, bottomLine, mStaffColor);
     }
 }
 
