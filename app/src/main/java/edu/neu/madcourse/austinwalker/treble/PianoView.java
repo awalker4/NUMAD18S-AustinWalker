@@ -25,8 +25,8 @@ public class PianoView extends View {
     private int mViewPaddingY = 50;
 
     // TODO: make properties of the view
-    private MusicNote.Note mStartNote = MusicNote.Note.C4;
-    private MusicNote.Note endNote = MusicNote.Note.C5;
+    private MusicNote.Note mStartNote;
+    private MusicNote.Note mEndNote;
 
     private ArrayList<MusicNote.Note> keys;
     private ArrayList<Rect> keyRects;
@@ -47,6 +47,11 @@ public class PianoView extends View {
         super(context, attrs);
     }
 
+    public void setRange(MusicNote.Note start, MusicNote.Note end) {
+        mStartNote = start;
+        mEndNote = end;
+    }
+
     private void setupKeys() {
         mKeyColor.setColor(Color.BLACK); // MAYBE SOMEWHERE ELSE
 
@@ -54,7 +59,7 @@ public class PianoView extends View {
         keyRects = new ArrayList<>();
 
         int startNotes = mStartNote.ordinal();
-        int endNotes = endNote.ordinal();
+        int endNotes = mEndNote.ordinal();
         MusicNote.Note[] allNotes = MusicNote.Note.values();
 
         int keyNum = 0;

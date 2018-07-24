@@ -72,6 +72,10 @@ public class StaffView extends View {
         setup();
     }
 
+    public boolean isTreble() {
+        return isTreble;
+    }
+
     public void setClosed(boolean closed) {
         isClosed = closed;
     }
