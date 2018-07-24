@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -21,10 +22,11 @@ public class PianoView extends View {
     private KeyPressedListener mListener;
 
     // View dimensions
-    private int mViewPaddingX = 50;
+    private int mViewWidth;
+    private int mViewHeight;
+    private int mPianoStartX;
     private int mViewPaddingY = 50;
 
-    // TODO: make properties of the view
     private MusicNote.Note mStartNote;
     private MusicNote.Note mEndNote;
 
@@ -69,7 +71,7 @@ public class PianoView extends View {
             keys.add(current);
 
             // Get the rect
-            int x = mViewPaddingX + mKeyWidth * keyNum + 2 * mKeyMargin;
+            int x = mPianoStartX + mKeyWidth * keyNum + 2 * mKeyMargin;
             int y = mViewPaddingY;
             if (current.isWhite()) {
                 keyRects.add(getWhiteKeyRect(x, y));
@@ -81,13 +83,26 @@ public class PianoView extends View {
         }
     }
 
+    private int getPianoWidth() {
+        if (mStartNote == null || mEndNote == null)
+            return 0;
+
+        return (mEndNote.getKeyNumber() - mStartNote.getKeyNumber() + 1) * mKeyWidth;
+    }
+
     public void onSizeChanged(int w, int h, int oldW, int oldH) {
         super.onSizeChanged(w, h, oldW, oldH);
 
-        // TODO recalculate view size
+        mViewWidth = w;
+        mViewHeight = h;
+
+        // Center the keys horizontally
+        // get center of view, then go back by half of piano width
+        mPianoStartX = (mViewWidth / 2) - (getPianoWidth() / 2);
+
         setupKeys();
 
-//        Log.d(TAG, "onSizeChanged: " + mViewWidth + "X" + mViewHeight);
+        Log.d(TAG, "onSizeChanged: " + mViewWidth + "X" + mViewHeight);
     }
 
     public void onDraw(Canvas canvas) {

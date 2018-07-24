@@ -53,7 +53,7 @@ public class StaffView extends View {
         super(context, attrs);
     }
 
-    private void setup() {
+    private void setupClef() {
         int x = mViewPaddingX + mClefOffset;
         int y;
 
@@ -69,7 +69,7 @@ public class StaffView extends View {
     public void setTreble(boolean treble) {
         isTreble = treble;
 
-        setup();
+        setupClef();
     }
 
     public boolean isTreble() {
@@ -91,7 +91,7 @@ public class StaffView extends View {
         mStaffStartY = (mViewHeight / 2) - (4 * mStaffSpacing / 2);
         mStaffEndY = mStaffStartY + (4 * mStaffSpacing);
 
-        setup();
+        setupClef();
 
         Log.d(TAG, "onSizeChanged: " + mViewWidth + "X" + mViewHeight);
     }
