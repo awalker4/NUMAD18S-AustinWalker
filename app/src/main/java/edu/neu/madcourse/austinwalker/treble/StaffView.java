@@ -8,6 +8,9 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.Vector;
+
 public class StaffView extends View {
     private static final String TAG = "StaffView";
 
@@ -17,7 +20,6 @@ public class StaffView extends View {
     // Staff constants
     private static final int mStaffSpacing = 60;
     private static final int mLineThickness = 2;
-    public static final int mVerticalBarWidth = 10;
     private static final int mLedgerWidth = 100;
     private final int mClefOffset = 50;
     private final int mNoteOffset = 300;
@@ -40,8 +42,8 @@ public class StaffView extends View {
 
     private MusicDrawable mClef;
     private MusicDrawable mNote;
-    private MusicDrawable mAlien;
-    private BulletDrawable mBullet;
+    private ArrayList<EnemyDrawable> mAliens = new ArrayList<>();
+    private ArrayList<BulletDrawable> mBullets = new ArrayList<>();
 
     public StaffView(Context context) {
         super(context);
@@ -110,6 +112,7 @@ public class StaffView extends View {
             mLedgerLinesUp = (location - 10) / 2;
         }
 
+        tick();
         invalidate();
     }
 
@@ -120,42 +123,70 @@ public class StaffView extends View {
         drawStaff(canvas);
         addLedgerLines(canvas);
 
-        if (mAlien != null)
-            mAlien.draw(canvas);
-
         if (mNote != null)
             mNote.draw(canvas);
 
-        if (mBullet != null)
-            mBullet.draw(canvas);
+        for (MusicDrawable alien : mAliens) {
+            alien.draw(canvas);
+        }
 
-//        drawVertical(canvas, mViewPaddingX + mClefOffset);
+        for (MusicDrawable bullet : mBullets) {
+            bullet.draw(canvas);
+        }
     }
+
+    boolean fAlien = false;
+    boolean cAlien = false;
 
     public void drawAlien(int position) {
         int x = 550;
         int y = getYFromStaffPos(position);
 
-        if (mAlien == null)
-            mAlien = new EnemyDrawable(this, x, y);
+        if (position == 1 && !fAlien) {
+            mAliens.add(new EnemyDrawable(this, x, y));
+            mBullets.add(new BulletDrawable(x, y));
+            fAlien = true;
+        }
 
-        if (mBullet == null)
-            mBullet = new BulletDrawable(x, y);
-
-        tick();
+        if (position == 5 && !cAlien) {
+            mAliens.add(new EnemyDrawable(this, x, y));
+            mBullets.add(new BulletDrawable(x, y));
+            cAlien = true;
+        }
     }
 
     private void tick() {
-        if (mBullet != null) {
-            mBullet.tick();
+        Vector<BulletDrawable> toRemoveBullets = new Vector<>();
 
-            if (!mBullet.isReverse() && mNote.collidesWith(mBullet)) {
-                mBullet.reverse();
-            } else if (mBullet.isReverse() && mAlien.collidesWith(mBullet)) {
-                mAlien = null;
-                mBullet = null;
+        for (BulletDrawable bullet : mBullets) {
+            bullet.tick();
+
+            if (!bullet.isReverse() && mNote.collidesWith(bullet)) {
+                bullet.reverse();
+            }
+
+            Vector<MusicDrawable> toRemove = new Vector<>();
+
+
+            for (MusicDrawable alien : mAliens) {
+                if (bullet.isReverse() && alien.collidesWith(bullet)) {
+                    toRemove.add(alien);
+                    toRemoveBullets.add(bullet);
+                }
+            }
+
+            for (MusicDrawable alien : toRemove) {
+                mAliens.remove(alien);
             }
         }
+
+        for (BulletDrawable bulletRemove : toRemoveBullets) {
+            mBullets.remove(bulletRemove);
+        }
+    }
+
+    private void checkForCollisons() {
+
     }
 
     private void drawStaff(Canvas canvas) {
