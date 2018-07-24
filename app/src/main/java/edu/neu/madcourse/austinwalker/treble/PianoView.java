@@ -37,7 +37,7 @@ public class PianoView extends View {
     private int mBlackHeyHeight = 250;
     private int mKeyMargin = 3;
 
-    private Paint mStaffColor = new Paint();
+    private Paint mKeyColor = new Paint();
 
     public PianoView(Context context) {
         super(context);
@@ -48,6 +48,8 @@ public class PianoView extends View {
     }
 
     private void setupKeys() {
+        mKeyColor.setColor(Color.BLACK); // MAYBE SOMEWHERE ELSE
+
         keys = new ArrayList<>();
         keyRects = new ArrayList<>();
 
@@ -86,10 +88,6 @@ public class PianoView extends View {
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        mStaffColor.setColor(Color.BLACK);
-
-        Paint keyColor = new Paint();
-
         for (int i = 0; i < keys.size(); i++) {
             if (keys.get(i).isWhite()) {
                 drawWhiteKey(canvas, keyRects.get(i));
@@ -99,8 +97,7 @@ public class PianoView extends View {
         // Go back and draw black
         for (int i = 0; i < keys.size(); i++) {
             if (!keys.get(i).isWhite()) {
-                keyColor.setColor(Color.BLACK);
-                canvas.drawRect(keyRects.get(i), keyColor);
+                canvas.drawRect(keyRects.get(i), mKeyColor);
             }
         }
     }
@@ -126,22 +123,20 @@ public class PianoView extends View {
     // Return the key residing at x,y
     // or -1 if no key
     private int getKeyNumber(float x, float y) {
-
-        // Make sure we check black keys first
-        // SUPER HACK
-        for (int i = 0; i < keys.size(); i++) {
-            if (keyRects.get(i).contains((int) x, (int) y) && !keys.get(i).isWhite()) {
-                return i;
-            }
-        }
+        int whiteKey = -1;
 
         for (int i = 0; i < keys.size(); i++) {
             if (keyRects.get(i).contains((int) x, (int) y)) {
-                return i;
+
+                // Make sure there isn't also a black key here
+                if (keys.get(i).isWhite())
+                    whiteKey = i;
+                else
+                    return i;
             }
         }
 
-        return -1;
+        return whiteKey;
     }
 
     private Rect getWhiteKeyRect(int x, int y) {
@@ -153,30 +148,23 @@ public class PianoView extends View {
         return new Rect(left, top, right, bottom);
     }
 
-    // Draw white key with top left corner at x,y
-    private void drawWhiteKey(Canvas canvas, Rect r) {
-        // Left
-        canvas.drawRect(r.left, r.top, r.left + mLineThickness, r.bottom, mStaffColor);
-
-        // Bottom
-        canvas.drawRect(r.left, r.bottom, r.right, r.bottom + mLineThickness, mStaffColor);
-
-        // Right
-        canvas.drawRect(r.right, r.top, r.right + mLineThickness, r.bottom, mStaffColor);
-
-        // Top
-        canvas.drawRect(r.right, r.top, r.left, r.top + mLineThickness, mStaffColor);
-    }
-
-    // Draw black key with top left corner at x,y
-    private void drawBlackKey(Canvas canvas, int x, int y) {
-        canvas.drawRect(x + mKeyMargin, y, x + mKeyWidth - mKeyMargin, y + mBlackHeyHeight, mStaffColor);
-    }
-
     // Draw black key with top left corner at x,y
     private Rect getBlackKeyRect(int x, int y) {
         return new Rect(x + mKeyMargin, y, x + mKeyWidth - mKeyMargin, y + mBlackHeyHeight);
     }
 
+    // Draw white key outlined on Rect r
+    private void drawWhiteKey(Canvas canvas, Rect r) {
+        // Left
+        canvas.drawRect(r.left, r.top, r.left + mLineThickness, r.bottom, mKeyColor);
 
+        // Bottom
+        canvas.drawRect(r.left, r.bottom, r.right, r.bottom + mLineThickness, mKeyColor);
+
+        // Right
+        canvas.drawRect(r.right, r.top, r.right + mLineThickness, r.bottom, mKeyColor);
+
+        // Top
+        canvas.drawRect(r.right, r.top, r.left, r.top + mLineThickness, mKeyColor);
+    }
 }
