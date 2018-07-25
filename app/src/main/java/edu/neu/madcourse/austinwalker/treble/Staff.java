@@ -14,21 +14,38 @@ public class Staff {
         mStaffView.setTreble(treble);
     }
 
-    public void placeNote(MusicNote.Note note) {
-        int notePosition = note.getKeyNumber();
+    public void tick() {
+        mStaffView.tick();
+    }
 
-        if (mStaffView.isTreble())
-            notePosition -= MusicNote.Note.E4.getKeyNumber();
-        else
-            notePosition -= MusicNote.Note.G2.getKeyNumber();
+    public void addAlien(MusicNote.Note alienNote) {
+        int alienPosition = getNotePosition(alienNote);
+
+        mStaffView.addAlien(alienPosition);
+    }
+
+    public void placeNote(MusicNote.Note note) {
+        int notePosition = getNotePosition(note);
 
         if (note.isWhite()) {
             mStaffView.drawNote(notePosition);
         } else if (useFlats) {
-            // Black keys are positioned as sharps, need to go up a spot
+            // All notes in the enum are sharp; flats need to move up a spot
             mStaffView.drawFlatNote(notePosition + 1);
         } else {
             mStaffView.drawSharpNote(notePosition);
         }
+
+        tick();
     }
+
+    private int getNotePosition(MusicNote.Note note) {
+        int notePosition = note.getKeyNumber();
+
+        if (mStaffView.isTreble())
+            return notePosition - MusicNote.Note.E4.getKeyNumber();
+        else
+            return notePosition - MusicNote.Note.G2.getKeyNumber();
+    }
+
 }

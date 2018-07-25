@@ -23,6 +23,7 @@ public class StaffView extends View {
     private static final int mLedgerWidth = 100;
     private final int mClefOffset = 50;
     private final int mNoteOffset = 300;
+    private final int mAlienOffset = 550;
 
     private final Paint mStaffColor = new Paint();
 
@@ -104,11 +105,43 @@ public class StaffView extends View {
     }
 
     public void addAlien(int position) {
-        int x = 550;
+        int x = mAlienOffset;
         int y = getYForStaffLocation(position);
 
+        // TODO: add a potential shooting delay
         mAliens.add(new EnemyDrawable(this, x, y));
         mBullets.add(new BulletDrawable(x, y));
+
+        invalidate();
+    }
+
+    public void tick() {
+        Vector<BulletDrawable> toRemoveBullets = new Vector<>();
+
+        for (BulletDrawable bullet : mBullets) {
+            bullet.tick();
+
+            if (mNote != null && !bullet.isReverse() && mNote.collidesWith(bullet)) {
+                bullet.reverse();
+            }
+
+            Vector<MusicDrawable> toRemove = new Vector<>();
+
+            for (MusicDrawable alien : mAliens) {
+                if (bullet.isReverse() && alien.collidesWith(bullet)) {
+                    toRemove.add(alien);
+                    toRemoveBullets.add(bullet);
+                }
+            }
+
+            for (MusicDrawable alien : toRemove) {
+                mAliens.remove(alien);
+            }
+        }
+
+        for (BulletDrawable bulletRemove : toRemoveBullets) {
+            mBullets.remove(bulletRemove);
+        }
     }
 
     public boolean isTreble() {
@@ -158,38 +191,7 @@ public class StaffView extends View {
             mLedgerLinesUp = (location - 10) / 2;
         }
 
-        tick();
         invalidate();
-    }
-
-    private void tick() {
-        Vector<BulletDrawable> toRemoveBullets = new Vector<>();
-
-        for (BulletDrawable bullet : mBullets) {
-            bullet.tick();
-
-            if (!bullet.isReverse() && mNote.collidesWith(bullet)) {
-                bullet.reverse();
-            }
-
-            Vector<MusicDrawable> toRemove = new Vector<>();
-
-
-            for (MusicDrawable alien : mAliens) {
-                if (bullet.isReverse() && alien.collidesWith(bullet)) {
-                    toRemove.add(alien);
-                    toRemoveBullets.add(bullet);
-                }
-            }
-
-            for (MusicDrawable alien : toRemove) {
-                mAliens.remove(alien);
-            }
-        }
-
-        for (BulletDrawable bulletRemove : toRemoveBullets) {
-            mBullets.remove(bulletRemove);
-        }
     }
 
     private void drawStaff(Canvas canvas) {

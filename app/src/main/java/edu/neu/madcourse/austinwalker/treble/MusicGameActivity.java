@@ -12,25 +12,16 @@ public class MusicGameActivity extends AppCompatActivity {
 
     public static final String TAG = "MusicGameActivity";
 
-    private MusicNote mn = new MusicNote();
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_music_game);
 
-        final Staff staff = new Staff((StaffView) findViewById(R.id.game_staff));
+
+        StaffView staff = findViewById(R.id.game_staff);
         PianoView piano = findViewById(R.id.game_piano);
+        MusicGameLevel firstLevel = new MusicGameLevel(staff, piano);
 
-        piano.setRange(MusicNote.Note.C4, MusicNote.Note.C5);
-        staff.setTreble(true);
+        new Thread(firstLevel).start();
 
-        piano.setKeyPressedListener(new PianoView.KeyPressedListener() {
-            @Override
-            public void onKeyDown(MusicNote.Note notePressed) {
-                Log.d(TAG, "onKeyDown: " + notePressed.name());
-                mn.playNote(notePressed.getFrequency());
-                staff.placeNote(notePressed);
-            }
-        });
     }
 }
