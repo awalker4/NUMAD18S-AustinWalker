@@ -16,7 +16,6 @@ public class MusicGameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_music_game);
 
-
         StaffView staff = findViewById(R.id.game_staff);
         PianoView piano = findViewById(R.id.game_piano);
         MusicGameLevel firstLevel = new MusicGameLevel(staff, piano);

@@ -26,7 +26,7 @@ public class PianoView extends View {
     private int mViewWidth;
     private int mViewHeight;
     private int mPianoStartX;
-    private int mViewPaddingY = 50;
+    private int mPianoStartY;
 
     private MusicNote.Note mStartNote;
     private MusicNote.Note mEndNote;
@@ -58,8 +58,9 @@ public class PianoView extends View {
         mViewHeight = h;
 
         // Center the keys horizontally
-        // get center of view, then go back by half of piano width
+        // get center of view, then go back by half of piano width/height
         mPianoStartX = (mViewWidth / 2) - (getPianoWidth() / 2);
+        mPianoStartY = (mViewHeight / 2) - (mWhiteKeyHeight / 2);
 
         setupKeys();
 
@@ -133,7 +134,7 @@ public class PianoView extends View {
 
             // Get the rect
             int x = mPianoStartX + mKeyWidth * keyNum + 2 * mKeyMargin;
-            int y = mViewPaddingY;
+            int y = mPianoStartY;
             if (current.isWhite()) {
                 keyRects.add(getWhiteKeyRect(x, y));
                 keyNum++;
