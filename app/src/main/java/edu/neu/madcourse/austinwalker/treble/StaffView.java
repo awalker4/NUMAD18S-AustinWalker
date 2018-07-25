@@ -21,9 +21,9 @@ public class StaffView extends View {
     private static final int mStaffSpacing = 60;
     private static final int mLineThickness = 2;
     private static final int mLedgerWidth = 100;
-    private final int mClefOffset = 50;
-    private final int mNoteOffset = 300;
-    private final int mAlienOffset = 550;
+    private static final int mClefOffset = 50;
+    private static final int mNoteOffset = 300;
+    private static final int mAlienOffset = 550;
 
     private final Paint mStaffColor = new Paint();
 
