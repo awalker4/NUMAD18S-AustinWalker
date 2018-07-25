@@ -36,7 +36,7 @@ public class StaffView extends View {
     private int mLedgerLinesUp = 0;
 
     private boolean isTreble = true;
-    private boolean isClosed = true;
+    private boolean isClosed = false;
 
     private MusicDrawable mClef;
     private QuarterNoteDrawable mNote;
@@ -111,6 +111,10 @@ public class StaffView extends View {
         mBullets.add(new BulletDrawable(this, x, position));
 
         invalidate();
+    }
+
+    public int numAliens() {
+        return mAliens.size();
     }
 
     public void tick() {

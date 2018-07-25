@@ -16,6 +16,9 @@ public class Staff {
 
     public void tick() {
         mStaffView.tick();
+
+        if (mStaffView.numAliens() == 0)
+            mStaffView.setClosed(true);
     }
 
     public void addAlien(MusicNote.Note alienNote) {
