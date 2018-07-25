@@ -13,7 +13,7 @@ public class QuarterNoteDrawable extends MusicDrawable {
 
     // Draw a quarter note centered on x,y
     // https://www.kisspng.com/png-quarter-note-musical-note-eighth-note-rest-music-n-1190492/
-    // TODO: flip flag
+    // TODO: flip for high notes
     public QuarterNoteDrawable(StaffView staffView, int x, int staffPos) {
         super("Note",
                 staffView,

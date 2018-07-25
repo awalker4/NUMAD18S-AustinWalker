@@ -117,6 +117,7 @@ public class StaffView extends View {
         return mAliens.size();
     }
 
+    // FIXME: better list processing
     public void tick() {
         Vector<BulletDrawable> toRemoveBullets = new Vector<>();
 

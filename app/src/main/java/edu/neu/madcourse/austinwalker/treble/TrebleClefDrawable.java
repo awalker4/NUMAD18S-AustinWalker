@@ -1,7 +1,5 @@
 package edu.neu.madcourse.austinwalker.treble;
 
-import android.view.View;
-
 import edu.neu.madcourse.austinwalker.R;
 
 public class TrebleClefDrawable extends MusicDrawable {
