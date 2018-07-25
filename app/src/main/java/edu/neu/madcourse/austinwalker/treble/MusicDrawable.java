@@ -31,10 +31,6 @@ public class MusicDrawable {
         mGraphic = graphic;
     }
 
-    public int getWidth() {
-        return width;
-    }
-
     public Rect getHitBox() {
         return new Rect(mXPos- mHitBuffer, mYPos, mXPos + mHitBuffer, mYPos + 1);
     }
