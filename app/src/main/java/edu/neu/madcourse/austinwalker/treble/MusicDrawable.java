@@ -11,45 +11,52 @@ public class MusicDrawable {
 
     private Drawable mGraphic;
 
-    protected int width;
-    protected int height;
+    protected StaffView mStaffView;
+
+    protected int mWidth;
+    protected int mHeight;
     protected int mXPos;
-    protected int mYPos;
+    protected int mStaffPos;
     protected int mXOff;
     protected int mYOff;
     protected int mHitBuffer;
 
-    public MusicDrawable(String tag, Drawable graphic, int w, int h, int x, int y, int xOff, int yOff) {
+    public MusicDrawable(String tag, StaffView staff, int graphicID, int w, int h, int xOff, int yOff, int x, int staffPos) {
         TAG = tag;
-        width = w;
-        height = h;
-        mXPos = x;
-        mYPos = y;
+        mStaffView = staff;
+
+        if (graphicID != 0)
+            mGraphic = mStaffView.getResources().getDrawable(graphicID);
+
+        mWidth = w;
+        mHeight = h;
         mXOff = xOff;
         mYOff = yOff;
-        mHitBuffer = width/2; // The hitbox extends this far on each side
-        mGraphic = graphic;
+        mXPos = x;
+        mStaffPos = staffPos;
+        mHitBuffer = mWidth / 2; // The hitbox extends this far on each side
     }
 
     public Rect getHitBox() {
-        return new Rect(mXPos- mHitBuffer, mYPos, mXPos + mHitBuffer, mYPos + 1);
+        int y = mStaffView.getYForStaffLocation(mStaffPos);
+        return new Rect(mXPos - mHitBuffer, y, mXPos + mHitBuffer, y + 1);
     }
 
     public boolean collidesWith(MusicDrawable other) {
         boolean hit = this.getHitBox().contains(other.getHitBox());
 
         if (hit)
-            Log.d(TAG, String.format("Collision (%d,%d) with %s (%d,%d)", mXPos, mYPos, other.TAG, other.mXPos, other.mYPos));
+            Log.d(TAG, String.format("Collision with %s at pos %d", other.TAG, mStaffPos));
 
         return hit;
     }
 
     public void draw(Canvas canvas) {
         int x = mXPos - mXOff;
-        int y = mYPos - mYOff;
-        Log.d(TAG, String.format("draw: (%d,%d,%d,%d)", x, y, x + width, y + height));
+        int y = mStaffView.getYForStaffLocation(mStaffPos) - mYOff;
+        Log.d(TAG, String.format("draw: (%d,%d,%d,%d)", x, y, x + mWidth, y + mHeight));
 
-        mGraphic.setBounds(x, y, x + width, y + height);
+        mGraphic.setBounds(x, y, x + mWidth, y + mHeight);
         mGraphic.draw(canvas);
     }
 }

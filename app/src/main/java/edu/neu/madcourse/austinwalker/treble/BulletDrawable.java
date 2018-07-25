@@ -11,14 +11,14 @@ public class BulletDrawable extends MusicDrawable {
     private int speedX = -20;
     private int speedY = 0;
 
-    public BulletDrawable(int x, int y) {
-        super("Bullet", null, 50, 20, x, y, 25, 10);
+    public BulletDrawable(StaffView staffView, int x, int staffPos) {
+        super("Bullet", staffView, 0, 50, 20, 25, 10,  x, staffPos);
         mColor.setColor(Color.BLACK);
     }
 
     public void tick() {
         mXPos += speedX;
-        mYPos += speedY;
+        mStaffPos += speedY; // TODO: angled bullets
     }
 
     public void reverse() {
@@ -28,8 +28,9 @@ public class BulletDrawable extends MusicDrawable {
     @Override
     public void draw(Canvas canvas) {
         int x = mXPos - mXOff;
-        int y = mYPos - mYOff;
-        canvas.drawRect(x, y, x + width, y + height, mColor);
+        int y = mStaffView.getYForStaffLocation(mStaffPos) - mYOff;
+
+        canvas.drawRect(x, y, x + mWidth, y + mHeight, mColor);
     }
 
     public boolean isReverse() {

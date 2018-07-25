@@ -8,15 +8,16 @@ public class TrebleClefDrawable extends MusicDrawable {
 
     // Draw a treble clef with x,y in the center of the spiral
     // https://pixabay.com/en/treble-clef-png-key-music-clef-1279909/
-    public TrebleClefDrawable(View view, int x, int y) {
+    public TrebleClefDrawable(StaffView staffView, int x, int staffPos) {
         super("Treble Clef",
-                view.getResources().getDrawable(R.drawable.treble_clef),
+                staffView,
+                R.drawable.treble_clef,
                 250,
                 400,
-                x,
-                y,
                 50,
-                247);
+                247,
+                x,
+                staffPos);
     }
 
 }

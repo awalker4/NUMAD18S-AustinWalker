@@ -54,6 +54,7 @@ public class StaffView extends View {
     @Override
     public void onSizeChanged(int w, int h, int oldW, int oldH) {
         super.onSizeChanged(w, h, oldW, oldH);
+        mStaffColor.setColor(Color.BLACK); // Could be somewhere else
 
         mViewWidth = w;
         mViewHeight = h;
@@ -70,8 +71,6 @@ public class StaffView extends View {
 
     @Override
     public void onDraw(Canvas canvas) {
-        mStaffColor.setColor(Color.BLACK);
-
         drawStaff(canvas);
         addLedgerLines(canvas);
 
@@ -106,11 +105,10 @@ public class StaffView extends View {
 
     public void addAlien(int position) {
         int x = mAlienOffset;
-        int y = getYForStaffLocation(position);
 
         // TODO: add a potential shooting delay
-        mAliens.add(new EnemyDrawable(this, x, y));
-        mBullets.add(new BulletDrawable(x, y));
+        mAliens.add(new EnemyDrawable(this, x, position));
+        mBullets.add(new BulletDrawable(this, x, position));
 
         invalidate();
     }
@@ -144,6 +142,12 @@ public class StaffView extends View {
         }
     }
 
+    // Return a y value for all possible staff positions
+    // starting from the bottom line
+    public int getYForStaffLocation(int position) {
+        return mStaffEndY - (position * mStaffSpacing / 2);
+    }
+
     public boolean isTreble() {
         return isTreble;
     }
@@ -154,14 +158,11 @@ public class StaffView extends View {
 
     private void setupClef() {
         int x = mViewPaddingX + mClefOffset;
-        int y;
 
         if (isTreble) {
-            y = getYForStaffLocation(2); // Center on G
-            mClef = new TrebleClefDrawable(this, x, y);
+            mClef = new TrebleClefDrawable(this, x, 2); // Center on G
         } else {
-            y = getYForStaffLocation(6); // Center on F
-            mClef = new BassClefDrawable(this, x, y);
+            mClef = new BassClefDrawable(this, x, 6); // Center on F
         }
     }
 
@@ -170,18 +171,11 @@ public class StaffView extends View {
         setupClef();
     }
 
-    // Return a y value for all possible staff positions
-    // starting from the bottom line
-    private int getYForStaffLocation(int position) {
-        return mStaffEndY - (position * mStaffSpacing / 2);
-    }
-
     // Draws a note at staff location from the bottom line up
     private void drawNote(int location, QuarterNoteDrawable.NoteState state) {
         int x = mViewPaddingX + mNoteOffset;
-        int y = getYForStaffLocation(location);
 
-        mNote = new QuarterNoteDrawable(this, x, y);
+        mNote = new QuarterNoteDrawable(this, x, location);
         mNote.setState(state);
 
         mLedgerLinesDown = mLedgerLinesUp = 0;
