@@ -4,8 +4,6 @@ public class Staff {
 
     private StaffView mStaffView;
 
-    private boolean isTreble = true;
-
     public Staff(StaffView view) {
         mStaffView = view;
     }
@@ -22,6 +20,10 @@ public class Staff {
         else
             notePosition -= MusicNote.Note.G2.getKeyNumber();
 
-        mStaffView.drawNote(notePosition);
+        if (note.isWhite()) {
+            mStaffView.drawNote(notePosition);
+        } else {
+            mStaffView.drawSharpNote(notePosition);
+        }
     }
 }

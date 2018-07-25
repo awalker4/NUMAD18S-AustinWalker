@@ -24,9 +24,6 @@ public class StaffView extends View {
     private final int mClefOffset = 50;
     private final int mNoteOffset = 300;
 
-    // Alien constants
-    private final int[] mUFOPositions = {600};
-
     private final Paint mStaffColor = new Paint();
 
     private int mViewWidth;
@@ -41,7 +38,7 @@ public class StaffView extends View {
     private boolean isClosed = true;
 
     private MusicDrawable mClef;
-    private MusicDrawable mNote;
+    private QuarterNoteDrawable mNote;
     private ArrayList<EnemyDrawable> mAliens = new ArrayList<>();
     private ArrayList<BulletDrawable> mBullets = new ArrayList<>();
 
@@ -102,12 +99,25 @@ public class StaffView extends View {
         return mStaffEndY - (position * mStaffSpacing / 2);
     }
 
-    // Draws a note at staff location from the bottom line up
     public void drawNote(int location) {
+        drawNote(location, QuarterNoteDrawable.NoteState.NAKED);
+    }
+
+    public void drawFlatNote(int location) {
+        drawNote(location, QuarterNoteDrawable.NoteState.FLAT);
+    }
+
+    public void drawSharpNote(int location) {
+        drawNote(location, QuarterNoteDrawable.NoteState.SHARP);
+    }
+
+    // Draws a note at staff location from the bottom line up
+    private void drawNote(int location, QuarterNoteDrawable.NoteState state) {
         int x = mViewPaddingX + mNoteOffset;
         int y = getYFromStaffPos(location);
 
         mNote = new QuarterNoteDrawable(this, x, y);
+        mNote.setState(state);
 
         mLedgerLinesDown = mLedgerLinesUp = 0;
         if (location < 0) {
@@ -127,8 +137,9 @@ public class StaffView extends View {
         drawStaff(canvas);
         addLedgerLines(canvas);
 
-        if (mNote != null)
+        if (mNote != null) {
             mNote.draw(canvas);
+        }
 
         for (MusicDrawable alien : mAliens) {
             alien.draw(canvas);
@@ -139,24 +150,12 @@ public class StaffView extends View {
         }
     }
 
-    boolean fAlien = false;
-    boolean cAlien = false;
-
     public void drawAlien(int position) {
         int x = 550;
         int y = getYFromStaffPos(position);
 
-        if (position == 1 && !fAlien) {
-            mAliens.add(new EnemyDrawable(this, x, y));
-            mBullets.add(new BulletDrawable(x, y));
-            fAlien = true;
-        }
-
-        if (position == 5 && !cAlien) {
-            mAliens.add(new EnemyDrawable(this, x, y));
-            mBullets.add(new BulletDrawable(x, y));
-            cAlien = true;
-        }
+        mAliens.add(new EnemyDrawable(this, x, y));
+        mBullets.add(new BulletDrawable(x, y));
     }
 
     private void tick() {

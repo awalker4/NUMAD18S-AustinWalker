@@ -51,7 +51,7 @@ public class MusicDrawable {
     public void draw(Canvas canvas) {
         int x = mXPos - mXOff;
         int y = mYPos - mYOff;
-//        Log.d(TAG, String.format("(%d,%d,%d,%d)", x, y, x + width, y + height));
+        Log.d(TAG, String.format("draw: (%d,%d,%d,%d)", x, y, x + width, y + height));
 
         mGraphic.setBounds(x, y, x + width, y + height);
         mGraphic.draw(canvas);

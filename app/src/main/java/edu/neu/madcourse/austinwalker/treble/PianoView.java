@@ -60,8 +60,16 @@ public class PianoView extends View {
         keys = new ArrayList<>();
         keyRects = new ArrayList<>();
 
-        int startNotes = mStartNote.ordinal();
-        int endNotes = mEndNote.ordinal();
+        int startNotes;
+        int endNotes;
+
+        if (mStartNote == null || mEndNote == null) {
+            startNotes = endNotes = 0;
+        } else {
+            startNotes = mStartNote.ordinal();
+            endNotes = mEndNote.ordinal();
+        }
+
         MusicNote.Note[] allNotes = MusicNote.Note.values();
 
         int keyNum = 0;
