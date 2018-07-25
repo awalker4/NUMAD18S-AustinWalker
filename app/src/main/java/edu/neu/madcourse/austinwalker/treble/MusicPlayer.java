@@ -7,7 +7,7 @@ import android.util.Log;
 
 // Adapated from code at
 // https://stackoverflow.com/questions/2413426/playing-an-arbitrary-tone-with-android
-public class MusicPlayer extends Thread {
+public class MusicPlayer implements Runnable {
     private AudioTrack audioTrack;
     private int sampleRate = 8000;
     private double duration = 0.5; // seconds
@@ -29,7 +29,6 @@ public class MusicPlayer extends Thread {
     }
 
     public void run() {
-
         double sample[] = new double[numSamples];
         byte generatedSnd[] = new byte[2 * numSamples];
 

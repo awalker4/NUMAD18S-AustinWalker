@@ -71,6 +71,6 @@ public class MusicNote {
 
     public void playNote(double frequency) {
         MusicPlayer mp = new MusicPlayer(frequency);
-        mp.start();
+        new Thread(mp).start();
     }
 }
