@@ -34,7 +34,7 @@ public class MusicGameLevel implements Runnable {
         for (int i = 0; i < 20; i++) {
             try {
                 Thread.sleep(1000);
-                mStaff.tick();
+//                mStaff.tick();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
