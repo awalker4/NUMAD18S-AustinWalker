@@ -50,33 +50,7 @@ public class StaffView extends View {
         super(context, attrs);
     }
 
-    private void setupClef() {
-        int x = mViewPaddingX + mClefOffset;
-        int y;
-
-        if (isTreble) {
-            y = getYFromStaffPos(2); // Center on G
-            mClef = new TrebleClefDrawable(this, x, y);
-        } else {
-            y = getYFromStaffPos(6); // Center on F
-            mClef = new BassClefDrawable(this, x, y);
-        }
-    }
-
-    public void setTreble(boolean treble) {
-        isTreble = treble;
-
-        setupClef();
-    }
-
-    public boolean isTreble() {
-        return isTreble;
-    }
-
-    public void setClosed(boolean closed) {
-        isClosed = closed;
-    }
-
+    @Override
     public void onSizeChanged(int w, int h, int oldW, int oldH) {
         super.onSizeChanged(w, h, oldW, oldH);
 
@@ -91,43 +65,6 @@ public class StaffView extends View {
         setupClef();
 
         Log.d(TAG, "onSizeChanged: " + mViewWidth + "X" + mViewHeight);
-    }
-
-    // Return a y value for all possible staff positions
-    // starting from the bottom line
-    private int getYFromStaffPos(int position) {
-        return mStaffEndY - (position * mStaffSpacing / 2);
-    }
-
-    public void drawNote(int location) {
-        drawNote(location, QuarterNoteDrawable.NoteState.NAKED);
-    }
-
-    public void drawFlatNote(int location) {
-        drawNote(location, QuarterNoteDrawable.NoteState.FLAT);
-    }
-
-    public void drawSharpNote(int location) {
-        drawNote(location, QuarterNoteDrawable.NoteState.SHARP);
-    }
-
-    // Draws a note at staff location from the bottom line up
-    private void drawNote(int location, QuarterNoteDrawable.NoteState state) {
-        int x = mViewPaddingX + mNoteOffset;
-        int y = getYFromStaffPos(location);
-
-        mNote = new QuarterNoteDrawable(this, x, y);
-        mNote.setState(state);
-
-        mLedgerLinesDown = mLedgerLinesUp = 0;
-        if (location < 0) {
-            mLedgerLinesDown = (0 - location) / 2;
-        } else if (location > 10) {
-            mLedgerLinesUp = (location - 10) / 2;
-        }
-
-        tick();
-        invalidate();
     }
 
     @Override
@@ -150,12 +87,79 @@ public class StaffView extends View {
         }
     }
 
-    public void drawAlien(int position) {
+    public void drawNote(int location) {
+        drawNote(location, QuarterNoteDrawable.NoteState.NAKED);
+    }
+
+    public void drawFlatNote(int location) {
+        drawNote(location, QuarterNoteDrawable.NoteState.FLAT);
+    }
+
+    public void drawSharpNote(int location) {
+        drawNote(location, QuarterNoteDrawable.NoteState.SHARP);
+    }
+
+    public void drawNaturalNote(int location) {
+        drawNote(location, QuarterNoteDrawable.NoteState.NATURAL);
+    }
+
+    public void addAlien(int position) {
         int x = 550;
-        int y = getYFromStaffPos(position);
+        int y = getYForStaffLocation(position);
 
         mAliens.add(new EnemyDrawable(this, x, y));
         mBullets.add(new BulletDrawable(x, y));
+    }
+
+    public boolean isTreble() {
+        return isTreble;
+    }
+
+    public void setClosed(boolean closed) {
+        isClosed = closed;
+    }
+
+    private void setupClef() {
+        int x = mViewPaddingX + mClefOffset;
+        int y;
+
+        if (isTreble) {
+            y = getYForStaffLocation(2); // Center on G
+            mClef = new TrebleClefDrawable(this, x, y);
+        } else {
+            y = getYForStaffLocation(6); // Center on F
+            mClef = new BassClefDrawable(this, x, y);
+        }
+    }
+
+    public void setTreble(boolean treble) {
+        isTreble = treble;
+        setupClef();
+    }
+
+    // Return a y value for all possible staff positions
+    // starting from the bottom line
+    private int getYForStaffLocation(int position) {
+        return mStaffEndY - (position * mStaffSpacing / 2);
+    }
+
+    // Draws a note at staff location from the bottom line up
+    private void drawNote(int location, QuarterNoteDrawable.NoteState state) {
+        int x = mViewPaddingX + mNoteOffset;
+        int y = getYForStaffLocation(location);
+
+        mNote = new QuarterNoteDrawable(this, x, y);
+        mNote.setState(state);
+
+        mLedgerLinesDown = mLedgerLinesUp = 0;
+        if (location < 0) {
+            mLedgerLinesDown = (0 - location) / 2;
+        } else if (location > 10) {
+            mLedgerLinesUp = (location - 10) / 2;
+        }
+
+        tick();
+        invalidate();
     }
 
     private void tick() {
@@ -186,10 +190,6 @@ public class StaffView extends View {
         for (BulletDrawable bulletRemove : toRemoveBullets) {
             mBullets.remove(bulletRemove);
         }
-    }
-
-    private void checkForCollisons() {
-
     }
 
     private void drawStaff(Canvas canvas) {
@@ -237,8 +237,8 @@ public class StaffView extends View {
 
     // Draw a line across the staff at x
     private void drawVertical(Canvas canvas, int x, int width) {
-        int topLine = getYFromStaffPos(8);
-        int bottomLine = getYFromStaffPos(0);
+        int topLine = getYForStaffLocation(8);
+        int bottomLine = getYForStaffLocation(0);
 
         canvas.drawRect(x, topLine, x + width, bottomLine, mStaffColor);
     }

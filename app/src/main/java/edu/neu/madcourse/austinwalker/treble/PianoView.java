@@ -19,6 +19,7 @@ public class PianoView extends View {
     }
 
     public static final String TAG = "PianoView";
+
     private KeyPressedListener mListener;
 
     // View dimensions
@@ -49,9 +50,61 @@ public class PianoView extends View {
         super(context, attrs);
     }
 
+    @Override
+    public void onSizeChanged(int w, int h, int oldW, int oldH) {
+        super.onSizeChanged(w, h, oldW, oldH);
+
+        mViewWidth = w;
+        mViewHeight = h;
+
+        // Center the keys horizontally
+        // get center of view, then go back by half of piano width
+        mPianoStartX = (mViewWidth / 2) - (getPianoWidth() / 2);
+
+        setupKeys();
+
+        Log.d(TAG, "onSizeChanged: " + mViewWidth + "X" + mViewHeight);
+    }
+
+    @Override
+    public void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+
+        for (int i = 0; i < keys.size(); i++) {
+            if (keys.get(i).isWhite()) {
+                drawWhiteKey(canvas, keyRects.get(i));
+            }
+        }
+
+        // Go back and draw black
+        for (int i = 0; i < keys.size(); i++) {
+            if (!keys.get(i).isWhite()) {
+                canvas.drawRect(keyRects.get(i), mKeyColor);
+            }
+        }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            int keyNumber = getKeyNumber(ev.getX(), ev.getY());
+
+            if (mListener != null && keyNumber > -1) {
+                MusicNote.Note pressedNote = keys.get(keyNumber);
+                mListener.onKeyDown(pressedNote);
+            }
+        }
+
+        return true;
+    }
+
     public void setRange(MusicNote.Note start, MusicNote.Note end) {
         mStartNote = start;
         mEndNote = end;
+    }
+
+    public void setKeyPressedListener(KeyPressedListener listener) {
+        mListener = listener;
     }
 
     private void setupKeys() {
@@ -96,56 +149,6 @@ public class PianoView extends View {
             return 0;
 
         return (mEndNote.getKeyNumber() - mStartNote.getKeyNumber() + 1) * mKeyWidth;
-    }
-
-    public void onSizeChanged(int w, int h, int oldW, int oldH) {
-        super.onSizeChanged(w, h, oldW, oldH);
-
-        mViewWidth = w;
-        mViewHeight = h;
-
-        // Center the keys horizontally
-        // get center of view, then go back by half of piano width
-        mPianoStartX = (mViewWidth / 2) - (getPianoWidth() / 2);
-
-        setupKeys();
-
-        Log.d(TAG, "onSizeChanged: " + mViewWidth + "X" + mViewHeight);
-    }
-
-    public void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-
-        for (int i = 0; i < keys.size(); i++) {
-            if (keys.get(i).isWhite()) {
-                drawWhiteKey(canvas, keyRects.get(i));
-            }
-        }
-
-        // Go back and draw black
-        for (int i = 0; i < keys.size(); i++) {
-            if (!keys.get(i).isWhite()) {
-                canvas.drawRect(keyRects.get(i), mKeyColor);
-            }
-        }
-    }
-
-    public void setKeyPressedListener(KeyPressedListener listener) {
-        mListener = listener;
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent ev) {
-        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
-            int keyNumber = getKeyNumber(ev.getX(), ev.getY());
-
-            if (mListener != null && keyNumber > -1) {
-                MusicNote.Note pressedNote = keys.get(keyNumber);
-                mListener.onKeyDown(pressedNote);
-            }
-        }
-
-        return true;
     }
 
     // Return the key residing at x,y
