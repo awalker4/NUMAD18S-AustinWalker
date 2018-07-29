@@ -20,7 +20,5 @@ public class MusicGameActivity extends AppCompatActivity {
         PianoView piano = findViewById(R.id.game_piano);
         MusicGameLevel firstLevel = new MusicGameLevel(staff, piano);
 
-        new Thread(firstLevel).start();
-
     }
 }

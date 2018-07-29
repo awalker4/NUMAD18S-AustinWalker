@@ -2,7 +2,7 @@ package edu.neu.madcourse.austinwalker.treble;
 
 import android.util.Log;
 
-public class MusicGameLevel implements Runnable {
+public class MusicGameLevel {
     public static final String TAG = "MusicGameLevel";
 
     private Staff mStaff;
@@ -27,17 +27,9 @@ public class MusicGameLevel implements Runnable {
 
         mStaff.addAlien(MusicNote.Note.A4);
         mStaff.addAlien(MusicNote.Note.C5);
+
+        mStaff.start();
     }
 
-    // Can't touch the UI with this
-    public void run() {
-        for (int i = 0; i < 20; i++) {
-            try {
-                Thread.sleep(1000);
-//                mStaff.tick();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+
 }

@@ -145,6 +145,8 @@ public class StaffView extends View {
         for (BulletDrawable bulletRemove : toRemoveBullets) {
             mBullets.remove(bulletRemove);
         }
+
+        invalidate();
     }
 
     // Return a y value for all possible staff positions
