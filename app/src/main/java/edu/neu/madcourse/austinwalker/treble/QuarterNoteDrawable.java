@@ -1,7 +1,6 @@
 package edu.neu.madcourse.austinwalker.treble;
 
 import android.graphics.Canvas;
-import android.view.View;
 
 import edu.neu.madcourse.austinwalker.R;
 
@@ -14,7 +13,7 @@ public class QuarterNoteDrawable extends MusicDrawable {
     // Draw a quarter note centered on x,y
     // https://www.kisspng.com/png-quarter-note-musical-note-eighth-note-rest-music-n-1190492/
     // TODO: flip for high notes
-    public QuarterNoteDrawable(StaffView staffView, int x, int staffPos) {
+    public QuarterNoteDrawable(StaffView staffView, int staffPosition, int staffRank) {
         super("Note",
                 staffView,
                 R.drawable.quarter_note,
@@ -22,21 +21,19 @@ public class QuarterNoteDrawable extends MusicDrawable {
                 230,
                 105,
                 197,
-                x,
-                staffPos);
+                staffPosition,
+                staffRank);
 
         mHitBuffer = 100;
     }
 
     public void setState(NoteState state) {
-        int x = mXPos - 65; // Off to the left a bit
-
         switch (state) {
             case SHARP:
-                mNoteDecorator = new SharpSignDrawable(mStaffView, x, mStaffPos);
+                mNoteDecorator = new SharpSignDrawable(mStaffView, mStaffPosition, mStaffRank);
                 break;
             case FLAT:
-                mNoteDecorator = new FlatSignDrawable(mStaffView, x, mStaffPos);
+                mNoteDecorator = new FlatSignDrawable(mStaffView, mStaffPosition, mStaffRank);
                 break;
             default:
                 mNoteDecorator = null;

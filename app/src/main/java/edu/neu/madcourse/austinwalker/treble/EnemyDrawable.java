@@ -4,9 +4,9 @@ import edu.neu.madcourse.austinwalker.R;
 
 public class EnemyDrawable extends MusicDrawable {
 
-    // Draw a UFO centered on x,y
+    // Draw a UFO centered on the staff location
     // https://www.deviantart.com/fireprouf/art/Ufo-Pixel-Art-646305499
-    public EnemyDrawable(StaffView staff, int x, int staffPos) {
+    public EnemyDrawable(StaffView staff, int staffPosition, int staffRank) {
         super("Alien",
                 staff,
                 R.drawable.ufo,
@@ -14,7 +14,7 @@ public class EnemyDrawable extends MusicDrawable {
                 60,
                 60,
                 30,
-                x,
-                staffPos);
+                staffPosition,
+                staffRank);
     }
 }

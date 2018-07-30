@@ -15,13 +15,13 @@ public class MusicDrawable {
 
     protected int mWidth;
     protected int mHeight;
-    protected int mXPos;
-    protected int mStaffPos;
+    protected int mStaffPosition;
+    protected int mStaffRank;
     protected int mXOff;
     protected int mYOff;
     protected int mHitBuffer;
 
-    public MusicDrawable(String tag, StaffView staff, int graphicID, int w, int h, int xOff, int yOff, int x, int staffPos) {
+    public MusicDrawable(String tag, StaffView staff, int graphicID, int w, int h, int xOff, int yOff, int staffPosition, int staffRank) {
         TAG = tag;
         mStaffView = staff;
 
@@ -32,28 +32,30 @@ public class MusicDrawable {
         mHeight = h;
         mXOff = xOff;
         mYOff = yOff;
-        mXPos = x;
-        mStaffPos = staffPos;
+        mStaffPosition = staffPosition;
+        mStaffRank = staffRank;
         mHitBuffer = mWidth / 2; // The hitbox extends this far on each side
     }
 
     public Rect getHitBox() {
-        int y = mStaffView.getYForStaffLocation(mStaffPos);
-        return new Rect(mXPos - mHitBuffer, y, mXPos + mHitBuffer, y + 1);
+        int x = mStaffView.getXForStaffLocation(mStaffPosition);
+        int y = mStaffView.getYForStaffLocation(mStaffRank);
+        return new Rect(x - mHitBuffer, y, x + mHitBuffer, y + 1);
     }
 
     public boolean collidesWith(MusicDrawable other) {
         boolean hit = this.getHitBox().contains(other.getHitBox());
 
         if (hit)
-            Log.d(TAG, String.format("Collision with %s at pos %d", other.TAG, mStaffPos));
+            Log.d(TAG, String.format("Collision with %s at pos %d", other.TAG, mStaffRank));
 
         return hit;
     }
 
     public void draw(Canvas canvas) {
-        int x = mXPos - mXOff;
-        int y = mStaffView.getYForStaffLocation(mStaffPos) - mYOff;
+        int x = mStaffView.getXForStaffLocation(mStaffPosition) - mXOff;
+        int y = mStaffView.getYForStaffLocation(mStaffRank) - mYOff;
+
         Log.d(TAG, String.format("draw: (%d,%d,%d,%d)", x, y, x + mWidth, y + mHeight));
 
         mGraphic.setBounds(x, y, x + mWidth, y + mHeight);

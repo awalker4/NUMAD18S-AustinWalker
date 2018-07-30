@@ -23,7 +23,6 @@ public class StaffView extends View {
     private static final int mLedgerWidth = 100;
     private static final int mClefOffset = 50;
     private static final int mNoteOffset = 300;
-    private static final int mAlienOffset = 550;
 
     private final Paint mStaffColor = new Paint();
 
@@ -104,7 +103,7 @@ public class StaffView extends View {
     }
 
     public void addAlien(int position) {
-        int x = mAlienOffset;
+        int x = 4;
 
         // TODO: add a potential shooting delay
         mAliens.add(new EnemyDrawable(this, x, position));
@@ -149,6 +148,19 @@ public class StaffView extends View {
         invalidate();
     }
 
+    public int getXForStaffLocation(int position) {
+        // HACK: position x is the clef, draw at hardcoded offset
+        if (position == 0)
+            return mViewPaddingX + mClefOffset;
+
+        // Give us enough room to draw 4 notes across the staff (minus some space for the clef)
+        int staffWidth = mViewWidth - (2 * mViewPaddingX) - mNoteOffset;
+        int noteSpacing = staffWidth / 4;
+
+        return mNoteOffset + position * noteSpacing;
+
+    }
+
     // Return a y value for all possible staff positions
     // starting from the bottom line
     public int getYForStaffLocation(int position) {
@@ -164,12 +176,10 @@ public class StaffView extends View {
     }
 
     private void setupClef() {
-        int x = mViewPaddingX + mClefOffset;
-
         if (isTreble) {
-            mClef = new TrebleClefDrawable(this, x, 2); // Center on G
+            mClef = new TrebleClefDrawable(this, 0, 2); // Center on G
         } else {
-            mClef = new BassClefDrawable(this, x, 6); // Center on F
+            mClef = new BassClefDrawable(this, 0, 6); // Center on F
         }
     }
 
@@ -180,9 +190,7 @@ public class StaffView extends View {
 
     // Draws a note at staff location from the bottom line up
     private void drawNote(int location, QuarterNoteDrawable.NoteState state) {
-        int x = mViewPaddingX + mNoteOffset;
-
-        mNote = new QuarterNoteDrawable(this, x, location);
+        mNote = new QuarterNoteDrawable(this, 1, location);
         mNote.setState(state);
 
         mLedgerLinesDown = mLedgerLinesUp = 0;
@@ -219,20 +227,25 @@ public class StaffView extends View {
         // Clef
         if (mClef != null)
             mClef.draw(canvas);
+
+        // TEST LINES
+        for (int i = 0; i < 5; i++) {
+            drawVertical(canvas, getXForStaffLocation(i), 3);
+        }
     }
 
     // Add lines above or below staff if called for
     private void addLedgerLines(Canvas canvas) {
-        for (int i = 0; i < mLedgerLinesUp; i++) {
-            int y = mStaffStartY - i * mStaffSpacing;
-            int x = mViewPaddingX + mNoteOffset - mLedgerWidth / 2;
+        int x = getXForStaffLocation(1) - mLedgerWidth /2;
+
+        for (int i = 1; i <= mLedgerLinesUp; i++) {
+            int y = getYForStaffLocation(8 + 2 * i);
 
             canvas.drawRect(x, y, x + mLedgerWidth, y + mLineThickness, mStaffColor);
         }
 
-        for (int i = 0; i < mLedgerLinesDown; i++) {
-            int y = mStaffStartY + (5 + i) * mStaffSpacing;
-            int x = mViewPaddingX + mNoteOffset - mLedgerWidth / 2;
+        for (int i = 1; i <= mLedgerLinesDown; i++) {
+            int y = getYForStaffLocation(0 - 2 * i);
 
             canvas.drawRect(x, y, x + mLedgerWidth, y + mLineThickness, mStaffColor);
         }
