@@ -21,6 +21,10 @@ public class MusicGameActivity extends AppCompatActivity {
 
         mStaffView = findViewById(R.id.game_staff);
         mPianoView = findViewById(R.id.game_piano);
+    }
+
+    protected void onResume() {
+        super.onResume();
 
         MusicGameLevel firstLevel = new MusicGameLevel(mStaffView, mPianoView);
         firstLevel.start();

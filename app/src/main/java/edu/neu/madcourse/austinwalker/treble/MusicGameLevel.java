@@ -11,8 +11,6 @@ public class MusicGameLevel {
     private Staff mStaff;
     private PianoView mPianoView;
 
-    private boolean mGameRunning;
-
     public MusicGameLevel(StaffView staffView, PianoView pianoView) {
         mStaff = new Staff(staffView);
         mPianoView = pianoView;
@@ -31,21 +29,20 @@ public class MusicGameLevel {
         mPianoView.setRange(MusicNote.Note.C4, MusicNote.Note.C5);
         mStaff.setTreble(true);
 
-        mStaff.addAlien(MusicNote.Note.A4);
-        mStaff.addAlien(MusicNote.Note.C5);
+        mStaff.queueAlien(MusicNote.Note.A4, 0);
+        mStaff.queueAlien(MusicNote.Note.C5, 6);
     }
 
     public void start() {
         mGameTimer = new GameTimerTask();
-        mGameRunning = true;
         mGameTimer.execute();
     }
 
     private class GameTimerTask extends AsyncTask<Void, Void, Void> {
         protected Void doInBackground(Void... time) {
-            while (mGameRunning) {
+            while (!mStaff.isFinished()) {
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(2000); // TODO: implement BPM
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -58,8 +55,6 @@ public class MusicGameLevel {
 
         protected void onProgressUpdate(Void... progress) {
             mStaff.tick();
-            if (mStaff.isFinished())
-                mGameRunning = false;
         }
     }
 }
