@@ -21,7 +21,7 @@ public class StaffView extends View {
     private static final int mStaffSpacing = 60;
     private static final int mLineThickness = 2;
     private static final int mLedgerWidth = 100;
-    private static final int mClefOffset = 50;
+    private static final int mClefOffset = 30;
     private static final int mNoteOffset = 300;
 
     private final Paint mStaffColor = new Paint();
@@ -194,8 +194,8 @@ public class StaffView extends View {
         mLedgerLinesDown = mLedgerLinesUp = 0;
         if (rank < 0) {
             mLedgerLinesDown = (0 - rank) / 2;
-        } else if (rank > 10) {
-            mLedgerLinesUp = (rank - 10) / 2;
+        } else if (rank > 8) {
+            mLedgerLinesUp = (rank - 8) / 2;
         }
 
         invalidate();
