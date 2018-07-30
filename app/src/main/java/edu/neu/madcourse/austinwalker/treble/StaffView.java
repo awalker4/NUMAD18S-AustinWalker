@@ -9,7 +9,7 @@ import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
-import java.util.Vector;
+import java.util.Iterator;
 
 public class StaffView extends View {
     private static final String TAG = "StaffView";
@@ -116,33 +116,32 @@ public class StaffView extends View {
         return mAliens.size();
     }
 
-    // FIXME: better list processing
     public void tick() {
-        Vector<BulletDrawable> toRemoveBullets = new Vector<>();
+        Iterator<BulletDrawable> bulletIterator = mBullets.iterator();
+        Iterator<EnemyDrawable> enemyIterator;
 
-        for (BulletDrawable bullet : mBullets) {
+        while (bulletIterator.hasNext()) {
+            BulletDrawable bullet = bulletIterator.next();
             bullet.tick();
 
+            // Did we repel a bullet?
             if (mNote != null && !bullet.isReverse() && mNote.collidesWith(bullet)) {
                 bullet.reverse();
             }
 
-            Vector<MusicDrawable> toRemove = new Vector<>();
+            // Did we hit an alien?
+            else if (bullet.isReverse()) {
+                enemyIterator = mAliens.iterator();
 
-            for (MusicDrawable alien : mAliens) {
-                if (bullet.isReverse() && alien.collidesWith(bullet)) {
-                    toRemove.add(alien);
-                    toRemoveBullets.add(bullet);
+                while (enemyIterator.hasNext()) {
+                    EnemyDrawable alien = enemyIterator.next();
+
+                    if (alien.collidesWith(bullet)) {
+                        bulletIterator.remove();
+                        enemyIterator.remove();
+                    }
                 }
             }
-
-            for (MusicDrawable alien : toRemove) {
-                mAliens.remove(alien);
-            }
-        }
-
-        for (BulletDrawable bulletRemove : toRemoveBullets) {
-            mBullets.remove(bulletRemove);
         }
 
         invalidate();
@@ -235,7 +234,7 @@ public class StaffView extends View {
 
     // Add lines above or below staff if called for
     private void addLedgerLines(Canvas canvas) {
-        int x = getXForStaffLocation(mNotePosition) - mLedgerWidth /2;
+        int x = getXForStaffLocation(mNotePosition) - mLedgerWidth / 2;
 
         for (int i = 1; i <= mLedgerLinesUp; i++) {
             int y = getYForRank(8 + 2 * i);
