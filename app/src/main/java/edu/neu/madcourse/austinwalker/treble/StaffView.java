@@ -105,11 +105,11 @@ public class StaffView extends View {
     }
 
     public void addAlien(int rank) {
-        // TODO: add a potential shooting delay
         mAliens.add(new EnemyDrawable(this, mAlienPosition, rank));
-        mBullets.add(new BulletDrawable(this, mAlienPosition, rank));
+    }
 
-        invalidate();
+    public void addBullet(int rank) {
+        mBullets.add(new BulletDrawable(this, mAlienPosition, rank));
     }
 
     public int numAliens() {
@@ -228,9 +228,9 @@ public class StaffView extends View {
             mClef.draw(canvas);
 
         // TEST LINES
-        for (int i = 0; i < 4; i++) {
-            drawVertical(canvas, getXForStaffLocation(i), 3);
-        }
+//        for (int i = 0; i < 4; i++) {
+//            drawVertical(canvas, getXForStaffLocation(i), 3);
+//        }
     }
 
     // Add lines above or below staff if called for

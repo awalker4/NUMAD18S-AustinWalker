@@ -1,7 +1,7 @@
 package edu.neu.madcourse.austinwalker.treble;
 
 
-import android.util.SparseArray;
+import java.util.PriorityQueue;
 
 // Add some abstraction on top of StaffView
 // At this level, we deal with note names rather than staff ranking
@@ -13,13 +13,13 @@ public class Staff {
     private boolean mFinished;
     private int mNumTicks = 0;
 
-    private SparseArray<MusicNote.Note> alienQueue;
+    private PriorityQueue<EnemyQueueItem> enemyQueue;
 
     public Staff(StaffView view) {
         mStaffView = view;
         mFinished = false;
 
-        alienQueue = new SparseArray<>();
+        enemyQueue = new PriorityQueue<>();
     }
 
     public void setTreble(boolean treble) {
@@ -28,21 +28,6 @@ public class Staff {
 
     public boolean isFinished() {
         return mFinished;
-    }
-
-    // Queue an alien to be added after the specified tick count
-    public void queueAlien(MusicNote.Note alienNote, int numTicks) {
-        alienQueue.append(numTicks, alienNote);
-    }
-
-    // Add an alien to the specified note position
-    private void addAlien(MusicNote.Note alienNote) {
-        int alienPosition = getNotePosition(alienNote);
-        mStaffView.addAlien(alienPosition);
-    }
-
-    private int numAliens() {
-        return mStaffView.numAliens() + alienQueue.size();
     }
 
     public void placeNote(MusicNote.Note note) {
@@ -58,19 +43,37 @@ public class Staff {
         }
     }
 
-    public void tick() {
-        if (alienQueue.get(mNumTicks) != null) {
-            addAlien(alienQueue.get(mNumTicks));
-            alienQueue.remove(mNumTicks);
-        }
+    // Queue an alien to be added after the specified tick count
+    // Queue its bullet to shoot after specified delay
+    public void queueAlien(MusicNote.Note alienNote, int numTicks, int shootDelay) {
+        enemyQueue.add(new EnemyQueueItem(alienNote, true, numTicks));
+        enemyQueue.add(new EnemyQueueItem(alienNote, false, numTicks + shootDelay));
+    }
 
+    public void tick() {
+        addItemsForTick();
         mStaffView.tick();
+        mNumTicks++;
 
         if (numAliens() == 0) {
             closeStaff();
         }
+    }
 
-        mNumTicks++;
+    // Add any items that may have appeared at this tick
+    private void addItemsForTick() {
+        while (enemyQueue.size() > 0 && enemyQueue.peek().tickNumber <= mNumTicks) {
+                EnemyQueueItem item = enemyQueue.poll();
+
+                if (item.isAlien)
+                    mStaffView.addAlien(item.position);
+                else
+                    mStaffView.addBullet(item.position);
+        }
+    }
+
+    private int numAliens() {
+        return mStaffView.numAliens() + enemyQueue.size();
     }
 
     private void closeStaff() {
@@ -85,5 +88,23 @@ public class Staff {
             return notePosition - MusicNote.Note.E4.getKeyNumber();
         else
             return notePosition - MusicNote.Note.G2.getKeyNumber();
+    }
+
+    // Used to store aliens/bullets on a PriorityQueue
+    // that will add elements to the staff at various ticks
+    private class EnemyQueueItem implements Comparable<EnemyQueueItem> {
+        public boolean isAlien;
+        public int position;
+        public int tickNumber;
+
+        public EnemyQueueItem(MusicNote.Note note, boolean isAlien, int tick) {
+            position = getNotePosition(note);
+            this.isAlien = isAlien;
+            tickNumber = tick;
+        }
+
+        public int compareTo(EnemyQueueItem other) {
+            return tickNumber - other.tickNumber;
+        }
     }
 }

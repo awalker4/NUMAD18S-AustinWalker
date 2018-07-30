@@ -29,8 +29,9 @@ public class MusicGameLevel {
         mPianoView.setRange(MusicNote.Note.C4, MusicNote.Note.C5);
         mStaff.setTreble(true);
 
-        mStaff.queueAlien(MusicNote.Note.A4, 0);
-        mStaff.queueAlien(MusicNote.Note.C5, 6);
+        mStaff.queueAlien(MusicNote.Note.C4, 0, 1);
+        mStaff.queueAlien(MusicNote.Note.E4, 0, 3);
+        mStaff.queueAlien(MusicNote.Note.G4, 0, 5);
     }
 
     public void start() {
@@ -42,7 +43,7 @@ public class MusicGameLevel {
         protected Void doInBackground(Void... time) {
             while (!mStaff.isFinished()) {
                 try {
-                    Thread.sleep(2000); // TODO: implement BPM
+                    Thread.sleep(1000); // TODO: implement BPM
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
