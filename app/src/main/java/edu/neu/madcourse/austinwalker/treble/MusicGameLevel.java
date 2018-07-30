@@ -24,7 +24,14 @@ public class MusicGameLevel {
                 mStaff.placeNote(notePressed);
             }
         });
+    }
 
+    public void start() {
+        mGameTimer = new GameTimerTask();
+        mGameTimer.execute();
+    }
+
+    public void testTreble() {
         // TODO: set up level state
         mPianoView.setRange(MusicNote.Note.C4, MusicNote.Note.C5);
         mStaff.setTreble(true);
@@ -32,11 +39,19 @@ public class MusicGameLevel {
         mStaff.queueAlien(MusicNote.Note.C4, 0, 1);
         mStaff.queueAlien(MusicNote.Note.E4, 0, 3);
         mStaff.queueAlien(MusicNote.Note.G4, 0, 5);
+
+        start();
     }
 
-    public void start() {
-        mGameTimer = new GameTimerTask();
-        mGameTimer.execute();
+    public void testBass() {
+        mPianoView.setRange(MusicNote.Note.C3, MusicNote.Note.C4);
+        mStaff.setTreble(false);
+
+        mStaff.queueAlien(MusicNote.Note.C3, 0, 1);
+        mStaff.queueAlien(MusicNote.Note.E3, 0, 3);
+        mStaff.queueAlien(MusicNote.Note.G3, 0, 5);
+
+        start();
     }
 
     private class GameTimerTask extends AsyncTask<Void, Void, Void> {

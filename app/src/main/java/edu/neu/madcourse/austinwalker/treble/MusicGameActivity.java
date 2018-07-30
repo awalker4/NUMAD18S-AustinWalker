@@ -15,6 +15,8 @@ public class MusicGameActivity extends AppCompatActivity {
     private StaffView mStaffView;
     private PianoView mPianoView;
 
+    public static boolean testTreble;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_music_game);
@@ -26,7 +28,11 @@ public class MusicGameActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        MusicGameLevel firstLevel = new MusicGameLevel(mStaffView, mPianoView);
-        firstLevel.start();
+        MusicGameLevel level = new MusicGameLevel(mStaffView, mPianoView);
+
+        if (testTreble)
+            level.testTreble();
+        else
+            level.testBass();
     }
 }

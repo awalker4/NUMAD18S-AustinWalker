@@ -19,6 +19,18 @@ public class MusicGameMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MusicGameMenuActivity.this, MusicGameActivity.class);
+                MusicGameActivity.testTreble = true;
+                startActivity(intent);
+            }
+        });
+
+        // New game button
+        View newButton2 = findViewById(R.id.music_game_button2);
+        newButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MusicGameMenuActivity.this, MusicGameActivity.class);
+                MusicGameActivity.testTreble = false;
                 startActivity(intent);
             }
         });
