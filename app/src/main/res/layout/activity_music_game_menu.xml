@@ -28,12 +28,20 @@
             android:textSize="@dimen/menu_text_size" />
 
         <Button
-            android:id="@+id/treble_new_game_button"
+            android:id="@+id/music_game_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/menu_button_margin"
             android:padding="@dimen/menu_button_padding"
-            android:text="@string/scroggle_new_game_label" />
+            android:text="Test treble w/ sharps" />
+
+        <Button
+            android:id="@+id/music_game_button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/menu_button_margin"
+            android:padding="@dimen/menu_button_padding"
+            android:text="Test bass w/ flats" />
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

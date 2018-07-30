@@ -1,20 +1,25 @@
 package edu.neu.madcourse.austinwalker.treble;
 
-import android.os.AsyncTask;
 
+// Add some abstraction on top of StaffView
+// At this level, we deal with note names rather than staff ranking
 public class Staff {
 
     private StaffView mStaffView;
-    private GameTimerTask mGameTimer;
-    private boolean mGameRunning;
     private boolean useFlats = false;
+    private boolean mFinished;
 
     public Staff(StaffView view) {
         mStaffView = view;
+        mFinished = false;
     }
 
     public void setTreble(boolean treble) {
         mStaffView.setTreble(treble);
+    }
+
+    public boolean isFinished() {
+        return mFinished;
     }
 
     public void addAlien(MusicNote.Note alienNote) {
@@ -36,10 +41,13 @@ public class Staff {
         }
     }
 
-    public void start() {
-        mGameTimer = new GameTimerTask();
-        mGameRunning = true;
-        mGameTimer.execute();
+    public void tick() {
+        mStaffView.tick();
+
+        if (mStaffView.numAliens() == 0) {
+            mStaffView.setClosed(true);
+            mFinished = true;
+        }
     }
 
     private int getNotePosition(MusicNote.Note note) {
@@ -49,34 +57,5 @@ public class Staff {
             return notePosition - MusicNote.Note.E4.getKeyNumber();
         else
             return notePosition - MusicNote.Note.G2.getKeyNumber();
-    }
-
-    private void tick() {
-        mStaffView.tick();
-
-        if (mStaffView.numAliens() == 0) {
-            mStaffView.setClosed(true);
-            mGameRunning = false;
-        }
-    }
-
-    private class GameTimerTask extends AsyncTask<Void, Void, Void> {
-        protected Void doInBackground(Void... time) {
-            while (mGameRunning) {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                publishProgress();
-            }
-
-            return null;
-        }
-
-        protected void onProgressUpdate(Void... progress) {
-            tick();
-        }
     }
 }

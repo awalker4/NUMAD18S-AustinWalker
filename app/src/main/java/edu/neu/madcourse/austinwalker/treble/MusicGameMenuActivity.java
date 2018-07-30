@@ -14,7 +14,7 @@ public class MusicGameMenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_music_game_menu);
 
         // New game button
-        View newButton = findViewById(R.id.treble_new_game_button);
+        View newButton = findViewById(R.id.music_game_button);
         newButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

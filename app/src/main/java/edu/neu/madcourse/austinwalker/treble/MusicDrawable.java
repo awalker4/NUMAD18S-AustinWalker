@@ -39,7 +39,7 @@ public class MusicDrawable {
 
     public Rect getHitBox() {
         int x = mStaffView.getXForStaffLocation(mStaffPosition);
-        int y = mStaffView.getYForStaffLocation(mStaffRank);
+        int y = mStaffView.getYForRank(mStaffRank);
         return new Rect(x - mHitBuffer, y, x + mHitBuffer, y + 1);
     }
 
@@ -54,7 +54,7 @@ public class MusicDrawable {
 
     public void draw(Canvas canvas) {
         int x = mStaffView.getXForStaffLocation(mStaffPosition) - mXOff;
-        int y = mStaffView.getYForStaffLocation(mStaffRank) - mYOff;
+        int y = mStaffView.getYForRank(mStaffRank) - mYOff;
 
         Log.d(TAG, String.format("draw: (%d,%d,%d,%d)", x, y, x + mWidth, y + mHeight));
 

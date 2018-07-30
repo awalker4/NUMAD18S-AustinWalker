@@ -30,6 +30,8 @@ public class StaffView extends View {
     private int mViewHeight;
     private int mStaffStartY;
     private int mStaffEndY;
+    private int mNotePosition = 0;
+    private int mAlienPosition = 3;
 
     private int mLedgerLinesDown = 0;
     private int mLedgerLinesUp = 0;
@@ -102,12 +104,10 @@ public class StaffView extends View {
         drawNote(location, QuarterNoteDrawable.NoteState.NATURAL);
     }
 
-    public void addAlien(int position) {
-        int x = 4;
-
+    public void addAlien(int rank) {
         // TODO: add a potential shooting delay
-        mAliens.add(new EnemyDrawable(this, x, position));
-        mBullets.add(new BulletDrawable(this, x, position));
+        mAliens.add(new EnemyDrawable(this, mAlienPosition, rank));
+        mBullets.add(new BulletDrawable(this, mAlienPosition, rank));
 
         invalidate();
     }
@@ -150,7 +150,7 @@ public class StaffView extends View {
 
     public int getXForStaffLocation(int position) {
         // HACK: position x is the clef, draw at hardcoded offset
-        if (position == 0)
+        if (position == -1)
             return mViewPaddingX + mClefOffset;
 
         // Give us enough room to draw 4 notes across the staff (minus some space for the clef)
@@ -158,17 +158,21 @@ public class StaffView extends View {
         int noteSpacing = staffWidth / 4;
 
         return mNoteOffset + position * noteSpacing;
-
     }
 
     // Return a y value for all possible staff positions
     // starting from the bottom line
-    public int getYForStaffLocation(int position) {
+    public int getYForRank(int position) {
         return mStaffEndY - (position * mStaffSpacing / 2);
     }
 
     public boolean isTreble() {
         return isTreble;
+    }
+
+    public void setTreble(boolean treble) {
+        isTreble = treble;
+        setupClef();
     }
 
     public void setClosed(boolean closed) {
@@ -177,27 +181,22 @@ public class StaffView extends View {
 
     private void setupClef() {
         if (isTreble) {
-            mClef = new TrebleClefDrawable(this, 0, 2); // Center on G
+            mClef = new TrebleClefDrawable(this, -1, 2); // Center on G
         } else {
-            mClef = new BassClefDrawable(this, 0, 6); // Center on F
+            mClef = new BassClefDrawable(this, -1, 6); // Center on F
         }
     }
 
-    public void setTreble(boolean treble) {
-        isTreble = treble;
-        setupClef();
-    }
-
-    // Draws a note at staff location from the bottom line up
-    private void drawNote(int location, QuarterNoteDrawable.NoteState state) {
-        mNote = new QuarterNoteDrawable(this, 1, location);
+    // Draws a note at staff rank from the bottom line up
+    private void drawNote(int rank, QuarterNoteDrawable.NoteState state) {
+        mNote = new QuarterNoteDrawable(this, mNotePosition, rank);
         mNote.setState(state);
 
         mLedgerLinesDown = mLedgerLinesUp = 0;
-        if (location < 0) {
-            mLedgerLinesDown = (0 - location) / 2;
-        } else if (location > 10) {
-            mLedgerLinesUp = (location - 10) / 2;
+        if (rank < 0) {
+            mLedgerLinesDown = (0 - rank) / 2;
+        } else if (rank > 10) {
+            mLedgerLinesUp = (rank - 10) / 2;
         }
 
         invalidate();
@@ -229,23 +228,23 @@ public class StaffView extends View {
             mClef.draw(canvas);
 
         // TEST LINES
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 4; i++) {
             drawVertical(canvas, getXForStaffLocation(i), 3);
         }
     }
 
     // Add lines above or below staff if called for
     private void addLedgerLines(Canvas canvas) {
-        int x = getXForStaffLocation(1) - mLedgerWidth /2;
+        int x = getXForStaffLocation(mNotePosition) - mLedgerWidth /2;
 
         for (int i = 1; i <= mLedgerLinesUp; i++) {
-            int y = getYForStaffLocation(8 + 2 * i);
+            int y = getYForRank(8 + 2 * i);
 
             canvas.drawRect(x, y, x + mLedgerWidth, y + mLineThickness, mStaffColor);
         }
 
         for (int i = 1; i <= mLedgerLinesDown; i++) {
-            int y = getYForStaffLocation(0 - 2 * i);
+            int y = getYForRank(0 - 2 * i);
 
             canvas.drawRect(x, y, x + mLedgerWidth, y + mLineThickness, mStaffColor);
         }
@@ -253,8 +252,8 @@ public class StaffView extends View {
 
     // Draw a line across the staff at x
     private void drawVertical(Canvas canvas, int x, int width) {
-        int topLine = getYForStaffLocation(8);
-        int bottomLine = getYForStaffLocation(0);
+        int topLine = getYForRank(8);
+        int bottomLine = getYForRank(0);
 
         canvas.drawRect(x, topLine, x + width, bottomLine, mStaffColor);
     }

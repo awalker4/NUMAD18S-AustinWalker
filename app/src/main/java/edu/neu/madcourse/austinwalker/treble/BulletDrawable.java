@@ -34,7 +34,7 @@ public class BulletDrawable extends MusicDrawable {
     @Override
     public void draw(Canvas canvas) {
         int x = mStaffView.getXForStaffLocation(mStaffPosition) - mXOff;
-        int y = mStaffView.getYForStaffLocation(mStaffRank) - mYOff;
+        int y = mStaffView.getYForRank(mStaffRank) - mYOff;
 
         canvas.drawRect(x, y, x + mWidth, y + mHeight, mColor);
     }

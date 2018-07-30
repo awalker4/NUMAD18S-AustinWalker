@@ -12,13 +12,17 @@ public class MusicGameActivity extends AppCompatActivity {
 
     public static final String TAG = "MusicGameActivity";
 
+    private StaffView mStaffView;
+    private PianoView mPianoView;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_music_game);
 
-        StaffView staff = findViewById(R.id.game_staff);
-        PianoView piano = findViewById(R.id.game_piano);
-        MusicGameLevel firstLevel = new MusicGameLevel(staff, piano);
+        mStaffView = findViewById(R.id.game_staff);
+        mPianoView = findViewById(R.id.game_piano);
 
+        MusicGameLevel firstLevel = new MusicGameLevel(mStaffView, mPianoView);
+        firstLevel.start();
     }
 }
