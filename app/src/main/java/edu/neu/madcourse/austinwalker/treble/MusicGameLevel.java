@@ -1,17 +1,28 @@
 package edu.neu.madcourse.austinwalker.treble;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import edu.neu.madcourse.austinwalker.R;
 
 public class MusicGameLevel {
     public static final String TAG = "MusicGameLevel";
 
-    private GameTimerTask mGameTimer;
-
+    private Context mContext;
     private Staff mStaff;
     private PianoView mPianoView;
 
-    public MusicGameLevel(StaffView staffView, PianoView pianoView) {
+    private GameTimer mGameTimer;
+    private AlertDialog mDialog;
+
+    private String levelName;
+    private String levelText;
+
+    public MusicGameLevel(Context context, StaffView staffView, PianoView pianoView) {
+        mContext = context;
         mStaff = new Staff(staffView);
         mPianoView = pianoView;
 
@@ -24,15 +35,36 @@ public class MusicGameLevel {
                 mStaff.placeNote(notePressed);
             }
         });
+
+        // Get level state
+        levelName = "Level 1";
+        levelText = "You have to help us defeat the aliens!";
     }
 
-    public void start() {
-        mGameTimer = new GameTimerTask();
+    private void startTimer() {
+        mGameTimer = new GameTimer();
         mGameTimer.execute();
     }
 
+    public void start() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle(levelName);
+        builder.setMessage(levelText);
+        builder.setIcon(R.drawable.sharp_sign); // TODO: better icon
+        builder.setCancelable(false);
+        builder.setPositiveButton("Ok",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mDialog.cancel();
+                        startTimer();
+                    }
+                });
+
+        mDialog = builder.show();
+    }
+
     public void testTreble() {
-        // TODO: set up level state
         mPianoView.setRange(MusicNote.Note.C4, MusicNote.Note.C5);
         mStaff.setTreble(true);
 
@@ -54,16 +86,18 @@ public class MusicGameLevel {
         start();
     }
 
-    private class GameTimerTask extends AsyncTask<Void, Void, Void> {
+    private class GameTimer extends AsyncTask<Void, Void, Void> {
         protected Void doInBackground(Void... time) {
+
+            // TODO: account for backing out midgame
             while (!mStaff.isFinished()) {
+                publishProgress();
+
                 try {
                     Thread.sleep(1000); // TODO: implement BPM
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-
-                publishProgress();
             }
 
             return null;
