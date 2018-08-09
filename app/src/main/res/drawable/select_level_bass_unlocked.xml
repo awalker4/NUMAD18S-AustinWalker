@@ -1,0 +1,16 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <stroke
+                android:width="@dimen/stroke_width"
+                android:color="@color/dark_border_color" />
+            <corners android:radius="@dimen/corner_radius" />
+        </shape>
+    </item>
+    <item
+        android:bottom="@dimen/level_select_bass_padding"
+        android:drawable="@drawable/bass_clef"
+        android:left="@dimen/level_select_bass_padding"
+        android:right="@dimen/level_select_bass_padding"
+        android:top="@dimen/level_select_bass_padding" />
+</layer-list>

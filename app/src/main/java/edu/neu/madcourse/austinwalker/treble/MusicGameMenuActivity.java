@@ -13,24 +13,12 @@ public class MusicGameMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music_game_menu);
 
-        // New game button
-        View newButton = findViewById(R.id.music_game_button);
-        newButton.setOnClickListener(new View.OnClickListener() {
+        // Play game button
+        View playButton = findViewById(R.id.play_music_game_button);
+        playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MusicGameMenuActivity.this, MusicGameActivity.class);
-                MusicGameActivity.testTreble = true;
-                startActivity(intent);
-            }
-        });
-
-        // New game button
-        View newButton2 = findViewById(R.id.music_game_button2);
-        newButton2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MusicGameMenuActivity.this, MusicGameActivity.class);
-                MusicGameActivity.testTreble = false;
+                Intent intent = new Intent(MusicGameMenuActivity.this, MusicGameLevelSelectActivity.class);
                 startActivity(intent);
             }
         });

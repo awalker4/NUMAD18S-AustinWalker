@@ -16,5 +16,8 @@
     <dimen name="scroggle_tile_margin">1dp</dimen>
     <dimen name="scroggle_tile_padding">3dp</dimen>
     <dimen name="scroggle_board_padding">4dp</dimen>
+    <dimen name="level_select_button_size">75dp</dimen>
+    <dimen name="level_select_bass_padding">10dp</dimen>
+    <dimen name="level_select_button_margin">10dp</dimen>
     <dimen name="act_text_view_padding">15dp</dimen>
 </resources>

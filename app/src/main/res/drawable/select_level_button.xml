@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<level-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:drawable="@drawable/select_level_treble_locked"
+        android:maxLevel="0"
+        />
+    <item
+        android:drawable="@drawable/select_level_bass_locked"
+        android:maxLevel="1" />
+
+    <item
+        android:drawable="@drawable/select_level_treble_unlocked"
+        android:maxLevel="2" />
+
+    <item
+        android:drawable="@drawable/select_level_bass_unlocked"
+        android:maxLevel="3" />
+</level-list>

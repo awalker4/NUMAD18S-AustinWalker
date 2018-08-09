@@ -43,6 +43,9 @@
         <activity
             android:name=".treble.MusicGameMenuActivity"
             android:label="Protect the Clef" />
+        <activity
+            android:name=".treble.MusicGameLevelSelectActivity"
+            android:label="Choose a Level" />
 
     </application>
 
