@@ -13,7 +13,7 @@ public class MusicGameActivity extends AppCompatActivity {
     public final static String[] LEVEL_NAMES = {"Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6", "Level 7", "Level 8", "Level 9"};
     public final static String[] LEVEL_DESCRIPTIONS = {"Intro", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6", "Level 7", "Level 8", "Level 9"};
 
-    public static int levelNum = 1;
+    public static int levelNum = 0;
     public MusicGameLevel mCurrentLevel;
 
     protected void onCreate(Bundle savedInstanceState) {

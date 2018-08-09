@@ -26,10 +26,10 @@ public class MusicGameLevelSelectActivity extends AppCompatActivity {
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mCurrentlySelected < 1)
+                if (mCurrentlySelected < 0)
                     return;
 
-                LevelTile tile = mLevelTiles[mCurrentlySelected-1];
+                LevelTile tile = mLevelTiles[mCurrentlySelected];
 
                 if (tile.isUnlocked()) {
                     startLevel(mCurrentlySelected);
@@ -43,42 +43,42 @@ public class MusicGameLevelSelectActivity extends AppCompatActivity {
     private void initLevelButtons() {
         final TextView displayText = findViewById(R.id.select_level_display);
 
-        for (int i = 1; i <= 9; i++) {
+        for (int i = 0; i < 9; i++) {
             final int levelNum = i;
-            final Button levelButton = findViewById(LEVEL_BUTTON_IDS[i - 1]);
+            final Button levelButton = findViewById(LEVEL_BUTTON_IDS[i]);
 
-            String name = MusicGameActivity.LEVEL_NAMES[levelNum - 1];
-            String desc = MusicGameActivity.LEVEL_DESCRIPTIONS[levelNum - 1];
+            String name = MusicGameActivity.LEVEL_NAMES[levelNum];
+            String desc = MusicGameActivity.LEVEL_DESCRIPTIONS[levelNum];
 
             LevelTile tile = new LevelTile(levelButton, name, desc);
 
-            if (i <= mHighestUnlocked)
+            if (levelNum <= mHighestUnlocked)
                 tile.setUnlocked();
             else
                 tile.setLocked();
 
             // Just testing...
-            if (i == 5)
+            if (levelNum == 5)
                 tile.setIsTreble(false);
 
-            mLevelTiles[i - 1] = tile;
+            mLevelTiles[levelNum] = tile;
 
             // Listener
             levelButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mCurrentlySelected != 0) {
-                        LevelTile oldTile = mLevelTiles[mCurrentlySelected - 1];
+                    if (mCurrentlySelected != -1) {
+                        LevelTile oldTile = mLevelTiles[mCurrentlySelected];
                         oldTile.setUnselected();
                     }
 
-                    LevelTile newTile = mLevelTiles[levelNum - 1];
+                    LevelTile newTile = mLevelTiles[levelNum];
 
                     if (newTile.isUnlocked()) {
                         mCurrentlySelected = levelNum;
                         newTile.setSelected();
                     } else {
-                        mCurrentlySelected = 0;
+                        mCurrentlySelected = -1;
                     }
 
                     displayText.setText(newTile.getDescription());
@@ -86,7 +86,7 @@ public class MusicGameLevelSelectActivity extends AppCompatActivity {
             });
 
             // Setup the display
-            levelButton.setText("Level " + Integer.toString(i));
+            levelButton.setText("Level " + Integer.toString(levelNum + 1));
 
 
         }

@@ -44,7 +44,7 @@ public class MusicGameLevel {
     }
 
     public void start() {
-        String introText = LEVEL_INTROS[mLevelNumber-1];
+        String introText = LEVEL_INTROS[mLevelNumber];
 
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle("Incoming Transmission...");
@@ -65,10 +65,11 @@ public class MusicGameLevel {
 
     public void setupLevel(int levelNum) {
         switch (levelNum) {
-            case 1:
+            case 0:
                 setTreble();
                 mStaff.queueAlien(MusicNote.Note.F4, 0, 1);
                 break;
+            case 1:
             case 2:
             case 3:
             case 4:
@@ -76,7 +77,6 @@ public class MusicGameLevel {
             case 6:
             case 7:
             case 8:
-            case 9:
                 setBass();
                 mStaff.queueAlien(MusicNote.Note.F4, 0, 1);
                 break;
@@ -92,7 +92,7 @@ public class MusicGameLevel {
 
     private void setBass() {
         mStaff.setTreble(false);
-        mPianoView.setRange(MusicNote.Note.C4, MusicNote.Note.C5); // An octave down is just too low to hear
+        mPianoView.setRange(MusicNote.Note.C3, MusicNote.Note.C4); // FIXME: An octave down is just too low to hear
     }
 
     private class GameTimer extends AsyncTask<Void, Void, Void> {
