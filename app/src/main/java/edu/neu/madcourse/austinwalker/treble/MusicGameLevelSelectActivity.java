@@ -26,7 +26,12 @@ public class MusicGameLevelSelectActivity extends AppCompatActivity {
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mCurrentlySelected > 0 && mCurrentlySelected <= mHighestUnlocked) {
+                if (mCurrentlySelected < 1)
+                    return;
+
+                LevelSelectTile tile = mLevelTiles[mCurrentlySelected-1];
+
+                if (tile.isUnlocked()) {
                     startLevel(mCurrentlySelected);
                 }
             }
