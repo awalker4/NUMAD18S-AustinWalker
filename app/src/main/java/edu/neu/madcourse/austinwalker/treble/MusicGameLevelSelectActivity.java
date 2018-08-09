@@ -52,6 +52,10 @@ public class MusicGameLevelSelectActivity extends AppCompatActivity {
             else
                 tile.setLocked();
 
+            // Just testing...
+            if (i == 5)
+                tile.setIsTreble(false);
+
             mLevelTiles[i - 1] = tile;
 
             // Listener

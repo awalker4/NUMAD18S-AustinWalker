@@ -18,15 +18,13 @@ public class LevelSelectTile {
     private String mLevelName;
     private String mLevelDescription;
 
-    private Boolean mSelected;
-    private Boolean mUnlocked;
+    private boolean mUnlocked = true;
+    private boolean mIsTreble = true;
 
     public LevelSelectTile(View context, String name, String desc) {
         mView = context;
         mLevelName = name;
         mLevelDescription = desc;
-        mSelected = false;
-        mUnlocked = true;
 
         if (trebleClef == null)
             trebleClef = mView.getResources().getDrawable(R.drawable.treble_clef);
@@ -50,21 +48,11 @@ public class LevelSelectTile {
     }
 
     public void setSelected() {
-        mSelected = true;
-        mView.setBackground(trebleClef);
-
-        Button button = (Button) mView;
-        button.setText("");
+        addClef();
     }
 
     public void setUnselected() {
-        mSelected = false;
         removeClef();
-
-        if (mUnlocked)
-            mView.getBackground().setLevel(1);
-        else
-            mView.getBackground().setLevel(0);
     }
 
     public void setUnlocked() {
@@ -77,10 +65,29 @@ public class LevelSelectTile {
         mView.getBackground().setLevel(0);
     }
 
+    public void setIsTreble(boolean treble) {
+        mIsTreble = treble;
+    }
+
+    private void addClef() {
+        Button button = (Button) mView;
+        button.setText("");
+
+        if (mIsTreble)
+            button.setBackground(trebleClef);
+        else
+            button.setBackground(bassClef);
+    }
+
     private void removeClef() {
         mView.setBackground(buttonDrawable);
 
         Button button = (Button) mView;
         button.setText(mLevelName);
+
+        if (mUnlocked)
+            mView.getBackground().setLevel(1);
+        else
+            mView.getBackground().setLevel(0);
     }
 }
