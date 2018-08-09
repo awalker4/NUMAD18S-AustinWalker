@@ -6,7 +6,7 @@ import android.widget.Button;
 
 import edu.neu.madcourse.austinwalker.R;
 
-public class LevelSelectTile {
+public class LevelTile {
 
     private View mView;
 
@@ -20,19 +20,10 @@ public class LevelSelectTile {
     private boolean mUnlocked = true;
     private boolean mIsTreble = true;
 
-    public LevelSelectTile(View context, String name, String desc) {
+    public LevelTile(View context, String name, String desc) {
         mView = context;
         mLevelName = name;
         mLevelDescription = desc;
-
-        if (trebleClef == null)
-            trebleClef = mView.getResources().getDrawable(R.drawable.treble_clef);
-
-        if (bassClef == null)
-            bassClef = mView.getResources().getDrawable(R.drawable.bass_clef);
-
-        if (buttonDrawable == null)
-            buttonDrawable = mView.getResources().getDrawable(R.drawable.select_level_button);
     }
 
     public String getDescription() {
@@ -72,6 +63,12 @@ public class LevelSelectTile {
         Button button = (Button) mView;
         button.setText("");
 
+        if (trebleClef == null)
+            trebleClef = mView.getResources().getDrawable(R.drawable.treble_clef);
+
+        if (bassClef == null)
+            bassClef = mView.getResources().getDrawable(R.drawable.bass_clef);
+
         if (mIsTreble)
             button.setBackground(trebleClef);
         else
@@ -79,6 +76,9 @@ public class LevelSelectTile {
     }
 
     private void removeClef() {
+        if (buttonDrawable == null)
+            buttonDrawable = mView.getResources().getDrawable(R.drawable.select_level_button);
+
         mView.setBackground(buttonDrawable);
 
         Button button = (Button) mView;

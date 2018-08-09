@@ -2,12 +2,12 @@
 
 Gameplay
 -------
+- Save highestUnlocked and reload
 - Add collision between bullets and clef
-- Load levels generically 
 - Make sharps/flats angle bullets
 - Allow for selecting between sharps/flats
 - Make bullet movement smoother
-- Fix reloading levels
+- Fix assets disappearing when playing level twice
 
 UI
 ------

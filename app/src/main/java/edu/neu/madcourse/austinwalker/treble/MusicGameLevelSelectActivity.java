@@ -12,7 +12,7 @@ import edu.neu.madcourse.austinwalker.R;
 public class MusicGameLevelSelectActivity extends AppCompatActivity {
 
     private final static int[] LEVEL_BUTTON_IDS = {R.id.button_select_level1, R.id.button_select_level2, R.id.button_select_level3, R.id.button_select_level4, R.id.button_select_level5, R.id.button_select_level6, R.id.button_select_level7, R.id.button_select_level8, R.id.button_select_level9};
-    private LevelSelectTile[] mLevelTiles = new LevelSelectTile[9];
+    private LevelTile[] mLevelTiles = new LevelTile[9];
 
     private int mHighestUnlocked = 5;
     private int mCurrentlySelected = 0;
@@ -29,7 +29,7 @@ public class MusicGameLevelSelectActivity extends AppCompatActivity {
                 if (mCurrentlySelected < 1)
                     return;
 
-                LevelSelectTile tile = mLevelTiles[mCurrentlySelected-1];
+                LevelTile tile = mLevelTiles[mCurrentlySelected-1];
 
                 if (tile.isUnlocked()) {
                     startLevel(mCurrentlySelected);
@@ -50,7 +50,7 @@ public class MusicGameLevelSelectActivity extends AppCompatActivity {
             String name = MusicGameActivity.LEVEL_NAMES[levelNum - 1];
             String desc = MusicGameActivity.LEVEL_DESCRIPTIONS[levelNum - 1];
 
-            LevelSelectTile tile = new LevelSelectTile(levelButton, name, desc);
+            LevelTile tile = new LevelTile(levelButton, name, desc);
 
             if (i <= mHighestUnlocked)
                 tile.setUnlocked();
@@ -68,11 +68,11 @@ public class MusicGameLevelSelectActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     if (mCurrentlySelected != 0) {
-                        LevelSelectTile oldTile = mLevelTiles[mCurrentlySelected - 1];
+                        LevelTile oldTile = mLevelTiles[mCurrentlySelected - 1];
                         oldTile.setUnselected();
                     }
 
-                    LevelSelectTile newTile = mLevelTiles[levelNum - 1];
+                    LevelTile newTile = mLevelTiles[levelNum - 1];
 
                     if (newTile.isUnlocked()) {
                         mCurrentlySelected = levelNum;
