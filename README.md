@@ -7,9 +7,9 @@ Gameplay
 - Make sharps/flats angle bullets
 - Allow for selecting between sharps/flats
 - Make bullet movement smoother
+- Fix reloading levels
 
 UI
 ------
 - Create custom dialog layout for flavor text
-- Use GridLayout for level selection
 - Fix piano sounds

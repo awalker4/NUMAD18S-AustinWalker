@@ -12,9 +12,7 @@ import edu.neu.madcourse.austinwalker.R;
 public class MusicGameLevelSelectActivity extends AppCompatActivity {
 
     private final static int[] LEVEL_BUTTON_IDS = {R.id.button_select_level1, R.id.button_select_level2, R.id.button_select_level3, R.id.button_select_level4, R.id.button_select_level5, R.id.button_select_level6, R.id.button_select_level7, R.id.button_select_level8, R.id.button_select_level9};
-
-    // FIXME: Shouldn't hardcode these
-    private final static String[] LEVEL_NAMES = {"Intro", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6", "Level 7", "Level 8", "Level 9"};
+    private LevelSelectTile[] mLevelTiles = new LevelSelectTile[9];
 
     private int mHighestUnlocked = 5;
     private int mCurrentlySelected = 0;
@@ -44,26 +42,50 @@ public class MusicGameLevelSelectActivity extends AppCompatActivity {
             final int levelNum = i;
             final Button levelButton = findViewById(LEVEL_BUTTON_IDS[i - 1]);
 
+            String name = MusicGameActivity.LEVEL_NAMES[levelNum - 1];
+            String desc = MusicGameActivity.LEVEL_DESCRIPTIONS[levelNum - 1];
+
+            LevelSelectTile tile = new LevelSelectTile(levelButton, name, desc);
+
+            if (i <= mHighestUnlocked)
+                tile.setUnlocked();
+            else
+                tile.setLocked();
+
+            mLevelTiles[i - 1] = tile;
+
             // Listener
             levelButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mCurrentlySelected = levelNum;
+                    if (mCurrentlySelected != 0) {
+                        LevelSelectTile oldTile = mLevelTiles[mCurrentlySelected - 1];
+                        oldTile.setUnselected();
+                    }
 
-                    String text = (mCurrentlySelected <= mHighestUnlocked ? LEVEL_NAMES[mCurrentlySelected-1] : "Locked");
-                    displayText.setText(text);
+                    LevelSelectTile newTile = mLevelTiles[levelNum - 1];
+
+                    if (newTile.isUnlocked()) {
+                        mCurrentlySelected = levelNum;
+                        newTile.setSelected();
+                    } else {
+                        mCurrentlySelected = 0;
+                    }
+
+                    displayText.setText(newTile.getDescription());
                 }
             });
 
-            // Display correctly
-            if (i <= mHighestUnlocked) {
-                levelButton.getBackground().setLevel(2);
-            }
+            // Setup the display
+            levelButton.setText("Level " + Integer.toString(i));
+
+
         }
     }
 
     private void startLevel(int levelNum) {
         Intent intent = new Intent(MusicGameLevelSelectActivity.this, MusicGameActivity.class);
+        MusicGameActivity.levelNum = levelNum;
         startActivity(intent);
     }
 }

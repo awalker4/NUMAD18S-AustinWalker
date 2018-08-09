@@ -9,27 +9,26 @@ public class MusicGameActivity extends AppCompatActivity {
 
     public static final String TAG = "MusicGameActivity";
 
-    private StaffView mStaffView;
-    private PianoView mPianoView;
+    // FIXME: Shouldn't hardcode these
+    public final static String[] LEVEL_NAMES = {"Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6", "Level 7", "Level 8", "Level 9"};
+    public final static String[] LEVEL_DESCRIPTIONS = {"Intro", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6", "Level 7", "Level 8", "Level 9"};
 
-    public static boolean testTreble;
+    public static int levelNum = 1;
+    public MusicGameLevel mCurrentLevel;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_music_game);
 
-        mStaffView = findViewById(R.id.game_staff);
-        mPianoView = findViewById(R.id.game_piano);
+        StaffView staff = findViewById(R.id.game_staff);
+        PianoView piano = findViewById(R.id.game_piano);
+
+        mCurrentLevel = new MusicGameLevel(this, staff, piano);
+        mCurrentLevel.setupLevel(levelNum);
     }
 
     protected void onResume() {
         super.onResume();
-
-        MusicGameLevel level = new MusicGameLevel(this, mStaffView, mPianoView);
-
-        if (testTreble)
-            level.testTreble();
-        else
-            level.testBass();
+        mCurrentLevel.start();
     }
 }

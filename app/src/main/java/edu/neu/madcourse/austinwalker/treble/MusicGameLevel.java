@@ -11,6 +11,8 @@ import edu.neu.madcourse.austinwalker.R;
 public class MusicGameLevel {
     public static final String TAG = "MusicGameLevel";
 
+    private final static String[] LEVEL_INTROS = {"You have to help us defeat the aliens!", "Blah", "Blah", "Blah", "Blah", "Blah", "Blah", "Blah", "Blah"};
+
     private Context mContext;
     private Staff mStaff;
     private PianoView mPianoView;
@@ -18,8 +20,7 @@ public class MusicGameLevel {
     private GameTimer mGameTimer;
     private AlertDialog mDialog;
 
-    private String levelName;
-    private String levelText;
+    private int mLevelNumber = 1;
 
     public MusicGameLevel(Context context, StaffView staffView, PianoView pianoView) {
         mContext = context;
@@ -35,10 +36,6 @@ public class MusicGameLevel {
                 mStaff.placeNote(notePressed);
             }
         });
-
-        // Get level state
-        levelName = "Level 1";
-        levelText = "You have to help us defeat the aliens!";
     }
 
     private void startTimer() {
@@ -47,10 +44,12 @@ public class MusicGameLevel {
     }
 
     public void start() {
+        String introText = LEVEL_INTROS[mLevelNumber-1];
+
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        builder.setTitle(levelName);
-        builder.setMessage(levelText);
-        builder.setIcon(R.drawable.sharp_sign); // TODO: better icon
+        builder.setTitle("Incoming Transmission...");
+        builder.setMessage(introText);
+        builder.setIcon(R.drawable.quarter_note); // TODO: better icon
         builder.setCancelable(false);
         builder.setPositiveButton("Ok",
                 new DialogInterface.OnClickListener() {
@@ -64,26 +63,36 @@ public class MusicGameLevel {
         mDialog = builder.show();
     }
 
-    public void testTreble() {
-        mPianoView.setRange(MusicNote.Note.C4, MusicNote.Note.C5);
-        mStaff.setTreble(true);
-
-        mStaff.queueAlien(MusicNote.Note.C4, 0, 1);
-        mStaff.queueAlien(MusicNote.Note.E4, 0, 3);
-        mStaff.queueAlien(MusicNote.Note.G4, 0, 5);
-
-        start();
+    public void setupLevel(int levelNum) {
+        switch (levelNum) {
+            case 1:
+                setTreble();
+                mStaff.queueAlien(MusicNote.Note.F4, 0, 1);
+                break;
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+                setBass();
+                mStaff.queueAlien(MusicNote.Note.F4, 0, 1);
+                break;
+            default:
+                throw new IndexOutOfBoundsException();
+        }
     }
 
-    public void testBass() {
-        mPianoView.setRange(MusicNote.Note.C3, MusicNote.Note.C4);
+    private void setTreble() {
+        mStaff.setTreble(true);
+        mPianoView.setRange(MusicNote.Note.C4, MusicNote.Note.C5);
+    }
+
+    private void setBass() {
         mStaff.setTreble(false);
-
-        mStaff.queueAlien(MusicNote.Note.C3, 0, 1);
-        mStaff.queueAlien(MusicNote.Note.E3, 0, 3);
-        mStaff.queueAlien(MusicNote.Note.G3, 0, 5);
-
-        start();
+        mPianoView.setRange(MusicNote.Note.C4, MusicNote.Note.C5); // An octave down is just too low to hear
     }
 
     private class GameTimer extends AsyncTask<Void, Void, Void> {

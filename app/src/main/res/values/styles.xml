@@ -24,7 +24,6 @@
         <item name="android:layout_margin">@dimen/level_select_button_margin</item>
         <item name="android:padding">@dimen/scroggle_tile_padding</item>
         <item name="android:background">@drawable/select_level_button</item>
-        <item name="android:src">@drawable/select_level_button</item>
     </style>
 
 </resources>
