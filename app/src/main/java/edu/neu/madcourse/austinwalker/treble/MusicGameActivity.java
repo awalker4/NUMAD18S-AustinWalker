@@ -51,6 +51,11 @@ public class MusicGameActivity extends AppCompatActivity {
         start();
     }
 
+    public void onPause() {
+        super.onPause();
+        mStaff.setFinished();
+    }
+
     public void start() {
         String introText = levelData.getIntroText();
 
@@ -71,12 +76,14 @@ public class MusicGameActivity extends AppCompatActivity {
         mDialog = builder.show();
     }
 
+
     private void startTimer() {
         mGameTimer = new GameTimer();
         mGameTimer.execute();
     }
 
     public void setupLevel(int levelNum) {
+        mStaff.reset();
 
         switch (levelNum) {
             case 0:

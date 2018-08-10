@@ -36,8 +36,8 @@ public class StaffView extends View {
     private int mLedgerLinesDown = 0;
     private int mLedgerLinesUp = 0;
 
-    private boolean isTreble = true;
-    private boolean isClosed = false;
+    private boolean mIsTreble = true;
+    private boolean mIsClosed = false;
 
     private MusicDrawable mClef;
     private QuarterNoteDrawable mNote;
@@ -171,20 +171,27 @@ public class StaffView extends View {
     }
 
     public boolean isTreble() {
-        return isTreble;
+        return mIsTreble;
     }
 
     public void setTreble(boolean treble) {
-        isTreble = treble;
+        mIsTreble = treble;
         setupClef();
     }
 
-    public void setClosed(boolean closed) {
-        isClosed = closed;
+    public void setIsClosed(boolean closed) {
+        mIsClosed = closed;
+    }
+
+    public void reset() {
+        mIsClosed = false;
+        mAliens = new ArrayList<>();
+        mBullets = new ArrayList<>();
+        mNote = null;
     }
 
     private void setupClef() {
-        if (isTreble) {
+        if (mIsTreble) {
             mClef = new TrebleClefDrawable(this, -1, 2); // Center on G
         } else {
             mClef = new BassClefDrawable(this, -1, 6); // Center on F
@@ -221,7 +228,7 @@ public class StaffView extends View {
         drawVertical(canvas, mViewPaddingX, mLineThickness);
 
         // Left-hand line
-        if (isClosed) {
+        if (mIsClosed) {
             int staffEndX = mViewWidth - mViewPaddingX;
             drawVertical(canvas, staffEndX, -10);
             drawVertical(canvas, staffEndX - 20, mLineThickness);

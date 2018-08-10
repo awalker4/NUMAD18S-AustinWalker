@@ -17,9 +17,7 @@ public class Staff {
 
     public Staff(StaffView view) {
         mStaffView = view;
-        mFinished = false;
-
-        enemyQueue = new PriorityQueue<>();
+        reset();
     }
 
     public void setTreble(boolean treble) {
@@ -28,6 +26,10 @@ public class Staff {
 
     public boolean isFinished() {
         return mFinished;
+    }
+
+    public void setFinished() {
+        mFinished = true;
     }
 
     public void placeNote(MusicNote.Note note) {
@@ -60,15 +62,23 @@ public class Staff {
         }
     }
 
+    public void reset() {
+        mFinished = false;
+        mNumTicks = 0;
+        enemyQueue = new PriorityQueue<>();
+
+        mStaffView.reset();
+    }
+
     // Add any items that may have appeared at this tick
     private void addItemsForTick() {
         while (enemyQueue.size() > 0 && enemyQueue.peek().tickNumber <= mNumTicks) {
-                EnemyQueueItem item = enemyQueue.poll();
+            EnemyQueueItem item = enemyQueue.poll();
 
-                if (item.isAlien)
-                    mStaffView.addAlien(item.position);
-                else
-                    mStaffView.addBullet(item.position);
+            if (item.isAlien)
+                mStaffView.addAlien(item.position);
+            else
+                mStaffView.addBullet(item.position);
         }
     }
 
@@ -77,7 +87,7 @@ public class Staff {
     }
 
     private void closeStaff() {
-        mStaffView.setClosed(true);
+        mStaffView.setIsClosed(true);
         mFinished = true;
     }
 
