@@ -27,8 +27,18 @@ public class BulletDrawable extends MusicDrawable {
         mStaffRank += speedY; // TODO: angled bullets
     }
 
-    public void reverse() {
+    public void deflect() {
         speedX *= -1;
+    }
+
+    public void deflectUp() {
+        deflect();
+        speedY = 1;
+    }
+
+    public void deflectDown() {
+        deflect();
+        speedY = -1;
     }
 
     @Override

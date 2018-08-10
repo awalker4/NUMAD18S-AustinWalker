@@ -126,7 +126,12 @@ public class StaffView extends View {
 
             // Did we repel a bullet?
             if (mNote != null && !bullet.isReverse() && mNote.collidesWith(bullet)) {
-                bullet.reverse();
+                if (mNote.getState() == QuarterNoteDrawable.NoteState.FLAT)
+                    bullet.deflectDown();
+                else if (mNote.getState() == QuarterNoteDrawable.NoteState.SHARP)
+                    bullet.deflectUp();
+                else
+                    bullet.deflect();
             }
 
             // Did we hit an alien?

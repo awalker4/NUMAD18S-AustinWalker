@@ -9,6 +9,7 @@ public class QuarterNoteDrawable extends MusicDrawable {
     public enum NoteState {NAKED, NATURAL, FLAT, SHARP}
 
     private MusicDrawable mNoteDecorator;
+    private NoteState mState;
 
     // Draw a quarter note centered on x,y
     // https://www.kisspng.com/png-quarter-note-musical-note-eighth-note-rest-music-n-1190492/
@@ -28,6 +29,7 @@ public class QuarterNoteDrawable extends MusicDrawable {
     }
 
     public void setState(NoteState state) {
+        mState = state;
         switch (state) {
             case SHARP:
                 mNoteDecorator = new SharpSignDrawable(mStaffView, mStaffPosition, mStaffRank);
@@ -38,6 +40,10 @@ public class QuarterNoteDrawable extends MusicDrawable {
             default:
                 mNoteDecorator = null;
         }
+    }
+
+    public NoteState getState() {
+        return mState;
     }
 
     @Override
