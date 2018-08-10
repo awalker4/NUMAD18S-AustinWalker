@@ -19,7 +19,7 @@ public class MusicGameLevelSelectActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(edu.neu.madcourse.austinwalker.R.layout.activity_music_game_level_select);
+        setContentView(R.layout.activity_music_game_level_select);
 
         Button goButton = findViewById(R.id.button_choose_level);
 
@@ -47,10 +47,8 @@ public class MusicGameLevelSelectActivity extends AppCompatActivity {
             final int levelNum = i;
             final Button levelButton = findViewById(LEVEL_BUTTON_IDS[i]);
 
-            String name = MusicGameActivity.LEVEL_NAMES[levelNum];
-            String desc = MusicGameActivity.LEVEL_DESCRIPTIONS[levelNum];
-
-            LevelTile tile = new LevelTile(levelButton, name, desc);
+            LevelTile tile = MusicGameLevelFactory.GetLevelTile(i);
+            tile.setView(levelButton);
 
             if (levelNum <= mHighestUnlocked)
                 tile.setUnlocked();
@@ -94,7 +92,7 @@ public class MusicGameLevelSelectActivity extends AppCompatActivity {
 
     private void startLevel(int levelNum) {
         Intent intent = new Intent(MusicGameLevelSelectActivity.this, MusicGameActivity.class);
-        MusicGameActivity.levelNum = levelNum;
+        MusicGameActivity.levelNum = levelNum; // TODO this sucks
         startActivity(intent);
     }
 }

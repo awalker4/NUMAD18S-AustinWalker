@@ -20,10 +20,13 @@ public class LevelTile {
     private boolean mUnlocked = true;
     private boolean mIsTreble = true;
 
-    public LevelTile(View context, String name, String desc) {
-        mView = context;
+    public LevelTile(String name, String desc) {
         mLevelName = name;
         mLevelDescription = desc;
+    }
+
+    public void setView(View view) {
+        mView = view;
     }
 
     public String getDescription() {

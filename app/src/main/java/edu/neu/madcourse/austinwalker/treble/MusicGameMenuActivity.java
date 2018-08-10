@@ -13,6 +13,8 @@ public class MusicGameMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music_game_menu);
 
+        MusicGameLevelFactory.setContext(this);
+
         // Play game button
         View playButton = findViewById(R.id.play_music_game_button);
         playButton.setOnClickListener(new View.OnClickListener() {
