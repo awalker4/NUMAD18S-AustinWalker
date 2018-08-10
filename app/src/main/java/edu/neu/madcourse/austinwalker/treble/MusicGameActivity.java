@@ -76,7 +76,6 @@ public class MusicGameActivity extends AppCompatActivity {
         mDialog = builder.show();
     }
 
-
     private void startTimer() {
         mGameTimer = new GameTimer();
         mGameTimer.execute();
@@ -88,18 +87,24 @@ public class MusicGameActivity extends AppCompatActivity {
         switch (levelNum) {
             case 0:
                 setTreble();
-                mStaff.queueAlien(MusicNote.Note.F4, 0, 2);
+                mStaff.queueAlien(MusicNote.Note.F4, 0, 2, -1);
                 break;
             case 1:
-            case 2:
-            case 3:
+            case 2: // introduce aliens that go away
+            case 3: /// TODO: sharp tile
+                setTreble();
+                mStaff.queueAlien(MusicNote.Note.A4, 0, 2, 3);
+                mStaff.queueAlien(MusicNote.Note.D5, 0, -1, -1);
+                break;
             case 4:
             case 5:
+                setBass();
+                break;
             case 6:
             case 7:
             case 8:
                 setBass();
-                mStaff.queueAlien(MusicNote.Note.F4, 0, 1);
+                mStaff.queueAlien(MusicNote.Note.F4, 0, 1, -1);
                 break;
             default:
                 throw new IndexOutOfBoundsException();

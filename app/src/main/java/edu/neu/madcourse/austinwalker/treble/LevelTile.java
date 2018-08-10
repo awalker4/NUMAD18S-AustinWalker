@@ -17,6 +17,7 @@ public class LevelTile {
     private String mLevelName;
     private String mLevelDescription;
 
+    // TODO draw sharps, flats
     private boolean mUnlocked = true;
     private boolean mIsTreble = true;
 

@@ -41,7 +41,7 @@ public class StaffView extends View {
 
     private MusicDrawable mClef;
     private QuarterNoteDrawable mNote;
-    private ArrayList<EnemyDrawable> mAliens = new ArrayList<>();
+    private ArrayList<EnemyDrawable> mAliens = new ArrayList<>(); // FIXME: these could just be arrays indexed by rank
     private ArrayList<BulletDrawable> mBullets = new ArrayList<>();
 
     public StaffView(Context context) {
@@ -106,6 +106,18 @@ public class StaffView extends View {
 
     public void addAlien(int rank) {
         mAliens.add(new EnemyDrawable(this, mAlienPosition, rank));
+    }
+
+    // FIXME: ugly because it's an arraylist
+    public void removeAlien(int rank) {
+        Iterator<EnemyDrawable> it = mAliens.iterator();
+
+        while (it.hasNext()) {
+            EnemyDrawable alien = it.next();
+
+            if (alien.getRank() == rank)
+                it.remove();
+        }
     }
 
     public void addBullet(int rank) {

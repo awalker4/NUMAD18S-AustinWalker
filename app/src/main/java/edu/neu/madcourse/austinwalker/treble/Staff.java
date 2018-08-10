@@ -46,10 +46,21 @@ public class Staff {
     }
 
     // Queue an alien to be added after the specified tick count
-    // Queue its bullet to shoot after specified delay
-    public void queueAlien(MusicNote.Note alienNote, int numTicks, int shootDelay) {
+    // Queue its bullet to shoot after specified delay (-1 for no bullet)
+    // Alien goes away if removeDelay is positive
+    public void queueAlien(MusicNote.Note alienNote, int numTicks, int shootDelay, int removeDelay) {
+        assert shootDelay <= removeDelay; // Don't disappear and then shoot
+
         enemyQueue.add(new EnemyQueueItem(alienNote, true, numTicks));
-        enemyQueue.add(new EnemyQueueItem(alienNote, false, numTicks + shootDelay));
+
+        if (shootDelay >= 0)
+            enemyQueue.add(new EnemyQueueItem(alienNote, false, numTicks + shootDelay));
+
+        if (removeDelay >= 0) {
+            EnemyQueueItem item = new EnemyQueueItem(alienNote, true, numTicks + removeDelay);
+            item.setRemove();
+            enemyQueue.add(item);
+        }
     }
 
     public void tick() {
@@ -75,9 +86,12 @@ public class Staff {
         while (enemyQueue.size() > 0 && enemyQueue.peek().tickNumber <= mNumTicks) {
             EnemyQueueItem item = enemyQueue.poll();
 
-            if (item.isAlien)
-                mStaffView.addAlien(item.position);
-            else
+            if (item.isAlien) {
+                if (item.isRemove)
+                    mStaffView.removeAlien(item.position);
+                else
+                    mStaffView.addAlien(item.position);
+            } else
                 mStaffView.addBullet(item.position);
         }
     }
@@ -103,7 +117,8 @@ public class Staff {
     // Used to store aliens/bullets on a PriorityQueue
     // that will add elements to the staff at various ticks
     private class EnemyQueueItem implements Comparable<EnemyQueueItem> {
-        public boolean isAlien;
+        public boolean isAlien; // FIXME: enum of items
+        public boolean isRemove;
         public int position;
         public int tickNumber;
 
@@ -111,6 +126,10 @@ public class Staff {
             position = getNotePosition(note);
             this.isAlien = isAlien;
             tickNumber = tick;
+        }
+
+        public void setRemove() {
+            isRemove = true;
         }
 
         public int compareTo(EnemyQueueItem other) {

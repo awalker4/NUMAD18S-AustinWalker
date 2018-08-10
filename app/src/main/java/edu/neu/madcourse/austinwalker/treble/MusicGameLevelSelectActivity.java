@@ -14,7 +14,7 @@ public class MusicGameLevelSelectActivity extends AppCompatActivity {
     private final static int[] LEVEL_BUTTON_IDS = {R.id.button_select_level1, R.id.button_select_level2, R.id.button_select_level3, R.id.button_select_level4, R.id.button_select_level5, R.id.button_select_level6, R.id.button_select_level7, R.id.button_select_level8, R.id.button_select_level9};
     private LevelTile[] mLevelTiles = new LevelTile[9];
 
-    private int mHighestUnlocked = 5;
+    private int mHighestUnlocked = 8; // Testing everything
     private int mCurrentlySelected = 0;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +54,6 @@ public class MusicGameLevelSelectActivity extends AppCompatActivity {
                 tile.setUnlocked();
             else
                 tile.setLocked();
-
-            // Just testing...
-            if (levelNum == 5)
-                tile.setIsTreble(false);
 
             mLevelTiles[levelNum] = tile;
 
