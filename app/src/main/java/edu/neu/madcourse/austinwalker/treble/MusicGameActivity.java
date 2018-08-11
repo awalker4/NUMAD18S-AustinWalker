@@ -142,12 +142,12 @@ public class MusicGameActivity extends AppCompatActivity {
             case 8:
                 setTreble();
                 mStaff.queueAlien(MusicNote.Note.G4, 0, 2, -1);
-                mStaff.queueAlien(MusicNote.Note.C4, 0, 3, -1);
-                mStaff.queueAlien(MusicNote.Note.D4, 0, 4, -1);
-                mStaff.queueAlien(MusicNote.Note.E4, 0, 5, -1);
-                mStaff.queueAlien(MusicNote.Note.F4, 0, 6, -1);
-                mStaff.queueAlien(MusicNote.Note.G4, 0, 7, -1);
-                mStaff.queueAlien(MusicNote.Note.C4, 6, 2, -1);
+                mStaff.queueAlien(MusicNote.Note.C4, 0, 4, -1);
+                mStaff.queueAlien(MusicNote.Note.D4, 0, 6, -1);
+                mStaff.queueAlien(MusicNote.Note.E4, 0, 8, -1);
+                mStaff.queueAlien(MusicNote.Note.F4, 0, 10, -1);
+                mStaff.queueAlien(MusicNote.Note.G4, 0, 12, -1);
+                mStaff.queueAlien(MusicNote.Note.C4, 12, 2, -1);
                 break;
             default:
                 throw new IndexOutOfBoundsException();
@@ -172,7 +172,7 @@ public class MusicGameActivity extends AppCompatActivity {
                 publishProgress();
 
                 try {
-                    Thread.sleep(1000); // TODO: implement BPM
+                    Thread.sleep(500); // TODO: implement BPM
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

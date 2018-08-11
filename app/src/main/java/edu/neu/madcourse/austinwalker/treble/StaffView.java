@@ -31,7 +31,7 @@ public class StaffView extends View {
     private int mStaffStartY;
     private int mStaffEndY;
     private int mNotePosition = 0;
-    private int mAlienPosition = 3;
+    private int mAlienPosition = 7;
 
     private int mLedgerLinesDown = 0;
     private int mLedgerLinesUp = 0;
@@ -177,9 +177,9 @@ public class StaffView extends View {
         if (position == -1)
             return mViewPaddingX + mClefOffset;
 
-        // Give us enough room to draw 4 notes across the staff (minus some space for the clef)
+        // Give us enough room to draw 8 spots across the staff (minus some space for the clef)
         int staffWidth = mViewWidth - (2 * mViewPaddingX) - mNoteOffset;
-        int noteSpacing = staffWidth / 4;
+        int noteSpacing = staffWidth / 8;
 
         return mNoteOffset + position * noteSpacing;
     }
@@ -188,6 +188,10 @@ public class StaffView extends View {
     // starting from the bottom line
     public int getYForRank(int position) {
         return mStaffEndY - (position * mStaffSpacing / 2);
+    }
+
+    public int getViewHeight() {
+        return mViewHeight;
     }
 
     public boolean isTreble() {
@@ -268,11 +272,6 @@ public class StaffView extends View {
         // Clef
         if (mClef != null)
             mClef.draw(canvas);
-
-        // TEST LINES
-//        for (int i = 0; i < 4; i++) {
-//            drawVertical(canvas, getXForStaffLocation(i), 3);
-//        }
     }
 
     // Add lines above or below staff if called for

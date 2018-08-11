@@ -23,8 +23,8 @@ public class TrebleClefDrawable extends MusicDrawable {
     @Override
     public Rect getHitBox() {
         int x = mStaffView.getXForStaffLocation(mStaffPosition);
-        int topY = mStaffView.getYForRank(10);
-        int bottomY = mStaffView.getYForRank(-2);
+        int topY = 0;
+        int bottomY = mStaffView.getViewHeight();
 
         return new Rect(x - mHitBuffer, topY, x + mHitBuffer, bottomY);
     }

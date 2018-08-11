@@ -10,12 +10,13 @@ public class BulletDrawable extends MusicDrawable {
 
     private static int BULLET_SPEED_X = -1;
     private int speedX;
-    private int speedY = 0;
+    private int speedY;
 
     public BulletDrawable(StaffView staffView, int staffPosition, int staffRank) {
         super("Bullet", staffView, 0, 50, 20, 25, 10, staffPosition, staffRank);
         mColor.setColor(Color.BLACK);
         speedX = BULLET_SPEED_X;
+        speedY = 0;
     }
 
     public static void setBulletSpeedX(int speed) {
