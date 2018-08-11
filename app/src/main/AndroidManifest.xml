@@ -39,11 +39,11 @@
             android:label="Scores" />
         <activity
             android:name=".treble.MusicGameActivity"
-            android:label="Protect the Clef" />
+            android:label="Protect the Clef"
+            android:noHistory="true" />
         <activity
             android:name=".treble.MusicGameMenuActivity"
-            android:label="Protect the Clef"
-            android:noHistory="true"/>
+            android:label="Protect the Clef" />
         <activity
             android:name=".treble.MusicGameLevelSelectActivity"
             android:label="Choose a Level" />

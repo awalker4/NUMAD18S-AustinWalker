@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -111,8 +112,9 @@ public class MusicGameActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MusicGameLevelSelectActivity.class);
 
         // Potentially increment unlocked levels
-        if (mStaff.isWin())
-            MusicGameLevelSelectActivity.mHighestUnlocked = Math.max(levelNum + 1, MusicGameLevelSelectActivity.mHighestUnlocked); // FIXME also ugly
+        if (mStaff.isWin()) {
+            MusicGameLevelSelectActivity.setHighestUnlocked(levelNum);
+        }
 
         startActivity(intent);
     }
