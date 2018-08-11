@@ -163,6 +163,7 @@ public class StaffView extends View {
                     if (alien.collidesWith(bullet)) {
                         bulletIterator.remove();
                         enemyIterator.remove();
+                        break;
                     }
                 }
             }
