@@ -17,14 +17,6 @@ public class MusicGameLevel {
         this.failureText = failureText;
     }
 
-    public String getLevelName() {
-        return levelName;
-    }
-
-    public String getLevelDescription() {
-        return levelDescription;
-    }
-
     public String getIntroText() {
         return introText;
     }
@@ -39,5 +31,9 @@ public class MusicGameLevel {
 
     public int getAlertIconId() {
         return alertIconId;
+    }
+
+    public LevelTile getLevelTile() {
+        return new LevelTile(levelName, levelDescription);
     }
 }

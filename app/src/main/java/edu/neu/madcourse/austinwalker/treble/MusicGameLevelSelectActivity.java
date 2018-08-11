@@ -52,7 +52,9 @@ public class MusicGameLevelSelectActivity extends AppCompatActivity {
             final int levelNum = i;
             final Button levelButton = findViewById(LEVEL_BUTTON_IDS[i]);
 
-            LevelTile tile = MusicGameLevelFactory.GetLevelTile(i);
+            MusicGameLevel levelData = MusicGameLevelFactory.GetLevel(i);
+            LevelTile tile = levelData.getLevelTile();
+
             tile.setView(levelButton);
 
             mLevelTiles[levelNum] = tile;

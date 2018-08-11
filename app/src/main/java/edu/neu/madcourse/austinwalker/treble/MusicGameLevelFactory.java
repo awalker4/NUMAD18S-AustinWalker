@@ -78,12 +78,4 @@ public class MusicGameLevelFactory {
 
         return new MusicGameLevel(name, desc, intro, success, fail);
     }
-
-    public static LevelTile GetLevelTile(int levelNum) {
-        String name = mContext.getResources().getString(LEVEL_NAME_IDS[levelNum]);
-        String desc = mContext.getResources().getString(LEVEL_DESCRIPTION_IDS[levelNum]);
-
-        return new LevelTile(name, desc);
-    }
-
 }
