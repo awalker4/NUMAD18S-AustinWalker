@@ -2,6 +2,7 @@ package edu.neu.madcourse.austinwalker.treble;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -76,9 +77,44 @@ public class MusicGameActivity extends AppCompatActivity {
         mDialog = builder.show();
     }
 
+    public void finish(boolean success) {
+        String message;
+
+        if (success)
+            message = levelData.getSuccessText();
+        else
+            message = levelData.getFailureText();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Incoming Transmission..."); // Todo: attribute of level
+        builder.setMessage(message);
+        builder.setIcon(R.drawable.quarter_note); // TODO: better icon
+        builder.setCancelable(false);
+        builder.setPositiveButton("Ok",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mDialog.cancel();
+                        switchToLevelSelect();
+                    }
+                });
+
+        mDialog = builder.show();
+    }
+
     private void startTimer() {
         mGameTimer = new GameTimer();
         mGameTimer.execute();
+    }
+
+    private void switchToLevelSelect() {
+        Intent intent = new Intent(this, MusicGameLevelSelectActivity.class);
+
+        // Potentially increment unlocked levels
+        if (mStaff.isWin())
+            MusicGameLevelSelectActivity.mHighestUnlocked = Math.max(levelNum + 1, MusicGameLevelSelectActivity.mHighestUnlocked); // FIXME also ugly
+
+        startActivity(intent);
     }
 
     public void setupLevel(int levelNum) {
@@ -94,7 +130,7 @@ public class MusicGameActivity extends AppCompatActivity {
             case 3: /// TODO: sharp tile
                 setTreble();
                 mStaff.queueAlien(MusicNote.Note.A4, 0, 2, 3);
-                mStaff.queueAlien(MusicNote.Note.D5, 0, -1, -1);
+                mStaff.queueAlien(MusicNote.Note.D5, 0, 7, -1);
                 break;
             case 4:
             case 5:
@@ -140,6 +176,9 @@ public class MusicGameActivity extends AppCompatActivity {
 
         protected void onProgressUpdate(Void... progress) {
             mStaff.tick();
+
+            if (mStaff.isFinished())
+                finish(mStaff.isWin());
         }
     }
 }

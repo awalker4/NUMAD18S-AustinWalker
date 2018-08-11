@@ -1,5 +1,7 @@
 package edu.neu.madcourse.austinwalker.treble;
 
+import android.graphics.Rect;
+
 import edu.neu.madcourse.austinwalker.R;
 
 public class BassClefDrawable extends MusicDrawable {
@@ -16,6 +18,15 @@ public class BassClefDrawable extends MusicDrawable {
                 55,
                 staffPosition,
                 staffRank);
-    }
+        }
+
+        @Override
+        public Rect getHitBox() {
+            int x = mStaffView.getXForStaffLocation(mStaffPosition);
+            int topY = mStaffView.getYForRank(8);
+            int bottomY = mStaffView.getYForRank(0);
+
+            return new Rect(x - mHitBuffer, topY, x + mHitBuffer, bottomY);
+        }
 
 }

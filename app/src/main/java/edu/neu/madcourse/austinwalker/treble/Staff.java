@@ -32,6 +32,10 @@ public class Staff {
         mFinished = true;
     }
 
+    public boolean isWin() {
+        return mStaffView.isClosed();
+    }
+
     public void placeNote(MusicNote.Note note) {
         int notePosition = getNotePosition(note);
 
@@ -48,16 +52,16 @@ public class Staff {
     // Queue an alien to be added after the specified tick count
     // Queue its bullet to shoot after specified delay (-1 for no bullet)
     // Alien goes away if removeDelay is positive
-    public void queueAlien(MusicNote.Note alienNote, int numTicks, int shootDelay, int removeDelay) {
+    public void queueAlien(MusicNote.Note note, int numTicks, int shootDelay, int removeDelay) {
         assert shootDelay <= removeDelay; // Don't disappear and then shoot
 
-        enemyQueue.add(new EnemyQueueItem(alienNote, true, numTicks));
+        enemyQueue.add(new EnemyQueueItem(note, true, numTicks));
 
         if (shootDelay >= 0)
-            enemyQueue.add(new EnemyQueueItem(alienNote, false, numTicks + shootDelay));
+            enemyQueue.add(new EnemyQueueItem(note, false, numTicks + shootDelay));
 
         if (removeDelay >= 0) {
-            EnemyQueueItem item = new EnemyQueueItem(alienNote, true, numTicks + removeDelay);
+            EnemyQueueItem item = new EnemyQueueItem(note, true, numTicks + removeDelay);
             item.setRemove();
             enemyQueue.add(item);
         }
@@ -70,6 +74,8 @@ public class Staff {
 
         if (numAliens() == 0) {
             closeStaff();
+        } else if (mStaffView.isClefHit()) {
+            mFinished = true;
         }
     }
 

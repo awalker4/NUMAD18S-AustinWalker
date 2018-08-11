@@ -14,8 +14,8 @@ public class MusicGameLevelSelectActivity extends AppCompatActivity {
     private final static int[] LEVEL_BUTTON_IDS = {R.id.button_select_level1, R.id.button_select_level2, R.id.button_select_level3, R.id.button_select_level4, R.id.button_select_level5, R.id.button_select_level6, R.id.button_select_level7, R.id.button_select_level8, R.id.button_select_level9};
     private LevelTile[] mLevelTiles = new LevelTile[9];
 
-    private int mHighestUnlocked = 8; // Testing everything
-    private int mCurrentlySelected = 0;
+    public static int mHighestUnlocked = 0; // Testing everything
+    private int mCurrentlySelected = -1;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +26,7 @@ public class MusicGameLevelSelectActivity extends AppCompatActivity {
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mCurrentlySelected < 0)
+                if (mCurrentlySelected < 0 || mCurrentlySelected >= 9)
                     return;
 
                 LevelTile tile = mLevelTiles[mCurrentlySelected];
@@ -40,6 +40,11 @@ public class MusicGameLevelSelectActivity extends AppCompatActivity {
         initLevelButtons();
     }
 
+    protected void onResume() {
+        super.onResume();
+        showUnlockedLevels();
+    }
+
     private void initLevelButtons() {
         final TextView displayText = findViewById(R.id.select_level_display);
 
@@ -49,11 +54,6 @@ public class MusicGameLevelSelectActivity extends AppCompatActivity {
 
             LevelTile tile = MusicGameLevelFactory.GetLevelTile(i);
             tile.setView(levelButton);
-
-            if (levelNum <= mHighestUnlocked)
-                tile.setUnlocked();
-            else
-                tile.setLocked();
 
             mLevelTiles[levelNum] = tile;
 
@@ -81,8 +81,15 @@ public class MusicGameLevelSelectActivity extends AppCompatActivity {
 
             // Setup the display
             levelButton.setText("Level " + Integer.toString(levelNum + 1));
+        }
+    }
 
-
+    private void showUnlockedLevels() {
+        for (int i = 0; i < 9; i++) {
+            if (i <= mHighestUnlocked)
+                mLevelTiles[i].setUnlocked();
+            else
+                mLevelTiles[i].setLocked();
         }
     }
 

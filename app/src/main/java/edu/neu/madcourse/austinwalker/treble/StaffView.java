@@ -38,6 +38,7 @@ public class StaffView extends View {
 
     private boolean mIsTreble = true;
     private boolean mIsClosed = false;
+    private boolean mIsClefHit = false;
 
     private MusicDrawable mClef;
     private QuarterNoteDrawable mNote;
@@ -146,6 +147,12 @@ public class StaffView extends View {
                     bullet.deflect();
             }
 
+            // Did we hit the clef?
+            else if (mClef.collidesWith(bullet)) {
+                mIsClefHit = true;
+                break;
+            }
+
             // Did we hit an alien?
             else if (bullet.isReverse()) {
                 enemyIterator = mAliens.iterator();
@@ -184,6 +191,14 @@ public class StaffView extends View {
 
     public boolean isTreble() {
         return mIsTreble;
+    }
+
+    public boolean isClosed() {
+        return mIsClosed;
+    }
+
+    public boolean isClefHit() {
+        return mIsClefHit;
     }
 
     public void setTreble(boolean treble) {

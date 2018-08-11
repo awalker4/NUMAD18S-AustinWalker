@@ -52,7 +52,7 @@
     <string name="treble_level_success_1">Intro</string>
     <string name="treble_level_success_2">Intro</string>
     <string name="treble_level_success_3">Intro</string>
-    <string name="treble_level_success_4">Intro</string>
+    <string name="treble_level_success_4">Good job!</string>
     <string name="treble_level_success_5">Intro</string>
     <string name="treble_level_success_6">Intro</string>
     <string name="treble_level_success_7">Intro</string>
@@ -61,7 +61,7 @@
     <string name="treble_level_fail_1">Intro</string>
     <string name="treble_level_fail_2">Intro</string>
     <string name="treble_level_fail_3">Intro</string>
-    <string name="treble_level_fail_4">Intro</string>
+    <string name="treble_level_fail_4">Boo!</string>
     <string name="treble_level_fail_5">Intro</string>
     <string name="treble_level_fail_6">Intro</string>
     <string name="treble_level_fail_7">Intro</string>
