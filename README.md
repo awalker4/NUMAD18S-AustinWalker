@@ -2,11 +2,9 @@
 
 Gameplay
 -------
-- Save highestUnlocked and reload
-- Add collision between bullets and clef
 - Make bullet movement smoother
 - Design levels
-- Levels with angled bullets should have disappearing aliens
+- Do something about getting stuck (alien that we can't shoot)
 
 UI (Longer term)
 ------
