@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -141,8 +140,14 @@ public class MusicGameActivity extends AppCompatActivity {
             case 6:
             case 7:
             case 8:
-                setBass();
-                mStaff.queueAlien(MusicNote.Note.F4, 0, 1, -1);
+                setTreble();
+                mStaff.queueAlien(MusicNote.Note.G4, 0, 2, -1);
+                mStaff.queueAlien(MusicNote.Note.C4, 0, 3, -1);
+                mStaff.queueAlien(MusicNote.Note.D4, 0, 4, -1);
+                mStaff.queueAlien(MusicNote.Note.E4, 0, 5, -1);
+                mStaff.queueAlien(MusicNote.Note.F4, 0, 6, -1);
+                mStaff.queueAlien(MusicNote.Note.G4, 0, 7, -1);
+                mStaff.queueAlien(MusicNote.Note.C4, 6, 2, -1);
                 break;
             default:
                 throw new IndexOutOfBoundsException();

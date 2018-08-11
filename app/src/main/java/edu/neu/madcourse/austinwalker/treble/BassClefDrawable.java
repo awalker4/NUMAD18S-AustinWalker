@@ -23,8 +23,8 @@ public class BassClefDrawable extends MusicDrawable {
         @Override
         public Rect getHitBox() {
             int x = mStaffView.getXForStaffLocation(mStaffPosition);
-            int topY = mStaffView.getYForRank(8);
-            int bottomY = mStaffView.getYForRank(0);
+            int topY = mStaffView.getYForRank(10);
+            int bottomY = mStaffView.getYForRank(-2);
 
             return new Rect(x - mHitBuffer, topY, x + mHitBuffer, bottomY);
         }

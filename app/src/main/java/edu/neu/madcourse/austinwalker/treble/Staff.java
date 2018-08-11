@@ -1,6 +1,5 @@
 package edu.neu.madcourse.austinwalker.treble;
 
-
 import java.util.PriorityQueue;
 
 // Add some abstraction on top of StaffView

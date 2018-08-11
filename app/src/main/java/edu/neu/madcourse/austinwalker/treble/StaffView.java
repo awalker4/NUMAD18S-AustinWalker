@@ -218,6 +218,7 @@ public class StaffView extends View {
         mAliens = new ArrayList<>();
         mBullets = new ArrayList<>();
         mNote = null;
+        mLedgerLinesDown = mLedgerLinesUp = 0;
     }
 
     private void setupClef() {

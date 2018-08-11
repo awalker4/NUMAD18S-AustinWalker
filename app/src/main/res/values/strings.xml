@@ -48,7 +48,7 @@
     <string name="treble_level_intro_6">Intro</string>
     <string name="treble_level_intro_7">Intro</string>
     <string name="treble_level_intro_8">Intro</string>
-    <string name="treble_level_intro_9">The aliens are getting smart! It\'s almost like they\'ve arranged into some sort of... melody.</string>
+    <string name="treble_level_intro_9">They\'re everywhere!</string>
     <string name="treble_level_success_1">Intro</string>
     <string name="treble_level_success_2">Intro</string>
     <string name="treble_level_success_3">Intro</string>
@@ -57,7 +57,7 @@
     <string name="treble_level_success_6">Intro</string>
     <string name="treble_level_success_7">Intro</string>
     <string name="treble_level_success_8">Intro</string>
-    <string name="treble_level_success_9">Intro</string>
+    <string name="treble_level_success_9">Gee, that could have been a major disaster!</string>
     <string name="treble_level_fail_1">Intro</string>
     <string name="treble_level_fail_2">Intro</string>
     <string name="treble_level_fail_3">Intro</string>
@@ -66,7 +66,7 @@
     <string name="treble_level_fail_6">Intro</string>
     <string name="treble_level_fail_7">Intro</string>
     <string name="treble_level_fail_8">Intro</string>
-    <string name="treble_level_fail_9">Intro</string>
+    <string name="treble_level_fail_9">Oh no, they baroque through! Sorry, couldn\'t resist, heh heh...\n\nWe\'re doomed...</string>
 
 
 </resources>
