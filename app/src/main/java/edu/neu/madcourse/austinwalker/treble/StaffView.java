@@ -207,6 +207,8 @@ public class StaffView extends View {
     }
 
     public void setIsClosed(boolean closed) {
+        mAliens = new ArrayList<>();
+        mBullets = new ArrayList<>();
         mIsClosed = closed;
     }
 
