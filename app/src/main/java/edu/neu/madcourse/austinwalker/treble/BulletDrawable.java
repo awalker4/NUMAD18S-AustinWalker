@@ -25,7 +25,10 @@ public class BulletDrawable extends MusicDrawable {
 
     public void tick() {
         mStaffPosition += speedX;
-        mStaffRank += speedY; // TODO: angled bullets
+
+        // HACK: I doubled the tick rate but I only want bullets to jump by 4
+        if (mStaffPosition % 2 == 0)
+            mStaffRank += speedY;
     }
 
     public void deflect() {
