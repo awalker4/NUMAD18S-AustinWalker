@@ -77,7 +77,7 @@ public class MusicGameActivity extends AppCompatActivity {
         mDialog = builder.show();
     }
 
-    public void finish(boolean success) {
+    public void showFinishDialog(boolean success) {
         String message;
 
         if (success)
@@ -102,7 +102,26 @@ public class MusicGameActivity extends AppCompatActivity {
         mDialog = builder.show();
     }
 
+    public void showStuckDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Incoming Transmission..."); // Todo: attribute of level
+        builder.setMessage("Ah, looks like they aren't going anywhere...");
+        builder.setIcon(R.drawable.quarter_note); // TODO: better icon
+        builder.setCancelable(false);
+        builder.setPositiveButton("Ok",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mDialog.cancel();
+                        switchToLevelSelect();
+                    }
+                });
+
+        mDialog = builder.show();
+    }
+
     private void startTimer() {
+        // FIXME Get alien position on staff, divide by 4, use that to sleep such that each beat is a second
         mGameTimer = new GameTimer();
         mGameTimer.execute();
     }
@@ -184,8 +203,12 @@ public class MusicGameActivity extends AppCompatActivity {
         protected void onProgressUpdate(Void... progress) {
             mStaff.tick();
 
-            if (mStaff.isFinished())
-                finish(mStaff.isWin());
+            if (mStaff.isFinished()) {
+                if (mStaff.isStuck())
+                    showStuckDialog();
+                else
+                    showFinishDialog(mStaff.isWin());
+            }
         }
     }
 }

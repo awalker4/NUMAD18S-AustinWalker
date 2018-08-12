@@ -27,6 +27,11 @@ public class Staff {
         return mFinished;
     }
 
+    // We have aliens, but there are no bullets to clear them
+    public boolean isStuck() {
+        return (mStaffView.hasUnreachableAliens() && enemyQueue.size() == 0);
+    }
+
     public void setFinished() {
         mFinished = true;
     }
@@ -72,8 +77,9 @@ public class Staff {
         mNumTicks++;
 
         if (numAliens() == 0) {
-            closeStaff();
-        } else if (mStaffView.isClefHit()) {
+            mStaffView.setIsClosed(true);
+            mFinished = true;
+        } else if (mStaffView.isClefHit() || isStuck()) {
             mFinished = true;
         }
     }
@@ -103,11 +109,6 @@ public class Staff {
 
     private int numAliens() {
         return mStaffView.numAliens() + enemyQueue.size();
-    }
-
-    private void closeStaff() {
-        mStaffView.setIsClosed(true);
-        mFinished = true;
     }
 
     private int getNotePosition(MusicNote.Note note) {

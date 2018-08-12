@@ -56,6 +56,10 @@ public class MusicDrawable {
         return mStaffRank;
     }
 
+    public int getPosition() {
+        return mStaffPosition;
+    }
+
     public void draw(Canvas canvas) {
         int x = mStaffView.getXForStaffLocation(mStaffPosition) - mXOff;
         int y = mStaffView.getYForRank(mStaffRank) - mYOff;

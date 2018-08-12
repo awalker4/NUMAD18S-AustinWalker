@@ -89,46 +89,6 @@ public class StaffView extends View {
         }
     }
 
-    public void drawNote(int location) {
-        drawNote(location, QuarterNoteDrawable.NoteState.NAKED);
-    }
-
-    public void drawFlatNote(int location) {
-        drawNote(location, QuarterNoteDrawable.NoteState.FLAT);
-    }
-
-    public void drawSharpNote(int location) {
-        drawNote(location, QuarterNoteDrawable.NoteState.SHARP);
-    }
-
-    public void drawNaturalNote(int location) {
-        drawNote(location, QuarterNoteDrawable.NoteState.NATURAL);
-    }
-
-    public void addAlien(int rank) {
-        mAliens.add(new EnemyDrawable(this, mAlienPosition, rank));
-    }
-
-    // FIXME: ugly because it's an arraylist
-    public void removeAlien(int rank) {
-        Iterator<EnemyDrawable> it = mAliens.iterator();
-
-        while (it.hasNext()) {
-            EnemyDrawable alien = it.next();
-
-            if (alien.getRank() == rank)
-                it.remove();
-        }
-    }
-
-    public void addBullet(int rank) {
-        mBullets.add(new BulletDrawable(this, mAlienPosition, rank));
-    }
-
-    public int numAliens() {
-        return mAliens.size();
-    }
-
     public void tick() {
         Iterator<BulletDrawable> bulletIterator = mBullets.iterator();
         Iterator<EnemyDrawable> enemyIterator;
@@ -153,6 +113,11 @@ public class StaffView extends View {
                 break;
             }
 
+            // Did we shoot off the staff?
+            else if (bullet.isReverse() && bullet.getPosition() > mAlienPosition) {
+                bulletIterator.remove();
+            }
+
             // Did we hit an alien?
             else if (bullet.isReverse()) {
                 enemyIterator = mAliens.iterator();
@@ -167,9 +132,56 @@ public class StaffView extends View {
                     }
                 }
             }
+
         }
 
         invalidate();
+    }
+
+    public void drawNote(int location) {
+        drawNote(location, QuarterNoteDrawable.NoteState.NAKED);
+    }
+
+    public void drawFlatNote(int location) {
+        drawNote(location, QuarterNoteDrawable.NoteState.FLAT);
+    }
+
+    public void drawSharpNote(int location) {
+        drawNote(location, QuarterNoteDrawable.NoteState.SHARP);
+    }
+
+    public void drawNaturalNote(int location) {
+        drawNote(location, QuarterNoteDrawable.NoteState.NATURAL);
+    }
+
+    public void addAlien(int rank) {
+        mAliens.add(new EnemyDrawable(this, mAlienPosition, rank));
+    }
+
+    public void addBullet(int rank) {
+        mBullets.add(new BulletDrawable(this, mAlienPosition, rank));
+    }
+
+    public int numAliens() {
+        return mAliens.size();
+    }
+
+    // FIXME: ugly because it's an arraylist
+    public void removeAlien(int rank) {
+        Iterator<EnemyDrawable> it = mAliens.iterator();
+
+        while (it.hasNext()) {
+            EnemyDrawable alien = it.next();
+
+            if (alien.getRank() == rank)
+                it.remove();
+        }
+    }
+
+
+    // Is there an alien but no bullets to take it out?
+    public boolean hasUnreachableAliens() {
+        return (mAliens.size() > 0 && mBullets.size() == 0);
     }
 
     public int getXForStaffLocation(int position) {
