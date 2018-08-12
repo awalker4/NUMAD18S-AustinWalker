@@ -28,7 +28,6 @@ public class MusicGameLevelSelectActivity extends AppCompatActivity {
         setContentView(R.layout.activity_music_game_level_select);
 
         Button goButton = findViewById(R.id.button_choose_level);
-
         goButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,6 +126,10 @@ public class MusicGameLevelSelectActivity extends AppCompatActivity {
             else
                 mLevelTiles[i].setLocked();
         }
+
+        TextView levelProgressText = findViewById(R.id.level_progress_percent);
+        double percentComplete = mHighestUnlocked / 9.0 * 100;
+        levelProgressText.setText(String.format("%d%% complete", Math.round(percentComplete)));
     }
 
     private void startLevel(int levelNum) {
