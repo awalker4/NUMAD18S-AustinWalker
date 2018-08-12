@@ -143,21 +143,41 @@ public class MusicGameActivity extends AppCompatActivity {
         switch (levelNum) {
             case 0:
                 setTreble();
-                mStaff.queueAlien(MusicNote.Note.F4, 0, 2, -1);
+                mStaff.queueAlien(MusicNote.Note.F4, 0, 4, -1);
                 break;
             case 1:
-            case 2: // introduce aliens that go away
+                setTreble();
+                mStaff.queueAlien(MusicNote.Note.C4, 0, 4, -1);
+                mStaff.queueAlien(MusicNote.Note.E4, 0, 6, -1);
+                mStaff.queueAlien(MusicNote.Note.G4, 0, 8, -1);
+                break;
+            case 2:
+                setTreble();
+                mStaff.queueAlien(MusicNote.Note.C4, 0, 4, -1);
+                mStaff.queueAlien(MusicNote.Note.E4, 0, 6, -1);
+                mStaff.queueAlien(MusicNote.Note.G4, 0, 8, -1);
+                break;
             case 3: /// TODO: sharp tile
                 setTreble();
                 mStaff.queueAlien(MusicNote.Note.A4, 0, 2, 3);
-                mStaff.queueAlien(MusicNote.Note.D5, 0, 7, -1);
+                mStaff.queueAlien(MusicNote.Note.D5, 0, -1, -1);
                 break;
             case 4:
+                setTreble();
+                mStaff.setUseFlats(true);
+                mStaff.queueAlien(MusicNote.Note.A4, 0, 2, 4);
+                mStaff.queueAlien(MusicNote.Note.E4, 0, 6, -1);
+                mStaff.queueAlien(MusicNote.Note.B3, 0, -1, -1);
+                break;
             case 5:
                 setBass();
                 break;
             case 6:
+                setBass();
+                break;
             case 7:
+                setBass();
+                break;
             case 8:
                 setTreble();
                 mStaff.queueAlien(MusicNote.Note.G4, 0, 2, -1);
@@ -212,3 +232,4 @@ public class MusicGameActivity extends AppCompatActivity {
         }
     }
 }
+

@@ -8,7 +8,7 @@ public class Staff {
 
     private StaffView mStaffView;
 
-    private boolean useFlats = false;
+    private boolean mUseFlats = false;
     private boolean mFinished;
     private int mNumTicks = 0;
 
@@ -21,6 +21,10 @@ public class Staff {
 
     public void setTreble(boolean treble) {
         mStaffView.setTreble(treble);
+    }
+
+    public void setUseFlats(boolean flat) {
+        mUseFlats = flat;
     }
 
     public boolean isFinished() {
@@ -45,7 +49,7 @@ public class Staff {
 
         if (note.isWhite()) {
             mStaffView.drawNote(notePosition);
-        } else if (useFlats) {
+        } else if (mUseFlats) {
             // All notes in the enum are sharp; flats need to move up a spot
             mStaffView.drawFlatNote(notePosition + 1);
         } else {
