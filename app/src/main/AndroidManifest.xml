@@ -46,8 +46,7 @@
             android:label="Protect the Clef" />
         <activity
             android:name=".treble.MusicGameLevelSelectActivity"
-            android:label="Choose a Level" />
-
+            android:label="Choose a Level"
+            android:noHistory="true" />
     </application>
-
 </manifest>

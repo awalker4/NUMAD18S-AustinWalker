@@ -16,6 +16,7 @@ public class MusicGameLevelSelectActivity extends AppCompatActivity {
     public static final String PREF_LEVELS = "pref_levels";
 
     private final static int[] LEVEL_BUTTON_IDS = {R.id.button_select_level1, R.id.button_select_level2, R.id.button_select_level3, R.id.button_select_level4, R.id.button_select_level5, R.id.button_select_level6, R.id.button_select_level7, R.id.button_select_level8, R.id.button_select_level9};
+    private static boolean mShouldReset = false;
     private LevelTile[] mLevelTiles = new LevelTile[9];
 
     private static int mHighestUnlocked = 0;
@@ -49,10 +50,15 @@ public class MusicGameLevelSelectActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        // Get saved highest level (or use current static value if it just went up)
-        String gameData = getPreferences(MODE_PRIVATE).getString(PREF_LEVELS, "0");
-        Scanner scanner = new Scanner(gameData);
-        mHighestUnlocked = Math.max(scanner.nextInt(), mHighestUnlocked);
+        if (mShouldReset) {
+            mHighestUnlocked = 0;
+            mShouldReset = false;
+        } else {
+            // Get saved highest level (or use current static value if it just went up)
+            String gameData = getPreferences(MODE_PRIVATE).getString(PREF_LEVELS, "0");
+            Scanner scanner = new Scanner(gameData);
+            mHighestUnlocked = Math.max(scanner.nextInt(), mHighestUnlocked);
+        }
 
         showUnlockedLevels();
     }
@@ -64,8 +70,13 @@ public class MusicGameLevelSelectActivity extends AppCompatActivity {
         getPreferences(MODE_PRIVATE).edit().putString(PREF_LEVELS, gameData).commit();
     }
 
+    // This is all ugly
     public static void setHighestUnlocked(int levelPlayed) {
         mHighestUnlocked = Math.max(levelPlayed + 1, mHighestUnlocked);
+    }
+
+    public static void resetHighestUnlocked() {
+        mShouldReset = true;
     }
 
     private void initLevelButtons() {

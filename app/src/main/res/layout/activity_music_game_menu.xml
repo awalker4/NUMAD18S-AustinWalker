@@ -35,5 +35,11 @@
             android:padding="@dimen/menu_button_padding"
             android:text="Play" />
 
+        <Button
+            android:id="@+id/reset_music_game_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Reset Levels" />
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

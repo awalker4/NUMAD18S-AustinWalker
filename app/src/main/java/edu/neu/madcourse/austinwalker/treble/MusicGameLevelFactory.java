@@ -67,9 +67,9 @@ public class MusicGameLevelFactory {
             R.string.treble_level_fail_8,
             R.string.treble_level_fail_9};
 
-    // TODO success, fail text
-
     public static MusicGameLevel GetLevel(int levelNum) {
+        assert mContext != null;
+
         String name = mContext.getResources().getString(LEVEL_NAME_IDS[levelNum]);
         String desc = mContext.getResources().getString(LEVEL_DESCRIPTION_IDS[levelNum]);
         String intro = mContext.getResources().getString(LEVEL_INTRO_IDS[levelNum]);

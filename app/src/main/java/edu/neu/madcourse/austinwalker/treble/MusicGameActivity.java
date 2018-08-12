@@ -18,7 +18,7 @@ public class MusicGameActivity extends AppCompatActivity {
     private PianoView mPiano;
 
     private GameTimer mGameTimer;
-    private MusicGameLevel levelData;
+    private MusicGameLevel mLevelData;
 
     public static int levelNum;
 
@@ -47,7 +47,7 @@ public class MusicGameActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        levelData = MusicGameLevelFactory.GetLevel(levelNum);
+        mLevelData = MusicGameLevelFactory.GetLevel(levelNum);
         setupLevel(levelNum);
         start();
     }
@@ -58,7 +58,7 @@ public class MusicGameActivity extends AppCompatActivity {
     }
 
     public void start() {
-        String introText = levelData.getIntroText();
+        String introText = mLevelData.getIntroText();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Incoming Transmission..."); // Todo: attribute of level
@@ -81,9 +81,9 @@ public class MusicGameActivity extends AppCompatActivity {
         String message;
 
         if (success)
-            message = levelData.getSuccessText();
+            message = mLevelData.getSuccessText();
         else
-            message = levelData.getFailureText();
+            message = mLevelData.getFailureText();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Incoming Transmission..."); // Todo: attribute of level

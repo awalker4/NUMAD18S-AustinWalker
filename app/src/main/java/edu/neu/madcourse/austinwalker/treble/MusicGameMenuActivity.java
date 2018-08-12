@@ -24,5 +24,14 @@ public class MusicGameMenuActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        // Reset game button
+        View resetButton = findViewById(R.id.reset_music_game_button);
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MusicGameLevelSelectActivity.resetHighestUnlocked();
+            }
+        });
     }
 }
