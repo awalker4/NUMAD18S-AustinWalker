@@ -141,28 +141,30 @@ public class MusicGameActivity extends AppCompatActivity {
         mStaff.reset();
 
         switch (levelNum) {
-            case 0:
+            case 0: // Prelude
                 setTreble();
                 mStaff.queueAlien(MusicNote.Note.F4, 0, 4, -1);
                 break;
-            case 1:
+            case 1: // Three's a crowd
                 setTreble();
                 mStaff.queueAlien(MusicNote.Note.C4, 0, 4, -1);
                 mStaff.queueAlien(MusicNote.Note.E4, 0, 6, -1);
                 mStaff.queueAlien(MusicNote.Note.G4, 0, 8, -1);
                 break;
-            case 2:
+            case 2: // Minor Issue
                 setTreble();
                 mStaff.queueAlien(MusicNote.Note.C4, 0, 4, -1);
+                mStaff.queueAlien(MusicNote.Note.D4, 0, 4, -1);
                 mStaff.queueAlien(MusicNote.Note.E4, 0, 6, -1);
+                mStaff.queueAlien(MusicNote.Note.F4, 0, 6, -1);
                 mStaff.queueAlien(MusicNote.Note.G4, 0, 8, -1);
                 break;
-            case 3: /// TODO: sharp tile
+            case 3: // Sharpshooter
                 setTreble();
                 mStaff.queueAlien(MusicNote.Note.A4, 0, 2, 3);
                 mStaff.queueAlien(MusicNote.Note.D5, 0, -1, -1);
                 break;
-            case 4:
+            case 4: // A Flat Approach
                 setTreble();
                 mStaff.setUseFlats(true);
                 mStaff.queueAlien(MusicNote.Note.A4, 0, 2, 4);
@@ -178,7 +180,7 @@ public class MusicGameActivity extends AppCompatActivity {
             case 7:
                 setBass();
                 break;
-            case 8:
+            case 8: // Bach to Basics
                 setTreble();
                 mStaff.queueAlien(MusicNote.Note.G4, 0, 2, -1);
                 mStaff.queueAlien(MusicNote.Note.C4, 0, 4, -1);
