@@ -153,32 +153,47 @@ public class MusicGameActivity extends AppCompatActivity {
                 break;
             case 2: // Minor Issue
                 setTreble();
-                mStaff.queueAlien(MusicNote.Note.C4, 0, 4, -1);
-                mStaff.queueAlien(MusicNote.Note.D4, 0, 4, -1);
-                mStaff.queueAlien(MusicNote.Note.E4, 0, 6, -1);
-                mStaff.queueAlien(MusicNote.Note.F4, 0, 6, -1);
-                mStaff.queueAlien(MusicNote.Note.G4, 0, 8, -1);
+                mStaff.queueAlien(MusicNote.Note.D4, 0, 2, -1);
+                mStaff.queueAlien(MusicNote.Note.F4, 0, 4, -1);
+                mStaff.queueAlien(MusicNote.Note.A4, 0, 8, -1);
+                mStaff.queueAlien(MusicNote.Note.B4, 0, 10, -1);
+                mStaff.queueAlien(MusicNote.Note.G4, 0, 12, -1);
+                mStaff.queueAlien(MusicNote.Note.E4, 0, 14, -1);
                 break;
             case 3: // Sharpshooter
                 setTreble();
                 mStaff.queueAlien(MusicNote.Note.A4, 0, 2, 3);
                 mStaff.queueAlien(MusicNote.Note.D5, 0, -1, -1);
                 break;
-            case 4: // A Flat Approach
+            case 4: // How Flattering
                 setTreble();
                 mStaff.setUseFlats(true);
                 mStaff.queueAlien(MusicNote.Note.A4, 0, 2, 4);
                 mStaff.queueAlien(MusicNote.Note.E4, 0, 6, -1);
                 mStaff.queueAlien(MusicNote.Note.B3, 0, -1, -1);
                 break;
-            case 5:
+        case 5: // New Tactics
                 setBass();
+                mStaff.queueAlien(MusicNote.Note.C3, 0, 2, -1);
+                mStaff.queueAlien(MusicNote.Note.E3, 0, 4, -1);
+                mStaff.queueAlien(MusicNote.Note.G3, 0, 6, -1);
+                mStaff.queueAlien(MusicNote.Note.C4, 0, 8, -1);
                 break;
-            case 6:
+            case 6: // Aliens can't eat grass
                 setBass();
+                mPiano.setRange(MusicNote.Note.A2, MusicNote.Note.B3);
+                mStaff.queueAlien(MusicNote.Note.A2, 0, 2, -1);
+                mStaff.queueAlien(MusicNote.Note.C3, 0, 4, -1);
+                mStaff.queueAlien(MusicNote.Note.E3, 0, 6, -1);
+                mStaff.queueAlien(MusicNote.Note.G3, 0, 8, -1);
                 break;
-            case 7:
+            case 7: // Putting it Together
                 setBass();
+                mStaff.setUseFlats(true);
+                mStaff.queueAlien(MusicNote.Note.A2, 0, -1, -1);
+                mStaff.queueAlien(MusicNote.Note.B2, 0, -1, -1);
+                mStaff.queueAlien(MusicNote.Note.D3, 0, 2, 4);
+                mStaff.queueAlien(MusicNote.Note.E3, 0, 4, 4);
                 break;
             case 8: // Bach to Basics
                 setTreble();

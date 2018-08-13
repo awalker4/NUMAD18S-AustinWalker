@@ -27,7 +27,7 @@
     <string name="treble_level_description_1">Prelude</string>
     <string name="treble_level_intro_1">Hey you! Yeah, you!\n\nSeems we have an alien problem here... Can you help?\n\nOur quarter notes can stop their bullets. We can\'t let them hit the clef! Try placing an F note.</string>
     <string name="treble_level_success_1">Phew, thanks! Someone forgot to close the staff with that there final barline. It was wide open for aliens to fly right in! Some people just don\'t pay attention...</string>
-    <string name="treble_level_fail_1">Wow, sorry I asked! Now look what you\'ve done.</string>
+    <string name="treble_level_fail_1">Welp, there goes the staff...</string>
 
     <string name="treble_level_name_2">Level 2</string>
     <string name="treble_level_description_2">Three\'s a Crowd</string>
@@ -37,43 +37,43 @@
 
     <string name="treble_level_name_3">Level 3</string>
     <string name="treble_level_description_3">Minor Issue</string>
-    <string name="treble_level_intro_3">Some aliens might run away after shooting. That\'s okay, makes our job easier, eh?</string>
-    <string name="treble_level_success_3">Wow, that was a lot of them. You\'re picking up fast!</string>
+    <string name="treble_level_intro_3">Watch out, looks like they\'re coming faster now!</string>
+    <string name="treble_level_success_3">Okay, look. Did I leave the bar open? Maybe.\n\nAm I responsible for all these aliens flying around? Sure.\n\nIt\'s in the past!</string>
     <string name="treble_level_fail_3">Ah well, there\'s always next time...</string>
 
     <string name="treble_level_name_4">Level 4</string>
     <string name="treble_level_description_4">Sharpshooter</string>
-    <string name="treble_level_intro_4">Okay, I\'ve managed to upgrade our defenses a bit. A sharp note will deflect bullets at an angle.\n\nThat should help us with those pesky aliens when they\'re out of range!</string>
-    <string name="treble_level_success_4">Good job!</string>
+    <string name="treble_level_intro_4">I\'ve managed to upgrade our defenses a bit. A sharp note will deflect bullets at an angle.\n\nThat should help us with those pesky aliens when they\'re out of range.</string>
+    <string name="treble_level_success_4">You\'re a natural, I tell ya...</string>
     <string name="treble_level_fail_4">It\'s all over!!</string>
 
     <string name="treble_level_name_5">Level 5</string>
-    <string name="treble_level_description_5">A Flat Approach</string>
-    <string name="treble_level_intro_5">Now try some flat notes!</string>
-    <string name="treble_level_success_5">These aliens need to step down!</string>
+    <string name="treble_level_description_5">How Flattering</string>
+    <string name="treble_level_intro_5">I\'ve got our flat note defenses online as well, give it a shot!</string>
+    <string name="treble_level_success_5">Don\'t tell me you\'re still upset at me for letting the aliens in. Whaddya want, an apology?</string>
     <string name="treble_level_fail_5">I guess we\'ll consider this accidental damage...</string>
 
     <string name="treble_level_name_6">Level 6</string>
-    <string name="treble_level_description_6">Intro</string>
-    <string name="treble_level_intro_6">Intro</string>
-    <string name="treble_level_success_6">Intro</string>
-    <string name="treble_level_fail_6">Intro</string>
+    <string name="treble_level_description_6">New Tactics</string>
+    <string name="treble_level_intro_6">Good news: they gave up attacking the treble clef. Bad news: it\'s the bass clef now!\n\nYou gotta help me out here!</string>
+    <string name="treble_level_success_6">You should\'ve told me you were a master at the bass clef, too!</string>
+    <string name="treble_level_fail_6">They\'ve compromised the bass!</string>
 
     <string name="treble_level_name_7">Level 7</string>
-    <string name="treble_level_description_7">Intro</string>
-    <string name="treble_level_intro_7">Intro</string>
-    <string name="treble_level_success_7">Intro</string>
-    <string name="treble_level_fail_7">Intro</string>
+    <string name="treble_level_description_7">Aliens Can\'t Eat Grass</string>
+    <string name="treble_level_intro_7">Bit of an odd mnemonic, don\'t you think? I\'m sure an alien could eat whatever they want...</string>
+    <string name="treble_level_success_7">You pulled through again! Impressive.</string>
+    <string name="treble_level_fail_7">We\'re done for!</string>
 
     <string name="treble_level_name_8">Level 8</string>
-    <string name="treble_level_description_8">Intro</string>
-    <string name="treble_level_intro_8">Intro</string>
-    <string name="treble_level_success_8">Intro</string>
-    <string name="treble_level_fail_8">Intro</string>
+    <string name="treble_level_description_8">Putting it Together</string>
+    <string name="treble_level_intro_8">I managed to shift the piano for you last time, but I can\'t keep it going! Use flats to pick off those real low ones.</string>
+    <string name="treble_level_success_8">Beautiful!</string>
+    <string name="treble_level_fail_8">Noooo!!!!</string>
 
     <string name="treble_level_name_9">Level 9</string>
     <string name="treble_level_description_9">Bach to Basics</string>
     <string name="treble_level_intro_9">They\'re everywhere!</string>
-    <string name="treble_level_success_9">Gee, that could have been a major disaster!</string>
+    <string name="treble_level_success_9">Gee, that could have been a major disaster! I think we\'ve cleared all of them out. Thanks for the help!</string>
     <string name="treble_level_fail_9">Oh no, they baroque through! Sorry, couldn\'t resist, heh heh...\n\nWe\'re doomed...</string>
 </resources>

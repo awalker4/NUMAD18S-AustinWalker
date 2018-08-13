@@ -6,8 +6,8 @@ android {
         applicationId "edu.neu.madcourse.austinwalker"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 4002
-        versionName "4.2"
+        versionCode 5000
+        versionName "5.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
